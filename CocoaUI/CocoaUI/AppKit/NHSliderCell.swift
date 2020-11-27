@@ -266,11 +266,7 @@ public class NHSliderCell: NSSliderCell {
         
         if showValueOnKnob == true {
             let aTitle = NSMutableAttributedString(string: stringValue, attributes: titleAttributes)
-            if NSApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
-                newRect.origin.y = (newRect.minY + (newRect.height * 0.5) + 3)
-            } else {
-                newRect.origin.y += (knobTitleSize.height + 1)
-            }
+            newRect.origin.y = (newRect.minY + (newRect.height * 0.5) + 3)
             aTitle.draw(with: newRect, options: .usesFontLeading)
         } else {
             if let knobTitle = knobTitle  {

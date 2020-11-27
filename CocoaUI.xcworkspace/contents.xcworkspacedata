@@ -5,6 +5,6 @@
       location = "group:CocoaUIDemo/CocoaUIDemo.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:/Users/ws/Studio/Library/ing/NHCocoaUI/NHCocoaUI/CocoaUI.xcodeproj">
+      location = "group:CocoaUI/CocoaUI.xcodeproj">
    </FileRef>
 </Workspace>

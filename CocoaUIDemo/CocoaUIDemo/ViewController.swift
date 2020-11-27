@@ -29,11 +29,11 @@ class ViewController: NSViewController {
         super.mouseDown(with: event)
      
 //        customSlider.progressColor = .red
-        customSlider.showValueOnKnob = true
-//        customSlider.knobTitle = "100"
+//        customSlider.showValueOnKnob = true
+        customSlider.knobTitle = "100"
         
-//        vSlider.progressColor = .red
-//        vSlider.barColor = .white
+        vSlider.progressColor = .red
+        vSlider.barColor = .white
 //        vSlider.showValueOnKnob = true
 //        vSlider.knobTitle = "100"
 

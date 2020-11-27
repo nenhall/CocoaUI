@@ -728,7 +728,7 @@
                                                     </constraints>
                                                     <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="SeF-pg-Ejt"/>
                                                 </slider>
-                                                <slider verticalHuggingPriority="750" mirrorLayoutDirectionWhenInternationalizing="always" translatesAutoresizingMaskIntoConstraints="NO" id="ezF-Lt-yQh" customClass="NHSlider" customModule="NHCocoaUI">
+                                                <slider verticalHuggingPriority="750" mirrorLayoutDirectionWhenInternationalizing="always" translatesAutoresizingMaskIntoConstraints="NO" id="ezF-Lt-yQh" customClass="NHSlider" customModule="CocoaUI">
                                                     <rect key="frame" x="18" y="110" width="154" height="48"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="W9K-ex-HUL"/>
@@ -781,7 +781,7 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                 </scrollView>
-                                                <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HBk-di-WTz" customClass="NHSlider" customModule="NHCocoaUI">
+                                                <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HBk-di-WTz" customClass="NHSlider" customModule="CocoaUI">
                                                     <rect key="frame" x="232" y="86" width="24" height="96"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <sliderCell key="cell" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="right" sliderType="linear" id="yLl-SX-exx"/>
