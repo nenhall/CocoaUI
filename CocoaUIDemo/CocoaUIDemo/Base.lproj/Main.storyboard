@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -720,21 +720,31 @@
                                             <rect key="frame" x="0.0" y="0.0" width="592" height="253"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QLE-JR-AGh">
-                                                    <rect key="frame" x="8" y="167" width="154" height="58"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="chB-2P-lDN"/>
-                                                        <constraint firstAttribute="width" constant="150" id="i6L-h2-gpJ"/>
-                                                    </constraints>
-                                                    <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="SeF-pg-Ejt"/>
-                                                </slider>
                                                 <slider verticalHuggingPriority="750" mirrorLayoutDirectionWhenInternationalizing="always" translatesAutoresizingMaskIntoConstraints="NO" id="ezF-Lt-yQh" customClass="NHSlider" customModule="CocoaUI">
-                                                    <rect key="frame" x="18" y="110" width="154" height="48"/>
+                                                    <rect key="frame" x="18" y="120" width="154" height="38"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="40" id="W9K-ex-HUL"/>
+                                                        <constraint firstAttribute="height" constant="30" id="W9K-ex-HUL"/>
                                                         <constraint firstAttribute="width" constant="150" id="X59-yB-brn"/>
                                                     </constraints>
-                                                    <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="b5x-ZE-THB" customClass="NHSliderCell" customModule="NHCocoaUI"/>
+                                                    <sliderCell key="cell" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="b5x-ZE-THB">
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="knobWidth">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="knobHeight">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="sliderProgressColor">
+                                                                <color key="value" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="sliderKnobColor">
+                                                                <color key="value" name="systemPurpleColor" catalog="System" colorSpace="catalog"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="sliderBackgroundColor">
+                                                                <color key="value" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </sliderCell>
                                                 </slider>
                                                 <scrollView horizontalHuggingPriority="251" horizontalCompressionResistancePriority="250" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jUg-G3-Dg9">
                                                     <rect key="frame" x="300" y="20" width="272" height="213"/>
@@ -781,26 +791,9 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                 </scrollView>
-                                                <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HBk-di-WTz" customClass="NHSlider" customModule="CocoaUI">
-                                                    <rect key="frame" x="232" y="86" width="24" height="96"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <sliderCell key="cell" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="right" sliderType="linear" id="yLl-SX-exx"/>
-                                                </slider>
-                                                <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FAl-7b-w6t" customClass="NHSlider" customModule="NHCocoaUI">
-                                                    <rect key="frame" x="18" y="86" width="154" height="28"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="Tft-uU-gxr"/>
-                                                </slider>
-                                                <slider horizontalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dqt-L9-11N">
-                                                    <rect key="frame" x="185" y="30" width="24" height="96"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <sliderCell key="cell" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="right" sliderType="linear" id="b4T-aX-4Nr"/>
-                                                </slider>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="ezF-Lt-yQh" firstAttribute="top" secondItem="vOv-wh-ian" secondAttribute="top" constant="97" id="1k1-Rz-3C8"/>
-                                                <constraint firstItem="QLE-JR-AGh" firstAttribute="leading" secondItem="vOv-wh-ian" secondAttribute="leading" constant="10" id="Rlu-h6-2TR"/>
-                                                <constraint firstItem="QLE-JR-AGh" firstAttribute="top" secondItem="vOv-wh-ian" secondAttribute="top" constant="30" id="Ua7-WE-Erk"/>
                                                 <constraint firstAttribute="trailing" secondItem="jUg-G3-Dg9" secondAttribute="trailing" constant="20" id="YEP-SX-snP"/>
                                                 <constraint firstAttribute="bottom" secondItem="jUg-G3-Dg9" secondAttribute="bottom" constant="20" id="bLf-n6-7Ld"/>
                                                 <constraint firstItem="ezF-Lt-yQh" firstAttribute="leading" secondItem="vOv-wh-ian" secondAttribute="leading" constant="20" id="c87-hi-hKJ"/>
@@ -809,6 +802,7 @@
                                             </constraints>
                                         </view>
                                     </subviews>
+                                    <color key="backgroundColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
                                 </clipView>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="270" id="2HD-j1-4vU"/>
@@ -832,7 +826,6 @@
                     </view>
                     <connections>
                         <outlet property="customSlider" destination="ezF-Lt-yQh" id="JcE-v3-WFC"/>
-                        <outlet property="vSlider" destination="HBk-di-WTz" id="AdU-HD-Uwh"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
