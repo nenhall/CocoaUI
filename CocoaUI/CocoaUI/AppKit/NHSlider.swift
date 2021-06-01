@@ -49,16 +49,31 @@ public class NHSlider: NSSlider {
     public private(set) var customCell = NHSliderCell()
     public override func awakeFromNib() {
         super.awakeFromNib()
-        cell = customCell
+        configCustommCell()
     }
     
     public override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
-        cell = customCell
+        configCustommCell()
     }
     
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    func configCustommCell() {
+        guard let cell = cell else { return }
+        customCell.action = cell.action
+        customCell.target = cell.target
+        customCell.isBezeled = cell.isBezeled
+        customCell.isEnabled = cell.isEnabled
+        customCell.isHighlighted = cell.isHighlighted
+        customCell.stringValue = cell.stringValue
+        customCell.floatValue = cell.floatValue
+        customCell.doubleValue = cell.doubleValue
+        customCell.integerValue = cell.integerValue
+        customCell.integerValue = cell.integerValue
+        self.cell = customCell
     }
 }
 
