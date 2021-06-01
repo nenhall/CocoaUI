@@ -16,36 +16,28 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         let image = NSImage(named: NSImage.Name("bb.png"))
-        customSlider.knobImage = image
-//        vSlider.knobImage = image
+
+       let sliderFive = NHSlider()
+        sliderFive.minValue = 1
+        sliderFive.maxValue = 1000
+//        sliderFive.doubleValue = 1000
+        sliderFive.isVertical = false
+        sliderFive.target = self
+        self.view.addSubview(sliderFive)
+        sliderFive.frame = CGRect(x: 10, y: 0, width: 100, height: 30)
 
         
+        let sliderFive2 = NHSlider()
+        sliderFive2.minValue = 1
+        sliderFive2.maxValue = 1000
+ //        sliderFive.doubleValue = 1000
+        sliderFive2.isVertical = true
+        sliderFive2.target = self
+         self.view.addSubview(sliderFive2)
+        sliderFive2.frame = CGRect(x: 100, y: 20, width: 30, height: 100)
+  
     }
-    
-    override func mouseDown(with event: NSEvent) {
-        super.mouseDown(with: event)
-     
-//        customSlider.progressColor = .red
-//        customSlider.showValueOnKnob = true
-        customSlider.knobTitle = "100"
-        
-        vSlider.progressColor = .red
-        vSlider.barColor = .white
-//        vSlider.showValueOnKnob = true
-//        vSlider.knobTitle = "100"
-
-    }
-
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
-    }
-
 
 }
 
