@@ -1,5 +1,5 @@
 //
-//  NHSlider.swift
+//  Slider.swift
 //  NHCocoaUI
 //
 //  Created by wunh on 2020/11/25.
@@ -9,15 +9,15 @@ import Cocoa
 
 
 
-@objc public protocol NHSliderDelegate {
-    @objc optional func sliderDidChanged(slider: NHSlider)
-    @objc optional func sliderDidMouseUp(slider: NHSlider)
-    @objc optional func sliderDidMouseDown(slider: NHSlider)
+@objc public protocol SliderDelegate {
+    @objc optional func sliderDidChanged(slider: Slider)
+    @objc optional func sliderDidMouseUp(slider: Slider)
+    @objc optional func sliderDidMouseDown(slider: Slider)
 }
 
 
 @IBDesignable
-public class NHSliderCell: NSSliderCell {
+public class SliderCell: NSSliderCell {
     @IBInspectable public var progressColor: NSColor = .systemBlue
     @IBInspectable public var backgroundColor: NSColor = .knobColor
     @IBInspectable public var knobColor: NSColor = NSColor.white
@@ -107,9 +107,9 @@ public class NHSliderCell: NSSliderCell {
     }
 }
 
-/// 需要配合`NHSliderCell`使用，需要在xib或者使用`NHSlider.cell`=`NHSliderCell()`
+/// 需要配合`SliderCell`使用，需要在xib或者使用`NHSlider.cell`=`SliderCell()`
 @IBDesignable
-public class NHSlider: NSSlider {
+public class Slider: NSSlider {
     
     /// Default：.systemBlue
     @IBInspectable public var progressColor: NSColor {
@@ -147,7 +147,7 @@ public class NHSlider: NSSlider {
         get { return customCell?.knobHeight ?? 10.0 }
     }
     
-    @IBOutlet public weak var delegate: NHSliderDelegate? {
+    @IBOutlet public weak var delegate: SliderDelegate? {
         willSet {
             if action == nil, target == nil {
                 action = #selector(sliderChangedAction)
@@ -157,8 +157,8 @@ public class NHSlider: NSSlider {
     }
     /// 当前定制的`Cell`，等阶 `.cell`
 //    public private(set) var customCell = WSSliderCell()
-    public var customCell: NHSliderCell? {
-        return cell as? NHSliderCell
+    public var customCell: SliderCell? {
+        return cell as? SliderCell
     }
 
     public override func awakeFromNib() {
