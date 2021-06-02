@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		545E6B94256E433500BBD3B3 /* NSColor+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545E6B93256E433500BBD3B3 /* NSColor+extend.swift */; };
-		5469FB7F256E305200747304 /* NHSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5469FB7E256E305200747304 /* NHSlider.swift */; };
+		5469FB7F256E305200747304 /* NHSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5469FB7E256E305200747304 /* NHSliderCell.swift */; };
 		54CC0018256DF0A600A2A451 /* CocoaUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 54CC0016256DF0A600A2A451 /* CocoaUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		545E6B93256E433500BBD3B3 /* NSColor+extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+extend.swift"; sourceTree = "<group>"; };
-		5469FB7E256E305200747304 /* NHSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NHSlider.swift; sourceTree = "<group>"; };
+		5469FB7E256E305200747304 /* NHSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NHSliderCell.swift; sourceTree = "<group>"; };
 		54CC0013256DF0A600A2A451 /* CocoaUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		54CC0016256DF0A600A2A451 /* CocoaUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaUI.h; sourceTree = "<group>"; };
 		54CC0017256DF0A600A2A451 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -69,7 +69,7 @@
 		54CC0031256DF33400A2A451 /* AppKit */ = {
 			isa = PBXGroup;
 			children = (
-				5469FB7E256E305200747304 /* NHSlider.swift */,
+				5469FB7E256E305200747304 /* NHSliderCell.swift */,
 			);
 			path = AppKit;
 			sourceTree = "<group>";
@@ -154,7 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				545E6B94256E433500BBD3B3 /* NSColor+extend.swift in Sources */,
-				5469FB7F256E305200747304 /* NHSlider.swift in Sources */,
+				5469FB7F256E305200747304 /* NHSliderCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

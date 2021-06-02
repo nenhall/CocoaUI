@@ -8,75 +8,15 @@
 import Cocoa
 
 
-public class NHSlider: NSSlider {
-    
-    /// Default：.systemBlue
-    @IBInspectable public var progressColor: NSColor {
-        set { customCell.progressColor = newValue }
-        get { return customCell.progressColor }
-    }
-    /// Default：.knobColor
-    @IBInspectable public var backgroundColor: NSColor {
-        set { customCell.backgroundColor = newValue }
-        get { return customCell.backgroundColor }
-    }
-    /// Default：.white
-    @IBInspectable public var knobColor: NSColor {
-        set { customCell.knobColor = newValue }
-        get { return customCell.knobColor }
-    }
-    /// Default：3.0
-    @IBInspectable public var sliderHeight: CGFloat {
-        set { customCell.sliderHeight = newValue }
-        get { return customCell.sliderHeight }
-    }
-    /// Default：1.5
-    @IBInspectable public var sliderBarRadius: CGFloat {
-        set { customCell.barRadius = newValue }
-        get { return customCell.barRadius }
-    }
-    /// Default：10.0
-    @IBInspectable public var knobWidth: CGFloat {
-        set { customCell.knobWidth = newValue }
-        get { return customCell.knobWidth }
-    }
-    /// Default：10.0
-    @IBInspectable public var knobHeight: CGFloat {
-        set { customCell.knobHeight = newValue }
-        get { return customCell.knobHeight }
-    }
-    /// 当前定制的`Cell`，等阶 `.cell`
-    public private(set) var customCell = NHSliderCell()
-    public override func awakeFromNib() {
-        super.awakeFromNib()
-        configCustommCell()
-    }
-    
-    public override init(frame frameRect: NSRect) {
-        super.init(frame: frameRect)
-        configCustommCell()
-    }
-    
-    public required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    func configCustommCell() {
-        guard let cell = cell else { return }
-        customCell.action = cell.action
-        customCell.target = cell.target
-        customCell.isBezeled = cell.isBezeled
-        customCell.isEnabled = cell.isEnabled
-        customCell.isHighlighted = cell.isHighlighted
-        customCell.stringValue = cell.stringValue
-        customCell.floatValue = cell.floatValue
-        customCell.doubleValue = cell.doubleValue
-        customCell.integerValue = cell.integerValue
-        customCell.integerValue = cell.integerValue
-        self.cell = customCell
-    }
+
+@objc public protocol NHSliderDelegate {
+    @objc optional func sliderDidChanged(slider: NHSlider)
+    @objc optional func sliderDidMouseUp(slider: NHSlider)
+    @objc optional func sliderDidMouseDown(slider: NHSlider)
 }
 
+
+@IBDesignable
 public class NHSliderCell: NSSliderCell {
     @IBInspectable public var progressColor: NSColor = .systemBlue
     @IBInspectable public var backgroundColor: NSColor = .knobColor
@@ -165,5 +105,93 @@ public class NHSliderCell: NSSliderCell {
         knobColor.setFill()
         bg.fill()
     }
+}
+
+/// 需要配合`NHSliderCell`使用，需要在xib或者使用`NHSlider.cell`=`NHSliderCell()`
+@IBDesignable
+public class NHSlider: NSSlider {
+    
+    /// Default：.systemBlue
+    @IBInspectable public var progressColor: NSColor {
+        set { customCell?.progressColor = newValue }
+        get { return customCell?.progressColor ?? .systemBlue }
+    }
+    /// Default：.knobColor
+    @IBInspectable public var backgroundColor: NSColor {
+        set { customCell?.backgroundColor = newValue }
+        get { return customCell?.backgroundColor ?? .knobColor }
+    }
+    /// Default：.white
+    @IBInspectable public var knobColor: NSColor {
+        set { customCell?.knobColor = newValue }
+        get { return customCell?.knobColor ?? .white }
+    }
+    /// Default：3.0
+    @IBInspectable public var sliderHeight: CGFloat {
+        set { customCell?.sliderHeight = newValue }
+        get { return customCell?.sliderHeight ?? 3.0 }
+    }
+    /// Default：1.5
+    @IBInspectable public var sliderBarRadius: CGFloat {
+        set { customCell?.barRadius = newValue }
+        get { return customCell?.barRadius ?? 1.5 }
+    }
+    /// Default：10.0
+    @IBInspectable public var knobWidth: CGFloat {
+        set { customCell?.knobWidth = newValue }
+        get { return customCell?.knobWidth ?? 10.0 }
+    }
+    /// Default：10.0
+    @IBInspectable public var knobHeight: CGFloat {
+        set { customCell?.knobHeight = newValue }
+        get { return customCell?.knobHeight ?? 10.0 }
+    }
+    
+    @IBOutlet public weak var delegate: NHSliderDelegate? {
+        willSet {
+            if action == nil, target == nil {
+                action = #selector(sliderChangedAction)
+                target = self
+            }
+        }
+    }
+    /// 当前定制的`Cell`，等阶 `.cell`
+//    public private(set) var customCell = WSSliderCell()
+    public var customCell: NHSliderCell? {
+        return cell as? NHSliderCell
+    }
+
+    public override func awakeFromNib() {
+        super.awakeFromNib()
+        configCustommCell()
+    }
+    
+    public override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        configCustommCell()
+    }
+    
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    func configCustommCell() {
+
+    }
+    
+    @objc func sliderChangedAction()  {
+        delegate?.sliderDidChanged?(slider: self)
+    }
+    
+    public override func mouseUp(with event: NSEvent) {
+        super.mouseUp(with: event)
+        delegate?.sliderDidMouseUp?(slider: self)
+    }
+    
+    public override func mouseDown(with event: NSEvent) {
+        super.mouseDown(with: event)
+        delegate?.sliderDidMouseDown?(slider: self)
+    }
+
 }
 

@@ -726,7 +726,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="W9K-ex-HUL"/>
                                                         <constraint firstAttribute="width" constant="150" id="X59-yB-brn"/>
                                                     </constraints>
-                                                    <sliderCell key="cell" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="b5x-ZE-THB">
+                                                    <sliderCell key="cell" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="b5x-ZE-THB" customClass="NHSliderCell" customModule="CocoaUI">
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="knobWidth">
                                                                 <real key="value" value="5"/>
@@ -745,6 +745,11 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </sliderCell>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="progressColor">
+                                                            <color key="value" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </slider>
                                                 <scrollView horizontalHuggingPriority="251" horizontalCompressionResistancePriority="250" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jUg-G3-Dg9">
                                                     <rect key="frame" x="300" y="20" width="272" height="213"/>
