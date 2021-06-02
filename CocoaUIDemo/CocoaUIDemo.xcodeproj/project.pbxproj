@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -203,6 +203,7 @@
 				54CCFFCE256DF03900A2A451 /* Frameworks */,
 				54CCFFCF256DF03900A2A451 /* Resources */,
 				EE569D9C2658F6CE00DFAC5A /* CopyFiles */,
+				124114387AD3A25B9765EBB2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -240,6 +241,7 @@
 				54CCFFED256DF03C00A2A451 /* Sources */,
 				54CCFFEE256DF03C00A2A451 /* Frameworks */,
 				54CCFFEF256DF03C00A2A451 /* Resources */,
+				1EE555409B2E4CC33FDD3158 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -258,7 +260,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1220;
-				LastUpgradeCheck = 1220;
+				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					54CCFFD0256DF03900A2A451 = {
 						CreatedOnToolsVersion = 12.2;
@@ -323,6 +325,40 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		124114387AD3A25B9765EBB2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CocoaUIDemo/Pods-CocoaUIDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CocoaUIDemo/Pods-CocoaUIDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CocoaUIDemo/Pods-CocoaUIDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1EE555409B2E4CC33FDD3158 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CocoaUIDemo-CocoaUIDemoUITests/Pods-CocoaUIDemo-CocoaUIDemoUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CocoaUIDemo-CocoaUIDemoUITests/Pods-CocoaUIDemo-CocoaUIDemoUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CocoaUIDemo-CocoaUIDemoUITests/Pods-CocoaUIDemo-CocoaUIDemoUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		26C8A0CD0DF5BC6EA0607187 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -450,7 +486,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6594540D0D2F5FA1A03D1AC3 /* Pods-CocoaUIDemo-CocoaUIDemoUITests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = YZC2T44ZDX;
@@ -471,7 +506,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = ED263256287D7A16E6DB3676 /* Pods-CocoaUIDemo-CocoaUIDemoUITests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = YZC2T44ZDX;
@@ -612,6 +646,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CocoaUIDemo/CocoaUIDemo.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = YZC2T44ZDX;
@@ -639,6 +674,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CocoaUIDemo/CocoaUIDemo.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = YZC2T44ZDX;
