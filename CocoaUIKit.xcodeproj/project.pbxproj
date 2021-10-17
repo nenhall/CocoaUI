@@ -29,9 +29,9 @@
 		EE53BB6B271C493600015282 /* CoWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoWindow.swift; sourceTree = "<group>"; };
 		EE53BB6C271C493600015282 /* CoCapriceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoCapriceButton.swift; sourceTree = "<group>"; };
 		EE53BB6D271C493600015282 /* CoSplitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoSplitView.swift; sourceTree = "<group>"; };
-		EE53BB76271C494500015282 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = SOURCE_ROOT; };
-		EE53BB77271C495000015282 /* CocoaUIKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = file; path = CocoaUIKit.podspec; sourceTree = SOURCE_ROOT; };
 		EE53BB78271C496100015282 /* docs */ = {isa = PBXFileReference; lastKnownFileType = text; path = docs; sourceTree = SOURCE_ROOT; };
+		EE53BB85271C50D400015282 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = SOURCE_ROOT; };
+		EE53BB86271C50D400015282 /* CocoaUIKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = file; path = CocoaUIKit.podspec; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,8 +64,7 @@
 		EE53BB4C271C482000015282 /* CocoaUIKit */ = {
 			isa = PBXGroup;
 			children = (
-				EE53BB76271C494500015282 /* Package.swift */,
-				EE53BB77271C495000015282 /* CocoaUIKit.podspec */,
+				EE53BB83271C4C6D00015282 /* Develoyment */,
 				EE53BB64271C493600015282 /* Sources */,
 				EE53BB6E271C493600015282 /* Tests */,
 				EE53BB78271C496100015282 /* docs */,
@@ -111,6 +110,15 @@
 			);
 			path = Tests;
 			sourceTree = SOURCE_ROOT;
+		};
+		EE53BB83271C4C6D00015282 /* Develoyment */ = {
+			isa = PBXGroup;
+			children = (
+				EE53BB86271C50D400015282 /* CocoaUIKit.podspec */,
+				EE53BB85271C50D400015282 /* Package.swift */,
+			);
+			name = Develoyment;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
