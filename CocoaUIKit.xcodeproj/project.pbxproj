@@ -3,12 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EE53BB4F271C482000015282 /* CocoaUIKit.docc in Sources */ = {isa = PBXBuildFile; fileRef = EE53BB4E271C482000015282 /* CocoaUIKit.docc */; };
-		EE53BB5B271C482100015282 /* CocoaUIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = EE53BB4D271C482000015282 /* CocoaUIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE53BB6F271C493700015282 /* NSColor+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BB66271C493600015282 /* NSColor+extend.swift */; };
 		EE53BB70271C493700015282 /* CocoaUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BB67271C493600015282 /* CocoaUIKit.swift */; };
 		EE53BB71271C493700015282 /* NSView+Corner.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BB69271C493600015282 /* NSView+Corner.swift */; };
@@ -20,8 +18,6 @@
 
 /* Begin PBXFileReference section */
 		EE53BB4A271C482000015282 /* CocoaUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EE53BB4D271C482000015282 /* CocoaUIKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CocoaUIKit.h; sourceTree = "<group>"; };
-		EE53BB4E271C482000015282 /* CocoaUIKit.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = CocoaUIKit.docc; sourceTree = "<group>"; };
 		EE53BB66271C493600015282 /* NSColor+extend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+extend.swift"; sourceTree = "<group>"; };
 		EE53BB67271C493600015282 /* CocoaUIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaUIKit.swift; sourceTree = "<group>"; };
 		EE53BB69271C493600015282 /* NSView+Corner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSView+Corner.swift"; sourceTree = "<group>"; };
@@ -31,7 +27,7 @@
 		EE53BB6D271C493600015282 /* CoSplitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoSplitView.swift; sourceTree = "<group>"; };
 		EE53BB78271C496100015282 /* docs */ = {isa = PBXFileReference; lastKnownFileType = text; path = docs; sourceTree = SOURCE_ROOT; };
 		EE53BB85271C50D400015282 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = SOURCE_ROOT; };
-		EE53BB86271C50D400015282 /* CocoaUIKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = file; path = CocoaUIKit.podspec; sourceTree = SOURCE_ROOT; };
+		EE53BB86271C50D400015282 /* CocoaUIKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = CocoaUIKit.podspec; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,10 +41,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		543B49DB271D658600CEBF8C /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tests;
+			sourceTree = SOURCE_ROOT;
+		};
+		543B49FD271D67DA00CEBF8C /* CocoaUIKit */ = {
+			isa = PBXGroup;
+			children = (
+				543B49FE271D67F600CEBF8C /* Develoyment */,
+				EE53BB64271C493600015282 /* Sources */,
+				543B49DB271D658600CEBF8C /* Tests */,
+				EE53BB78271C496100015282 /* docs */,
+			);
+			name = CocoaUIKit;
+			sourceTree = "<group>";
+		};
+		543B49FE271D67F600CEBF8C /* Develoyment */ = {
+			isa = PBXGroup;
+			children = (
+				EE53BB86271C50D400015282 /* CocoaUIKit.podspec */,
+				EE53BB85271C50D400015282 /* Package.swift */,
+			);
+			name = Develoyment;
+			sourceTree = "<group>";
+		};
 		EE53BB40271C482000015282 = {
 			isa = PBXGroup;
 			children = (
-				EE53BB4C271C482000015282 /* CocoaUIKit */,
+				543B49FD271D67DA00CEBF8C /* CocoaUIKit */,
 				EE53BB4B271C482000015282 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,19 +82,6 @@
 				EE53BB4A271C482000015282 /* CocoaUIKit.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		EE53BB4C271C482000015282 /* CocoaUIKit */ = {
-			isa = PBXGroup;
-			children = (
-				EE53BB83271C4C6D00015282 /* Develoyment */,
-				EE53BB64271C493600015282 /* Sources */,
-				EE53BB6E271C493600015282 /* Tests */,
-				EE53BB78271C496100015282 /* docs */,
-				EE53BB4D271C482000015282 /* CocoaUIKit.h */,
-				EE53BB4E271C482000015282 /* CocoaUIKit.docc */,
-			);
-			path = CocoaUIKit;
 			sourceTree = "<group>";
 		};
 		EE53BB64271C493600015282 /* Sources */ = {
@@ -104,22 +114,6 @@
 			path = AppKit;
 			sourceTree = "<group>";
 		};
-		EE53BB6E271C493600015282 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tests;
-			sourceTree = SOURCE_ROOT;
-		};
-		EE53BB83271C4C6D00015282 /* Develoyment */ = {
-			isa = PBXGroup;
-			children = (
-				EE53BB86271C50D400015282 /* CocoaUIKit.podspec */,
-				EE53BB85271C50D400015282 /* Package.swift */,
-			);
-			name = Develoyment;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -127,7 +121,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE53BB5B271C482100015282 /* CocoaUIKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,7 +151,6 @@
 		EE53BB41271C482000015282 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
@@ -168,7 +160,7 @@
 				};
 			};
 			buildConfigurationList = EE53BB44271C482000015282 /* Build configuration list for PBXProject "CocoaUIKit" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -207,7 +199,6 @@
 				EE53BB70271C493700015282 /* CocoaUIKit.swift in Sources */,
 				EE53BB75271C493700015282 /* CoSplitView.swift in Sources */,
 				EE53BB71271C493700015282 /* NSView+Corner.swift in Sources */,
-				EE53BB4F271C482000015282 /* CocoaUIKit.docc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

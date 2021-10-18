@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,19 +12,7 @@
 		EE53BA98271BF8AC00015282 /* Example.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EE53BA96271BF8AC00015282 /* Example.xcdatamodeld */; };
 		EE53BA9A271BF8AF00015282 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE53BA99271BF8AF00015282 /* Assets.xcassets */; };
 		EE53BA9D271BF8AF00015282 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE53BA9B271BF8AF00015282 /* Main.storyboard */; };
-		EE53BB7F271C4A8600015282 /* CocoaUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE53BB7E271C4A7500015282 /* CocoaUIKit.framework */; };
-		EE53BB80271C4A8D00015282 /* CocoaUIKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EE53BB7E271C4A7500015282 /* CocoaUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		EE53BB7D271C4A7500015282 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EE53BB79271C4A7500015282 /* CocoaUIKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EE53BB4A271C482000015282;
-			remoteInfo = CocoaUIKit;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		EE53BB11271C011900015282 /* CopyFiles */ = {
@@ -33,13 +21,13 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EE53BB80271C4A8D00015282 /* CocoaUIKit.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		543B49F9271D664800CEBF8C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE53BA8F271BF8AC00015282 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE53BA92271BF8AC00015282 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE53BA94271BF8AC00015282 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,8 +35,6 @@
 		EE53BA99271BF8AF00015282 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE53BA9C271BF8AF00015282 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EE53BA9E271BF8AF00015282 /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Example.entitlements; sourceTree = "<group>"; };
-		EE53BB0F271C011000015282 /* CocoaUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EE53BB79271C4A7500015282 /* CocoaUIKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoaUIKit.xcodeproj; path = ../CocoaUIKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +42,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE53BB7F271C4A8600015282 /* CocoaUIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +73,7 @@
 				EE53BA99271BF8AF00015282 /* Assets.xcassets */,
 				EE53BA9B271BF8AF00015282 /* Main.storyboard */,
 				EE53BA9E271BF8AF00015282 /* Example.entitlements */,
+				543B49F9271D664800CEBF8C /* Info.plist */,
 				EE53BA96271BF8AC00015282 /* Example.xcdatamodeld */,
 			);
 			path = Example;
@@ -96,18 +82,8 @@
 		EE53BB0E271C011000015282 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EE53BB79271C4A7500015282 /* CocoaUIKit.xcodeproj */,
-				EE53BB0F271C011000015282 /* CocoaUI.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		EE53BB7A271C4A7500015282 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				EE53BB7E271C4A7500015282 /* CocoaUIKit.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +113,6 @@
 		EE53BA87271BF8AC00015282 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
@@ -147,7 +122,7 @@
 				};
 			};
 			buildConfigurationList = EE53BA8A271BF8AC00015282 /* Build configuration list for PBXProject "Example" */;
-			compatibilityVersion = "Xcode 13.0";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -157,28 +132,12 @@
 			mainGroup = EE53BA86271BF8AC00015282;
 			productRefGroup = EE53BA90271BF8AC00015282 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = EE53BB7A271C4A7500015282 /* Products */;
-					ProjectRef = EE53BB79271C4A7500015282 /* CocoaUIKit.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				EE53BA8E271BF8AC00015282 /* Example */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		EE53BB7E271C4A7500015282 /* CocoaUIKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CocoaUIKit.framework;
-			remoteRef = EE53BB7D271C4A7500015282 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		EE53BA8D271BF8AC00015282 /* Resources */ = {
@@ -344,9 +303,11 @@
 				DEVELOPMENT_TEAM = YZC2T44ZDX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Example/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				INFOPLIST_PREPROCESS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -372,9 +333,11 @@
 				DEVELOPMENT_TEAM = YZC2T44ZDX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Example/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				INFOPLIST_PREPROCESS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
