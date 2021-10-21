@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		547D056B2721426F0030ACD0 /* Nib+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547D056A2721426F0030ACD0 /* Nib+extend.swift */; };
+		547D056E272143980030ACD0 /* NSWindow+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547D056D272143980030ACD0 /* NSWindow+extend.swift */; };
 		EE53BB6F271C493700015282 /* NSColor+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BB66271C493600015282 /* NSColor+extend.swift */; };
 		EE53BB70271C493700015282 /* CocoaUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BB67271C493600015282 /* CocoaUIKit.swift */; };
 		EE53BB71271C493700015282 /* NSView+Corner.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BB69271C493600015282 /* NSView+Corner.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		547D056A2721426F0030ACD0 /* Nib+extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Nib+extend.swift"; sourceTree = "<group>"; };
+		547D056D272143980030ACD0 /* NSWindow+extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSWindow+extend.swift"; sourceTree = "<group>"; };
 		EE53BB4A271C482000015282 /* CocoaUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE53BB66271C493600015282 /* NSColor+extend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+extend.swift"; sourceTree = "<group>"; };
 		EE53BB67271C493600015282 /* CocoaUIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaUIKit.swift; sourceTree = "<group>"; };
@@ -98,6 +102,8 @@
 			isa = PBXGroup;
 			children = (
 				EE53BB66271C493600015282 /* NSColor+extend.swift */,
+				547D056A2721426F0030ACD0 /* Nib+extend.swift */,
+				547D056D272143980030ACD0 /* NSWindow+extend.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -192,6 +198,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				547D056E272143980030ACD0 /* NSWindow+extend.swift in Sources */,
 				EE53BB74271C493700015282 /* CoCapriceButton.swift in Sources */,
 				EE53BB72271C493700015282 /* CoSlider.swift in Sources */,
 				EE53BB73271C493700015282 /* CoWindow.swift in Sources */,
@@ -199,6 +206,7 @@
 				EE53BB70271C493700015282 /* CocoaUIKit.swift in Sources */,
 				EE53BB75271C493700015282 /* CoSplitView.swift in Sources */,
 				EE53BB71271C493700015282 /* NSView+Corner.swift in Sources */,
+				547D056B2721426F0030ACD0 /* Nib+extend.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

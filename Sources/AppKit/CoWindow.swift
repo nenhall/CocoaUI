@@ -7,17 +7,17 @@
 
 import Cocoa
 
-public class CoWindowController: NSWindowController {
+open class CoWindowController: NSWindowController {
     @IBInspectable public var visualEffectWidth: CGFloat = 0
     @IBInspectable public var visualEffectMode: Int = -1
     @IBInspectable public var titlebarColor: NSColor = .clear
     
     
-    public override var window: NSWindow? {
+    open override var window: NSWindow? {
         didSet { updateSetting() }
     }
     
-    func updateSetting() {
+    private func updateSetting() {
         if let coWindow = window as? CoWindow {
             coWindow.visualEffectWidth = visualEffectWidth
             coWindow.visualEffectMode = visualEffectMode
@@ -25,10 +25,16 @@ public class CoWindowController: NSWindowController {
                 coWindow.titlebarColor = titlebarColor
             }
         }
+        
+        NotificationCenter.default.addObserver(forName: NSWindow.willCloseNotification, object: window, queue: .main) { (note) in
+            if (note.object as? NSWindow) == self.window {
+                NSApp.stopModal()
+            }
+        }
     }
 }
 
-public class CoWindow: NSWindow {
+open class CoWindow: NSWindow {
     
     /// 高斯模糊填充模式
     public enum VisualEffectMode {
@@ -107,13 +113,13 @@ public class CoWindow: NSWindow {
     private var effectWidthConstraint: NSLayoutConstraint?
     private var effectLeadingConstraint: NSLayoutConstraint?
 
-     var visualEffectWidth: CGFloat = 0
-     var visualEffectMode: Int = 0 {
+    fileprivate var visualEffectWidth: CGFloat = 0
+    fileprivate var visualEffectMode: Int = 0 {
         didSet {
             switch visualEffectMode {
-            case 0: visualEffectMode1(.fill)
-            case 1: visualEffectMode1(.leading(visualEffectWidth))
-            case 2: visualEffectMode1(.treading(visualEffectWidth))
+            case 0: visualEffectMode(.fill)
+            case 1: visualEffectMode(.leading(visualEffectWidth))
+            case 2: visualEffectMode(.treading(visualEffectWidth))
             default: break
             }
         }
@@ -159,7 +165,7 @@ public class CoWindow: NSWindow {
     }
     
     /// 设置高斯模糊的填充模式
-    public func visualEffectMode1(_ mode: VisualEffectMode) {
+    public func visualEffectMode(_ mode: VisualEffectMode) {
         guard let titleBarView = titleBarView else { return }
 
         switch mode {
@@ -314,7 +320,7 @@ extension NSWindow {
 
 
 
-public class TitlebarBackgroundView: NSView {
+open class TitlebarBackgroundView: NSView {
     
     public var fillColor: NSColor? = NSColor(named: NSColor.Name("background_surface1")) {
         didSet{ needsDisplay = true }

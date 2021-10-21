@@ -25,7 +25,9 @@ class ViewController: NSViewController {
     }
     
     override func mouseDown(with event: NSEvent) {
-        
+        let uiWindowControl = UIWindowController.loadNib()
+        guard let uiWindow = uiWindowControl.window else { return }
+        uiWindow.showModalWindow()
     }
     
     

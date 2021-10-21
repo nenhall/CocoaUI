@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		547D0572272146040030ACD0 /* UIWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547D0570272146040030ACD0 /* UIWindowController.swift */; };
+		547D0573272146040030ACD0 /* UIWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 547D0571272146040030ACD0 /* UIWindowController.xib */; };
+		547D0579272154C70030ACD0 /* CocoaUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 547D0578272154C70030ACD0 /* CocoaUIKit.framework */; };
+		547D057A272154CE0030ACD0 /* CocoaUIKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 547D0578272154C70030ACD0 /* CocoaUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EE53BA93271BF8AC00015282 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BA92271BF8AC00015282 /* AppDelegate.swift */; };
 		EE53BA95271BF8AC00015282 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BA94271BF8AC00015282 /* ViewController.swift */; };
 		EE53BA98271BF8AC00015282 /* Example.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EE53BA96271BF8AC00015282 /* Example.xcdatamodeld */; };
@@ -21,6 +25,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				547D057A272154CE0030ACD0 /* CocoaUIKit.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -28,6 +33,9 @@
 
 /* Begin PBXFileReference section */
 		543B49F9271D664800CEBF8C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		547D0570272146040030ACD0 /* UIWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindowController.swift; sourceTree = "<group>"; };
+		547D0571272146040030ACD0 /* UIWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UIWindowController.xib; sourceTree = "<group>"; };
+		547D0578272154C70030ACD0 /* CocoaUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CocoaUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE53BA8F271BF8AC00015282 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE53BA92271BF8AC00015282 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE53BA94271BF8AC00015282 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -42,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				547D0579272154C70030ACD0 /* CocoaUIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +79,8 @@
 			children = (
 				EE53BA92271BF8AC00015282 /* AppDelegate.swift */,
 				EE53BA94271BF8AC00015282 /* ViewController.swift */,
+				547D0570272146040030ACD0 /* UIWindowController.swift */,
+				547D0571272146040030ACD0 /* UIWindowController.xib */,
 				EE53BA99271BF8AF00015282 /* Assets.xcassets */,
 				EE53BA9B271BF8AF00015282 /* Main.storyboard */,
 				EE53BA9E271BF8AF00015282 /* Example.entitlements */,
@@ -82,6 +93,7 @@
 		EE53BB0E271C011000015282 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				547D0578272154C70030ACD0 /* CocoaUIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -145,6 +157,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE53BA9A271BF8AF00015282 /* Assets.xcassets in Resources */,
+				547D0573272146040030ACD0 /* UIWindowController.xib in Resources */,
 				EE53BA9D271BF8AF00015282 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -159,6 +172,7 @@
 				EE53BA95271BF8AC00015282 /* ViewController.swift in Sources */,
 				EE53BA98271BF8AC00015282 /* Example.xcdatamodeld in Sources */,
 				EE53BA93271BF8AC00015282 /* AppDelegate.swift in Sources */,
+				547D0572272146040030ACD0 /* UIWindowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
