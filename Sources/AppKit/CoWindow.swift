@@ -12,9 +12,10 @@ open class CoWindowController: NSWindowController {
     @IBInspectable public var visualEffectMode: Int = -1
     @IBInspectable public var titlebarColor: NSColor = .clear
     
-    
-    open override var window: NSWindow? {
-        didSet { updateSetting() }
+    open override func windowDidLoad() {
+        super.windowDidLoad()
+        
+        updateSetting()
     }
     
     private func updateSetting() {
