@@ -19,6 +19,8 @@ open class CoWindowController: NSWindowController {
     }
     
     private func updateSetting() {
+        NotificationCenter.default.addObserver(self, selector: #selector(windowWillCloseNotification(_:)), name: NSWindow.willCloseNotification, object: self)
+        
         if let coWindow = window as? CoWindow {
             coWindow.visualEffectWidth = visualEffectWidth
             coWindow.visualEffectMode = visualEffectMode
@@ -26,11 +28,11 @@ open class CoWindowController: NSWindowController {
                 coWindow.titlebarColor = titlebarColor
             }
         }
-        
-        NotificationCenter.default.addObserver(forName: NSWindow.willCloseNotification, object: window, queue: .main) { (note) in
-            if (note.object as? NSWindow) == self.window {
-                NSApp.stopModal()
-            }
+    }
+    
+    @objc open func windowWillCloseNotification(_ note: Notification) {
+        if (note.object as? NSWindow) == self.window {
+            NSApp.stopModal()
         }
     }
 }
@@ -135,6 +137,7 @@ open class CoWindow: NSWindow {
     override init(contentRect: NSRect, styleMask: NSWindow.StyleMask, backing: NSWindow.BackingStoreType, defer flag: Bool) {
         super.init(contentRect: contentRect, styleMask: styleMask, backing: backing, defer: flag)
 
+        initConfiguration()
         configurationAppearance()
         remakeSystemButtonFrame()
     }
@@ -145,7 +148,15 @@ open class CoWindow: NSWindow {
         configurationAppearance()
     }
     
-    public func configurationAppearance() {
+    private func initConfiguration() {
+        NotificationCenter.default.addObserver(self, selector: #selector(willEnterFullScreenNotification(_:)) , name: NSWindow.willEnterFullScreenNotification, object: self)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(willExitFullScreenNotification(_:)), name: NSWindow.willExitFullScreenNotification, object: self)
+    }
+    
+    open func configurationAppearance() {
+        debugPrint(#function, self)
+        
         toolbar?.sizeMode = .regular
         toolbar?.displayMode = .iconOnly
         tabbingMode = .disallowed
@@ -153,6 +164,16 @@ open class CoWindow: NSWindow {
         
         titleField?.needsDisplay = true
         layoutSubviews()
+    }
+    
+    @objc open func willEnterFullScreenNotification(_ note: Notification) {
+        isFullScreen = true
+        
+    }
+    
+    @objc open func willExitFullScreenNotification(_ note: Notification) {
+        isFullScreen = false
+
     }
     
     private func layoutSubviews() {
@@ -230,7 +251,7 @@ open class CoWindow: NSWindow {
     open override func keyDown(with event: NSEvent) {
         super.keyDown(with: event)
         
-        if isInFullScreenMode {
+        if isFullScreen {
             exitFullScreen()
         }
     }
@@ -238,7 +259,8 @@ open class CoWindow: NSWindow {
 
 extension NSWindow {
     fileprivate static var kIsInFullScreenMode = "kIsInFullScreenMode"
-    public var isInFullScreenMode: Bool {
+    /// 是否全屏状态
+    public var isFullScreen: Bool {
         set {
             objc_setAssociatedObject(self, &NSWindow.kIsInFullScreenMode, newValue, .OBJC_ASSOCIATION_ASSIGN)
         }
@@ -253,13 +275,13 @@ extension NSWindow {
         let lastCollectionBehavior = collectionBehavior
         collectionBehavior = [lastCollectionBehavior, .fullScreenPrimary, .fullScreenAuxiliary]
         toggleFullScreen(self)
-        isInFullScreenMode = true
+        isFullScreen = true
     }
     
     /// 退出全屏
     public func exitFullScreen() {
         toggleFullScreen(self)
-        isInFullScreenMode = false
+        isFullScreen = false
     }
 }
 
@@ -318,7 +340,6 @@ extension NSWindow {
         }
     }
 }
-
 
 
 open class TitlebarBackgroundView: NSView {
