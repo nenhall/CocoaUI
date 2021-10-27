@@ -19,7 +19,7 @@ open class CoWindowController: NSWindowController {
     }
     
     private func updateSetting() {
-        NotificationCenter.default.addObserver(self, selector: #selector(windowWillCloseNotification(_:)), name: NSWindow.willCloseNotification, object: self)
+        CoNotify.addObserver(self, selector: #selector(windowWillCloseNotification(_:)), name: NSWindow.willCloseNotification, object: window)
         
         if let coWindow = window as? CoWindow {
             coWindow.visualEffectWidth = visualEffectWidth
@@ -30,8 +30,10 @@ open class CoWindowController: NSWindowController {
         }
     }
     
+    /// 窗口将要关闭：如果当前窗口是模态弹出，执行此方法时会自动`stopModal()`
+    /// - Parameter note: Notification description
     @objc open func windowWillCloseNotification(_ note: Notification) {
-        if (note.object as? NSWindow) == self.window {
+        if NSApplication.shared.modalWindow == window {
             NSApp.stopModal()
         }
     }
@@ -149,32 +151,38 @@ open class CoWindow: NSWindow {
     }
     
     private func initConfiguration() {
-        NotificationCenter.default.addObserver(self, selector: #selector(willEnterFullScreenNotification(_:)) , name: NSWindow.willEnterFullScreenNotification, object: self)
+        CoNotify.addObserver(self, selector: #selector(_willEnterFullScreenNotification(_:)) , name: NSWindow.willEnterFullScreenNotification, object: self)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(willExitFullScreenNotification(_:)), name: NSWindow.willExitFullScreenNotification, object: self)
+        CoNotify.addObserver(self, selector: #selector(_willExitFullScreenNotification(_:)), name: NSWindow.willExitFullScreenNotification, object: self)
     }
     
     open func configurationAppearance() {
-        debugPrint(#function, self)
-        
+        if #available(OSX 11.0, *) {
+            titlebarSeparatorStyle = .none
+            toolbarStyle = .unifiedCompact
+        }
         toolbar?.sizeMode = .regular
         toolbar?.displayMode = .iconOnly
         tabbingMode = .disallowed
         toolbar?.showsBaselineSeparator = false
-        
         titleField?.needsDisplay = true
+        
         layoutSubviews()
     }
     
-    @objc open func willEnterFullScreenNotification(_ note: Notification) {
+    @objc private func _willEnterFullScreenNotification(_ note: Notification) {
         isFullScreen = true
-        
+        willEnterFullScreenNotification(note)
     }
     
-    @objc open func willExitFullScreenNotification(_ note: Notification) {
+    @objc private func _willExitFullScreenNotification(_ note: Notification) {
         isFullScreen = false
-
+        willExitFullScreenNotification(note)
     }
+    
+    open func willEnterFullScreenNotification(_ note: Notification) { }
+    
+    open func willExitFullScreenNotification(_ note: Notification) { }
     
     private func layoutSubviews() {
         guard let titleBarView = titleBarView else { return }

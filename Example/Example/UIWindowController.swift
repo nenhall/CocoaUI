@@ -15,21 +15,17 @@ class UIWindowController: CoWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(windowWillCloseNotification2(_:)), name: NSWindow.willCloseNotification, object: self)
 
     }
     
     
-    @objc func windowWillCloseNotification2(_ note: Notification) {
-        NSApp.stopModal()
-    }
-    
     override func windowWillCloseNotification(_ note: Notification) {
-        NSApp.stopModal()
+        super.windowWillCloseNotification(note)
+        
     }
     
     deinit {
-        debugPrint(#function)
+        debugPrint(className, #function)
     }
     
 }
