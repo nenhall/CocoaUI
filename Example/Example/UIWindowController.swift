@@ -18,6 +18,13 @@ class UIWindowController: CoWindowController {
 
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        let button = NSButton(title: "我就按钮", target: nil, action: nil)
+//        button.frame = NSRect(x: 0, y: 0, width: 50, height: 30)
+        coWindow?.toolbarView.addSubview(button)
+    }
+    
     
     override func windowWillCloseNotification(_ note: Notification) {
         super.windowWillCloseNotification(note)

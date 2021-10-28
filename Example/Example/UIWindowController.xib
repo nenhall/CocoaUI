@@ -39,6 +39,18 @@
                     </textField>
                 </subviews>
             </view>
+            <toolbar key="toolbar" implicitIdentifier="A3286786-7871-49D4-B90F-6273B86C7DF4" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="iO3-gk-g9n">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="WGY-y1-oou"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="swA-Zm-DS8"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="bKy-1K-ma5"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="OQh-RI-She"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="ABW-Sa-LXN"/>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="WGY-y1-oou"/>
+                </defaultToolbarItems>
+            </toolbar>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>

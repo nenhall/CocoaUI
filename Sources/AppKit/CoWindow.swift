@@ -11,7 +11,9 @@ open class CoWindowController: NSWindowController {
     @IBInspectable public var visualEffectWidth: CGFloat = 0
     @IBInspectable public var visualEffectMode: Int = -1
     @IBInspectable public var titlebarColor: NSColor = .clear
-    
+    open var coWindow: CoWindow? {
+        return window as? CoWindow
+    }
     open override func windowDidLoad() {
         super.windowDidLoad()
         
@@ -47,9 +49,13 @@ open class CoWindow: NSWindow {
         case leading(_ width: CGFloat) ///左对齐计算宽度
         case treading(_ width: CGFloat) ///右对齐计算宽度
     }
-    
+    private let itemViewerKey = "_itemViewer"
+    private var _titleBarView: NSView?
     /// 系统的 NSTitleBarView
     public var titleBarView: NSView? {
+        if _titleBarView != nil {
+            return _titleBarView
+        }
         var titleView = standardWindowButton(.closeButton)?.superview
         if titleView == nil {
             titleView = standardWindowButton(.miniaturizeButton)?.superview
@@ -63,6 +69,7 @@ open class CoWindow: NSWindow {
                     if item.className == "NSTitlebarContainerView" {
                         for item2 in item.subviews {
                             if item2.className == "NSTitlebarView" {
+                                _titleBarView = item2
                                 return item2
                             }
                         }
@@ -70,27 +77,32 @@ open class CoWindow: NSWindow {
                 }
             }
         }
+        _titleBarView = titleView
         return titleView
     }
     
+    private var toolbarViewLeading: NSLayoutConstraint?
+    /// 工具栏，可以添加子控件
+    public let toolbarView = NSView()
+    private var sysToolbarView: NSView? {
+        guard let titleBarView = titleBarView else { return self.titleBarView }
+        for item in titleBarView.subviews {
+            if item.className == "NSToolbarView" {
+                return item
+            }
+        }
+        return titleBarView
+    }
+    
     /// window 的标题栏，原始的标题栏被隐藏了
-    private var _titleField: NSTextField?
-    public var titleField: NSTextField? {
-        if _titleField != nil { return _titleField }
+    public let titleField = NSTextField()
+    private var _sysTitleField: NSTextField?
+    public var sysTitleField: NSTextField? {
+        if _sysTitleField != nil { return _sysTitleField }
         guard let titleBarView = titleBarView else { return nil }
         for item in titleBarView.subviews {
             if let titleField = item as? NSTextField {
-                _titleField = titleField
-                titleField.alignment = .center
-                titleField.drawsBackground = true
-                titleField.lineBreakMode = .byTruncatingMiddle
-                titleField.isEditable = false
-                titleField.isSelectable = false
-                titleField.isBordered = false
-                titleField.font = NSFont.boldSystemFont(ofSize: 20)
-                titleField.translatesAutoresizingMaskIntoConstraints = false
-                titleField.centerXAnchor.constraint(equalTo: titleBarView.centerXAnchor, constant: 0).isActive = true
-                titleField.centerYAnchor.constraint(equalTo: titleBarView.centerYAnchor, constant: 0).isActive = true
+                _sysTitleField = titleField
                 return item as? NSTextField
             }
         }
@@ -115,6 +127,7 @@ open class CoWindow: NSWindow {
         return eView
     }()
 
+    private weak var spaceItem: NSToolbarItem?
     private var effectWidthConstraint: NSLayoutConstraint?
     private var effectLeadingConstraint: NSLayoutConstraint?
 
@@ -129,31 +142,49 @@ open class CoWindow: NSWindow {
             }
         }
     }
-
-    public var titlebarColor: NSColor = .clear {
+    
+    /// 系统按钮的最大X
+    /// - Note: 关闭、最小化、最大化按钮，以最右边的为准
+    public private(set) var sysButtonMaxX: CGFloat = 0
+    open override var title: String {
         didSet {
-            backgroundView.fillColor = titlebarColor
+            sysTitleField?.stringValue = String()
+            titleField.stringValue = title
         }
     }
-        
+    
+    public var titlebarColor: NSColor = .clear {
+        didSet { backgroundView.fillColor = titlebarColor }
+    }
+    
+    open var isVisibleTitle: Bool = true {
+        didSet { titleField.isHidden = !isVisibleTitle }
+    }
+    
+    /// 是否固定toolbarView的左边，true：全屏时不会左右移动
+    open var fixedToolbarViewLeading: Bool = false {
+        didSet { updateToolbarViewFrame() }
+    }
+    
+    open override var toolbar: NSToolbar? {
+        didSet {
+            toolbar?.addObserver(self, forKeyPath: "items", options: [.new, .initial], context: nil)
+        }
+    }
+    
     override init(contentRect: NSRect, styleMask: NSWindow.StyleMask, backing: NSWindow.BackingStoreType, defer flag: Bool) {
         super.init(contentRect: contentRect, styleMask: styleMask, backing: backing, defer: flag)
 
+        remakeSystemButtonFrame()
         initConfiguration()
         configurationAppearance()
-        remakeSystemButtonFrame()
     }
     
-    public override func awakeFromNib() {
+    open override func awakeFromNib() {
         super.awakeFromNib()
         
         configurationAppearance()
-    }
-    
-    private func initConfiguration() {
-        CoNotify.addObserver(self, selector: #selector(_willEnterFullScreenNotification(_:)) , name: NSWindow.willEnterFullScreenNotification, object: self)
-
-        CoNotify.addObserver(self, selector: #selector(_willExitFullScreenNotification(_:)), name: NSWindow.willExitFullScreenNotification, object: self)
+        initToolbarView()
     }
     
     open func configurationAppearance() {
@@ -165,9 +196,118 @@ open class CoWindow: NSWindow {
         toolbar?.displayMode = .iconOnly
         tabbingMode = .disallowed
         toolbar?.showsBaselineSeparator = false
-        titleField?.needsDisplay = true
+    }
+    
+    private func initConfiguration() {
+        CoNotify.addObserver(self, selector: #selector(_willEnterFullScreenNotification(_:)) , name: NSWindow.willEnterFullScreenNotification, object: self)
+
+        CoNotify.addObserver(self, selector: #selector(_willExitFullScreenNotification(_:)), name: NSWindow.willExitFullScreenNotification, object: self)
         
+        if (titleVisibility == .hidden) {
+            titleField.isHidden = true
+        } else {
+            titleField.isHidden = false
+        }
+        titleVisibility = .hidden
+        
+        initSetupTitleField()
         layoutSubviews()
+    }
+    
+    private func initSetupTitleField() {
+        guard let titleBarView = titleBarView else { return }
+        titleField.alignment = sysTitleField?.alignment ?? .center
+        titleField.textColor = sysTitleField?.textColor
+        titleField.drawsBackground = false
+        titleField.lineBreakMode = .byTruncatingMiddle
+        titleField.isEditable = false
+        titleField.isSelectable = false
+        titleField.isBordered = false
+        titleField.font = sysTitleField?.font
+        titleField.translatesAutoresizingMaskIntoConstraints = false
+        titleBarView.addSubview(titleField,positioned: .above, relativeTo: nil)
+        titleField.centerXAnchor.constraint(equalTo: titleBarView.centerXAnchor, constant: 0).isActive = true
+        titleField.topAnchor.constraint(equalTo: titleBarView.topAnchor, constant: sysTitleField?.frame.minY ?? 3).isActive = true
+    }
+
+    private func initToolbarView() {
+        guard let sysToolbarView = sysToolbarView else { return }
+
+        toolbar?.allowsExtensionItems = false
+        toolbar?.allowsUserCustomization = false
+        if spaceItem == nil {
+            toolbar?.insertItem(withItemIdentifier: .space, at: 0)
+            spaceItem = toolbar?.items.first
+        }
+
+        sysToolbarView.addSubview(toolbarView, positioned: .below, relativeTo: nil)
+        toolbarView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            toolbarView.topAnchor.constraint(equalTo: sysToolbarView.topAnchor, constant: 0),
+            toolbarView.bottomAnchor.constraint(equalTo: sysToolbarView.bottomAnchor, constant: 0),
+            toolbarView.trailingAnchor.constraint(equalTo: sysToolbarView.trailingAnchor, constant: 0)
+        ])
+        let lastItem = toolbar?.items.last?.view
+        toolbarViewLeading = toolbarView.leadingAnchor.constraint(equalTo: sysToolbarView.leadingAnchor, constant: lastItem?.frame.maxX ?? 0)
+        toolbarViewLeading?.isActive = true
+
+    }
+    
+    private func layoutSubviews() {
+        guard let titleBarView = titleBarView else { return }
+        backgroundView.frame = titleBarView.bounds
+        titleBarView.addSubview(backgroundView, positioned: .below, relativeTo: nil)
+        
+        titleBarView.addSubview(effectView, positioned: .above, relativeTo: backgroundView)
+        effectView.topAnchor.constraint(equalTo: titleBarView.topAnchor).isActive = true
+        effectView.bottomAnchor.constraint(equalTo: titleBarView.bottomAnchor).isActive = true
+    }
+    
+    open override func update() {
+        super.update()
+        
+        updateToolbarViewFrame()
+    }
+    
+    private func updateToolbarViewFrame() {
+        var constant: CGFloat = 0
+        
+        if fixedToolbarViewLeading {
+            if let btn = standardWindowButton(.closeButton) {
+                sysButtonMaxX = btn.frame.maxX
+            }
+            
+            if let btn = standardWindowButton(.miniaturizeButton) {
+                sysButtonMaxX = btn.frame.maxX
+            }
+            
+            if let btn = standardWindowButton(.zoomButton) {
+                sysButtonMaxX = btn.frame.maxX
+            }
+            constant = sysButtonMaxX
+            
+        } else {
+            let count = toolbar?.items.count ?? 0
+            if count > 1 {
+                if toolbar?.items.first == spaceItem {
+                    toolbar?.removeItem(at: 0)
+                    spaceItem = nil
+                }
+            } else if count == 0, spaceItem == nil {
+                toolbar?.insertItem(withItemIdentifier: .space, at: 0)
+                spaceItem = toolbar?.items.first
+            }
+            
+            let lastItem = toolbar?.items.last
+            if let view = lastItem?.value(forKey: itemViewerKey) as? NSView {
+                constant = view.frame.maxX
+                if toolbar?.items.first == spaceItem {
+                    constant -= view.frame.width
+                }
+            }
+        }
+        
+        toolbarViewLeading?.constant = constant
     }
     
     @objc private func _willEnterFullScreenNotification(_ note: Notification) {
@@ -184,20 +324,9 @@ open class CoWindow: NSWindow {
     
     open func willExitFullScreenNotification(_ note: Notification) { }
     
-    private func layoutSubviews() {
-        guard let titleBarView = titleBarView else { return }
-        backgroundView.frame = titleBarView.bounds
-        titleBarView.addSubview(backgroundView, positioned: .below, relativeTo: nil)
-        
-        titleBarView.addSubview(effectView, positioned: .above, relativeTo: backgroundView)
-        effectView.topAnchor.constraint(equalTo: titleBarView.topAnchor).isActive = true
-        effectView.bottomAnchor.constraint(equalTo: titleBarView.bottomAnchor).isActive = true
-    }
-    
     /// 设置高斯模糊的填充模式
     public func visualEffectMode(_ mode: VisualEffectMode) {
         guard let titleBarView = titleBarView else { return }
-
         switch mode {
         case .fill:
             if let leading = effectLeadingConstraint {
@@ -263,17 +392,21 @@ open class CoWindow: NSWindow {
             exitFullScreen()
         }
     }
+    
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        debugPrint(#function)
+    }
 }
 
 extension NSWindow {
-    fileprivate static var kIsInFullScreenMode = "kIsInFullScreenMode"
+    fileprivate static var kIsFullScreenKey = "IsFullScreenKey"
     /// 是否全屏状态
     public var isFullScreen: Bool {
         set {
-            objc_setAssociatedObject(self, &NSWindow.kIsInFullScreenMode, newValue, .OBJC_ASSOCIATION_ASSIGN)
+            objc_setAssociatedObject(self, &NSWindow.kIsFullScreenKey, newValue, .OBJC_ASSOCIATION_ASSIGN)
         }
         get {
-            let isInFull = objc_getAssociatedObject(self, &NSWindow.kIsInFullScreenMode) as? Bool
+            let isInFull = objc_getAssociatedObject(self, &NSWindow.kIsFullScreenKey) as? Bool
             return isInFull ?? false
         }
     }
@@ -362,5 +495,11 @@ open class TitlebarBackgroundView: NSView {
         }
         let path = NSBezierPath(rect: self.bounds)
         path.fill()
+    }
+}
+
+extension NSToolbarItem {
+    open override func value(forUndefinedKey key: String) -> Any? {
+        return nil
     }
 }
