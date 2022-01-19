@@ -8,15 +8,15 @@
 import Cocoa
 
 
-@objc public protocol CoSliderDelegate {
-    @objc optional func sliderDidChanged(slider: CoSlider)
-    @objc optional func sliderDidMouseUp(slider: CoSlider)
-    @objc optional func sliderDidMouseDown(slider: CoSlider)
+@objc public protocol CocoSliderDelegate {
+    @objc optional func sliderDidChanged(slider: CocoSlider)
+    @objc optional func sliderDidMouseUp(slider: CocoSlider)
+    @objc optional func sliderDidMouseDown(slider: CocoSlider)
 }
 
 
 @IBDesignable
-public class CoSliderCell: NSSliderCell {
+public class CocoSliderCell: NSSliderCell {
     @IBInspectable public var progressColor: NSColor = .systemBlue
     @IBInspectable public var knobColor: NSColor = NSColor.white
     @IBInspectable public var sliderHeight: CGFloat = 3.0
@@ -126,7 +126,7 @@ public class CoSliderCell: NSSliderCell {
 /// 需要配合`WSSliderCell`使用，需要在xib或者使用`WSSlider.cell`=`WSSliderCell()`
 /// 暂不支持竖直模式
 @IBDesignable
-public class CoSlider: NSSlider {
+public class CocoSlider: NSSlider {
     
     /// Default：.systemBlue
     @IBInspectable public var progressColor: NSColor {
@@ -174,11 +174,11 @@ public class CoSlider: NSSlider {
         get { return customCell?.knobHeight ?? 10.0 }
     }
     
-    @IBOutlet public weak var delegate: CoSliderDelegate?
+    @IBOutlet public weak var delegate: CocoSliderDelegate?
     
     /// 当前定制的`Cell`，等阶 `.cell`
-    public var customCell: CoSliderCell? {
-        return cell as? CoSliderCell
+    public var customCell: CocoSliderCell? {
+        return cell as? CocoSliderCell
     }
     
     public override var cell: NSCell? {
@@ -189,6 +189,8 @@ public class CoSlider: NSSlider {
         }
         get { return super.cell }
     }
+    
+    private var isMouseUp:Bool = false
     
     public override func awakeFromNib() {
         super.awakeFromNib()
@@ -215,13 +217,22 @@ public class CoSlider: NSSlider {
     }
     
     public override func mouseUp(with event: NSEvent) {
-        delegate?.sliderDidMouseUp?(slider: self)
+        if isMouseUp == false {
+            isMouseUp = true
+            delegate?.sliderDidMouseUp?(slider: self)
+        }
         super.mouseUp(with: event)
     }
 
     public override func mouseDown(with event: NSEvent) {
+        isMouseUp = false
         delegate?.sliderDidMouseDown?(slider: self)
         super.mouseDown(with: event)
+        if isMouseUp == false {
+            if let event = NSApp.currentEvent, event.type == .leftMouseUp {
+                delegate?.sliderDidMouseUp?(slider: self)
+            }
+        }
     }
     
     public override func mouseDragged(with event: NSEvent) {

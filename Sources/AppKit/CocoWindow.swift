@@ -7,12 +7,12 @@
 
 import Cocoa
 
-open class CoWindowController: NSWindowController {
+open class CocoWindowController: NSWindowController {
     @IBInspectable public var visualEffectWidth: CGFloat = 0
     @IBInspectable public var visualEffectMode: Int = -1
     @IBInspectable public var titlebarColor: NSColor = .clear
-    open var coWindow: CoWindow? {
-        return window as? CoWindow
+    open var ownerWindow: CocoWindow? {
+        return window as? CocoWindow
     }
     open override func windowDidLoad() {
         super.windowDidLoad()
@@ -21,9 +21,9 @@ open class CoWindowController: NSWindowController {
     }
     
     private func updateSetting() {
-        CoNotify.addObserver(self, selector: #selector(windowWillCloseNotification(_:)), name: NSWindow.willCloseNotification, object: window)
+        CocoaNotify.addObserver(self, selector: #selector(windowWillCloseNotification(_:)), name: NSWindow.willCloseNotification, object: window)
         
-        if let coWindow = window as? CoWindow {
+        if let coWindow = window as? CocoWindow {
             coWindow.visualEffectWidth = visualEffectWidth
             coWindow.visualEffectMode = visualEffectMode
             if titlebarColor != .clear {
@@ -41,7 +41,7 @@ open class CoWindowController: NSWindowController {
     }
 }
 
-open class CoWindow: NSWindow {
+open class CocoWindow: NSWindow {
     
     /// 高斯模糊填充模式
     public enum VisualEffectMode {
@@ -143,6 +143,42 @@ open class CoWindow: NSWindow {
         }
     }
     
+    public var toolbarBoxSpace: CGFloat {
+        return 20
+    }
+    
+    /// 左边的工具类容器，右到左的语言下回自动翻转
+    lazy public private(set) var leftToolBarBox: NSStackView = {
+        let box = NSStackView()
+        box.distribution = .fill
+        box.orientation = .horizontal
+        box.spacing = 20
+        toolbarView.addSubview(box)
+        box.translatesAutoresizingMaskIntoConstraints = false
+        box.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        box.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        box.leadingAnchor.constraint(equalTo: toolbarView.leadingAnchor, constant: toolbarBoxSpace).isActive = true
+        box.centerYAnchor.constraint(equalTo: toolbarView.centerYAnchor, constant: 0).isActive = true
+        box.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        return box
+    }()
+    
+    /// 右边的工具类容器，右到左的语言下回自动翻转
+    lazy public private(set) var rightToolBarBox: NSStackView = {
+        let box = NSStackView()
+        box.distribution = .fill
+        box.orientation = .horizontal
+        box.spacing = 20
+        toolbarView.addSubview(box)
+        box.translatesAutoresizingMaskIntoConstraints = false
+        box.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        box.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        box.trailingAnchor.constraint(equalTo: toolbarView.trailingAnchor, constant: -toolbarBoxSpace).isActive = true
+        box.centerYAnchor.constraint(equalTo: toolbarView.centerYAnchor, constant: 0).isActive = true
+        box.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        return box
+    }()
+    
     /// 系统按钮的最大X
     /// - Note: 关闭、最小化、最大化按钮，以最右边的为准
     public private(set) var sysButtonMaxX: CGFloat = 0
@@ -161,8 +197,8 @@ open class CoWindow: NSWindow {
         didSet { titleField.isHidden = !isVisibleTitle }
     }
     
-    /// 是否固定toolbarView的左边，true：全屏时不会左右移动
-    open var fixedToolbarViewLeading: Bool = false {
+    /// 是否自动补偿/固定toolbarView与系统按钮的偏移，true：x 的起点即关闭按钮的最右边
+    open var autoFixedToolbarView: Bool = true {
         didSet { updateToolbarViewFrame() }
     }
     
@@ -199,9 +235,9 @@ open class CoWindow: NSWindow {
     }
     
     private func initConfiguration() {
-        CoNotify.addObserver(self, selector: #selector(_willEnterFullScreenNotification(_:)) , name: NSWindow.willEnterFullScreenNotification, object: self)
+        CocoaNotify.addObserver(self, selector: #selector(_willEnterFullScreenNotification(_:)) , name: NSWindow.willEnterFullScreenNotification, object: self)
 
-        CoNotify.addObserver(self, selector: #selector(_willExitFullScreenNotification(_:)), name: NSWindow.willExitFullScreenNotification, object: self)
+        CocoaNotify.addObserver(self, selector: #selector(_willExitFullScreenNotification(_:)), name: NSWindow.willExitFullScreenNotification, object: self)
         
         if (titleVisibility == .hidden) {
             titleField.isHidden = true
@@ -216,6 +252,7 @@ open class CoWindow: NSWindow {
     
     private func initSetupTitleField() {
         guard let titleBarView = titleBarView else { return }
+        titleBarView.addSubview(titleField,positioned: .above, relativeTo: nil)
         titleField.alignment = sysTitleField?.alignment ?? .center
         titleField.textColor = sysTitleField?.textColor
         titleField.drawsBackground = false
@@ -225,7 +262,6 @@ open class CoWindow: NSWindow {
         titleField.isBordered = false
         titleField.font = sysTitleField?.font
         titleField.translatesAutoresizingMaskIntoConstraints = false
-        titleBarView.addSubview(titleField,positioned: .above, relativeTo: nil)
         titleField.centerXAnchor.constraint(equalTo: titleBarView.centerXAnchor, constant: 0).isActive = true
         titleField.topAnchor.constraint(equalTo: titleBarView.topAnchor, constant: sysTitleField?.frame.minY ?? 3).isActive = true
     }
@@ -250,7 +286,6 @@ open class CoWindow: NSWindow {
         let lastItem = toolbar?.items.last?.view
         toolbarViewLeading = toolbarView.leadingAnchor.constraint(equalTo: sysToolbarView.leadingAnchor, constant: lastItem?.frame.maxX ?? 0)
         toolbarViewLeading?.isActive = true
-
     }
     
     private func layoutSubviews() {
@@ -270,9 +305,9 @@ open class CoWindow: NSWindow {
     }
     
     private func updateToolbarViewFrame() {
-        var constant: CGFloat = 0
+        var constant: CGFloat = 8
         
-        if fixedToolbarViewLeading {
+        if autoFixedToolbarView {
             if let btn = standardWindowButton(.closeButton) {
                 sysButtonMaxX = btn.frame.maxX
             }
@@ -284,30 +319,16 @@ open class CoWindow: NSWindow {
             if let btn = standardWindowButton(.zoomButton) {
                 sysButtonMaxX = btn.frame.maxX
             }
-            constant = sysButtonMaxX
-            
-        } else {
-            let count = toolbar?.items.count ?? 0
-            if count > 1 {
-                if toolbar?.items.first == spaceItem {
-                    toolbar?.removeItem(at: 0)
-                    spaceItem = nil
-                }
-            } else if count == 0, spaceItem == nil {
-                toolbar?.insertItem(withItemIdentifier: .space, at: 0)
-                spaceItem = toolbar?.items.first
-            }
-            
-            let lastItem = toolbar?.items.last
-            if let view = lastItem?.value(forKey: itemViewerKey) as? NSView {
-                constant = view.frame.maxX
-                if toolbar?.items.first == spaceItem {
-                    constant -= view.frame.width
-                }
+            if NSApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
+                constant = frame.size.width - sysButtonMaxX
+            } else {
+                constant = sysButtonMaxX
             }
         }
         
         toolbarViewLeading?.constant = constant
+        let maxWidth = frame.size.width - (max(leftToolBarBox.frame.maxX, rightToolBarBox.frame.size.width) * 2)  - (toolbarBoxSpace * 2) - (sysButtonMaxX * 2)
+        titleField.preferredMaxLayoutWidth = maxWidth
     }
     
     @objc private func _willEnterFullScreenNotification(_ note: Notification) {

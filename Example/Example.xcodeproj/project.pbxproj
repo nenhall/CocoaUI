@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5411AF8427982EEA0096A633 /* FileManager+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411AF8327982EEA0096A633 /* FileManager+extend.swift */; };
 		547D0572272146040030ACD0 /* UIWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547D0570272146040030ACD0 /* UIWindowController.swift */; };
 		547D0573272146040030ACD0 /* UIWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 547D0571272146040030ACD0 /* UIWindowController.xib */; };
 		547D0579272154C70030ACD0 /* CocoaUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 547D0578272154C70030ACD0 /* CocoaUIKit.framework */; };
@@ -32,6 +33,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5411AF8327982EEA0096A633 /* FileManager+extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+extend.swift"; sourceTree = "<group>"; };
 		543B49F9271D664800CEBF8C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		547D0570272146040030ACD0 /* UIWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindowController.swift; sourceTree = "<group>"; };
 		547D0571272146040030ACD0 /* UIWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UIWindowController.xib; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				EE53BA94271BF8AC00015282 /* ViewController.swift */,
 				547D0570272146040030ACD0 /* UIWindowController.swift */,
 				547D0571272146040030ACD0 /* UIWindowController.xib */,
+				5411AF8327982EEA0096A633 /* FileManager+extend.swift */,
 				EE53BA99271BF8AF00015282 /* Assets.xcassets */,
 				EE53BA9B271BF8AF00015282 /* Main.storyboard */,
 				EE53BA9E271BF8AF00015282 /* Example.entitlements */,
@@ -171,6 +174,7 @@
 			files = (
 				EE53BA95271BF8AC00015282 /* ViewController.swift in Sources */,
 				EE53BA98271BF8AC00015282 /* Example.xcdatamodeld in Sources */,
+				5411AF8427982EEA0096A633 /* FileManager+extend.swift in Sources */,
 				EE53BA93271BF8AC00015282 /* AppDelegate.swift in Sources */,
 				547D0572272146040030ACD0 /* UIWindowController.swift in Sources */,
 			);

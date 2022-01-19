@@ -7,7 +7,7 @@
 
 import Cocoa
 
-public class CoSplitView: NSSplitView {
+public class CocoSplitView: NSSplitView {
 
     lazy public private(set) var expandButton: NSButton = {
         let button = NSButton()

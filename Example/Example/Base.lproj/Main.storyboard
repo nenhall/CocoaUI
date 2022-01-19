@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -684,8 +684,8 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" customClass="CoWindowController" customModule="CocoaUIKit" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titleVisibility="hidden" id="IQv-IB-iLA" customClass="CoWindow" customModule="CocoaUIKit">
+                <windowController id="B8D-0N-5wS" customClass="CocoWindowController" customModule="CocoaUIKit" sceneMemberID="viewController">
+                    <window key="window" title="Window Window Window Window Window Window Window Window Window Window Window Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titleVisibility="hidden" id="IQv-IB-iLA" customClass="CocoWindow" customModule="CocoaUIKit">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
@@ -697,11 +697,11 @@
                                 <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="eHH-Ym-oT2"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="FRv-wC-5Og"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="mnt-lD-d0k"/>
-                                <toolbarItem implicitItemIdentifier="9D94735D-84C7-4270-8293-5D9D046A34B4" label="" paletteLabel="" image="NSActionTemplate" sizingBehavior="auto" id="Bfu-4Q-3tj">
+                                <toolbarItem implicitItemIdentifier="9D94735D-84C7-4270-8293-5D9D046A34B4" label="" paletteLabel="" image="NSActionTemplate" title="But" sizingBehavior="auto" id="Bfu-4Q-3tj">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="rNv-O5-Tl6">
-                                        <rect key="frame" x="0.0" y="14" width="104" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <rect key="frame" x="0.0" y="14" width="72" height="32"/>
+                                        <autoresizingMask key="autoresizingMask"/>
                                         <buttonCell key="cell" type="push" title="But" bezelStyle="rounded" image="NSActionTemplate" imagePosition="left" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sQu-DU-1Pq">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -735,7 +735,27 @@
                     <view key="view" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0Um-6K-QcV" customClass="CocoButton" customModule="CocoaUIKit">
+                                <rect key="frame" x="28" y="212" width="60" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="7S6-R7-kj8"/>
+                                    <constraint firstAttribute="height" constant="30" id="9uf-F4-Eau"/>
+                                </constraints>
+                                <buttonCell key="cell" type="bevel" title="Button" bezelStyle="rounded" imagePosition="leading" alignment="center" imageScaling="proportionallyDown" inset="2" id="gSE-FO-2ZT">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="0Um-6K-QcV" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="28" id="Om7-a0-9Tb"/>
+                            <constraint firstItem="0Um-6K-QcV" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="28" id="pWs-PL-oiG"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="hoveButton" destination="0Um-6K-QcV" id="6BF-hl-sjI"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -743,6 +763,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="NSActionTemplate" width="14" height="14"/>
+        <image name="NSActionTemplate" width="15" height="15"/>
     </resources>
 </document>

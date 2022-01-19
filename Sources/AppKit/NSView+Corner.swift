@@ -113,3 +113,38 @@ extension NSView {
         }
     }
 }
+
+
+// MARK: - NSView Layout
+public extension NSView {
+    
+    class func isLayoutFromRightToLeft() -> Bool {
+        return NSApplication.shared.userInterfaceLayoutDirection == .rightToLeft
+    }
+    
+    class func isLayoutFromLeftToRight() -> Bool {
+        return NSApplication.shared.userInterfaceLayoutDirection == .leftToRight
+    }
+    
+    /// 当前语言的文字方向
+    /// - Returns: NSLocale.LanguageDirection
+    class var characterDirection: NSLocale.LanguageDirection  {
+        let current = NSLocale.current
+        guard let code = current.languageCode else { return .leftToRight }
+        let direction = NSLocale.characterDirection(forLanguage: code)
+        return direction
+    }
+    
+    var characterDirection: NSLocale.LanguageDirection  {
+        return Self.characterDirection
+    }
+    
+    /// 当前线性排布方向
+    /// - Returns: NSLocale.LanguageDirection
+    class var lineDirection: NSLocale.LanguageDirection {
+        let current = NSLocale.current
+        guard let code = current.languageCode else { return .leftToRight }
+        let direction = NSLocale.lineDirection(forLanguage: code)
+        return direction
+    }
+}
