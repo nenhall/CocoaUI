@@ -8,15 +8,15 @@
 import Cocoa
 
 
-@objc public protocol CocoSliderDelegate {
-    @objc optional func sliderDidChanged(slider: CocoSlider)
-    @objc optional func sliderDidMouseUp(slider: CocoSlider)
-    @objc optional func sliderDidMouseDown(slider: CocoSlider)
+@objc public protocol SliderDelegate {
+    @objc optional func sliderDidChanged(slider: Slider)
+    @objc optional func sliderDidMouseUp(slider: Slider)
+    @objc optional func sliderDidMouseDown(slider: Slider)
 }
 
 
 @IBDesignable
-public class CocoSliderCell: NSSliderCell {
+public class SliderCell: NSSliderCell {
     @IBInspectable public var progressColor: NSColor = .systemBlue
     @IBInspectable public var knobColor: NSColor = NSColor.white
     @IBInspectable public var sliderHeight: CGFloat = 3.0
@@ -126,7 +126,7 @@ public class CocoSliderCell: NSSliderCell {
 /// 需要配合`WSSliderCell`使用，需要在xib或者使用`WSSlider.cell`=`WSSliderCell()`
 /// 暂不支持竖直模式
 @IBDesignable
-public class CocoSlider: NSSlider {
+public class Slider: NSSlider {
     
     /// Default：.systemBlue
     @IBInspectable public var progressColor: NSColor {
@@ -174,11 +174,11 @@ public class CocoSlider: NSSlider {
         get { return customCell?.knobHeight ?? 10.0 }
     }
     
-    @IBOutlet public weak var delegate: CocoSliderDelegate?
+    @IBOutlet public weak var delegate: SliderDelegate?
     
     /// 当前定制的`Cell`，等阶 `.cell`
-    public var customCell: CocoSliderCell? {
-        return cell as? CocoSliderCell
+    public var customCell: SliderCell? {
+        return cell as? SliderCell
     }
     
     public override var cell: NSCell? {

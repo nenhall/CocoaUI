@@ -1,5 +1,5 @@
 //
-//  CocoButton.swift
+//  Button.swift
 //  CocoaUIKit
 //
 //  Created by nenhall on 2022/1/19.
@@ -9,7 +9,7 @@ import Foundation
 import Cocoa
 
 
-public extension CocoButton {
+public extension Button {
     
     enum State: Int, CaseIterable {
         case normal, hover, selected, pressed, disabled
@@ -21,7 +21,7 @@ public extension CocoButton {
     
 }
 
-public class CocoButton: NSButton, CALayerDelegate {
+public class Button: NSButton, CALayerDelegate {
     
     // MARK: - 接口属性
     public var animationDuration: Double = 0.1
@@ -404,7 +404,7 @@ public class CocoButton: NSButton, CALayerDelegate {
 }
 
 // MARK: - Public Methods
-public extension CocoButton {
+public extension Button {
     
     var imageFrame: CGRect { return imageLayer.frame }
     
@@ -573,7 +573,7 @@ public extension CocoButton {
 }
 
 // MARK: - Interaction
-public extension CocoButton {
+public extension Button {
     
     override func updateTrackingAreas() {
         super.updateTrackingAreas()
@@ -617,7 +617,7 @@ public extension CocoButton {
 }
 
 // MARK: - Drawing
-public extension CocoButton {
+public extension Button {
     
     override func draw(_ dirtyRect: NSRect) {}
     
@@ -639,7 +639,7 @@ public extension CocoButton {
 }
 
 // MARK: - Private Methods
-private extension CocoButton {
+private extension Button {
     
     func setUpTrackingArea() {
         if let oldTrackingArea = trackingArea {
@@ -911,7 +911,7 @@ private extension CocoButton {
     }
 }
 
-private extension CocoButton.ColorableContentType {
+private extension Button.ColorableContentType {
     
     var defaultColor: NSColor {
         switch self {

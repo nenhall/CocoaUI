@@ -685,7 +685,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" customClass="CocoWindowController" customModule="CocoaUIKit" sceneMemberID="viewController">
-                    <window key="window" title="Window Window Window Window Window Window Window Window Window Window Window Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titleVisibility="hidden" id="IQv-IB-iLA" customClass="CocoWindow" customModule="CocoaUIKit">
+                    <window key="window" title="Window Window Window Window Window Window Window Window Window Window Window Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titleVisibility="hidden" id="IQv-IB-iLA" customClass="Window" customModule="CocoaUIKit">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
@@ -736,7 +736,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0Um-6K-QcV" customClass="CocoButton" customModule="CocoaUIKit">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0Um-6K-QcV" customClass="Button" customModule="CocoaUIKit">
                                 <rect key="frame" x="28" y="212" width="60" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="7S6-R7-kj8"/>

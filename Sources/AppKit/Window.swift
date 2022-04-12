@@ -7,12 +7,12 @@
 
 import Cocoa
 
-open class CocoWindowController: NSWindowController {
+open class WindowController: NSWindowController {
     @IBInspectable public var visualEffectWidth: CGFloat = 0
     @IBInspectable public var visualEffectMode: Int = -1
     @IBInspectable public var titlebarColor: NSColor = .clear
-    open var ownerWindow: CocoWindow? {
-        return window as? CocoWindow
+    open var ownerWindow: Window? {
+        return window as? Window
     }
     open override func windowDidLoad() {
         super.windowDidLoad()
@@ -21,9 +21,9 @@ open class CocoWindowController: NSWindowController {
     }
     
     private func updateSetting() {
-        CocoaNotify.addObserver(self, selector: #selector(windowWillCloseNotification(_:)), name: NSWindow.willCloseNotification, object: window)
+        Notify.addObserver(self, selector: #selector(windowWillCloseNotification(_:)), name: NSWindow.willCloseNotification, object: window)
         
-        if let coWindow = window as? CocoWindow {
+        if let coWindow = window as? Window {
             coWindow.visualEffectWidth = visualEffectWidth
             coWindow.visualEffectMode = visualEffectMode
             if titlebarColor != .clear {
@@ -41,7 +41,7 @@ open class CocoWindowController: NSWindowController {
     }
 }
 
-open class CocoWindow: NSWindow {
+open class Window: NSWindow {
     
     /// 高斯模糊填充模式
     public enum VisualEffectMode {
@@ -235,9 +235,9 @@ open class CocoWindow: NSWindow {
     }
     
     private func initConfiguration() {
-        CocoaNotify.addObserver(self, selector: #selector(_willEnterFullScreenNotification(_:)) , name: NSWindow.willEnterFullScreenNotification, object: self)
+        Notify.addObserver(self, selector: #selector(_willEnterFullScreenNotification(_:)) , name: NSWindow.willEnterFullScreenNotification, object: self)
 
-        CocoaNotify.addObserver(self, selector: #selector(_willExitFullScreenNotification(_:)), name: NSWindow.willExitFullScreenNotification, object: self)
+        Notify.addObserver(self, selector: #selector(_willExitFullScreenNotification(_:)), name: NSWindow.willExitFullScreenNotification, object: self)
         
         if (titleVisibility == .hidden) {
             titleField.isHidden = true

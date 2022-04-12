@@ -7,42 +7,50 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5411AF782798117A0096A633 /* CocoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411AF772798117A0096A633 /* CocoButton.swift */; };
+		5411AF782798117A0096A633 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411AF772798117A0096A633 /* Button.swift */; };
 		5411AF7A279813490096A633 /* NSImage+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411AF79279813490096A633 /* NSImage+extend.swift */; };
 		5411AF7C2798141F0096A633 /* CGSize+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411AF7B2798141F0096A633 /* CGSize+extend.swift */; };
 		5411AF7E27981A1B0096A633 /* NSWorkspace+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411AF7D27981A1B0096A633 /* NSWorkspace+extend.swift */; };
 		5411AF8027981A9D0096A633 /* NSocalized+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411AF7F27981A9D0096A633 /* NSocalized+extend.swift */; };
 		5411AF8227981B840096A633 /* FileManager+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411AF8127981B840096A633 /* FileManager+extend.swift */; };
-		544437A327299852009695D7 /* CocoProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544437A227299852009695D7 /* CocoProgressIndicator.swift */; };
+		544437A327299852009695D7 /* ProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544437A227299852009695D7 /* ProgressIndicator.swift */; };
 		547D056B2721426F0030ACD0 /* Nib+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547D056A2721426F0030ACD0 /* Nib+extend.swift */; };
 		547D056E272143980030ACD0 /* NSWindow+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547D056D272143980030ACD0 /* NSWindow+extend.swift */; };
+		54FCAA3F28059BA400394316 /* Image+Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FCAA3E28059BA400394316 /* Image+Transform.swift */; };
+		54FCAA4128059CEE00394316 /* NumberType+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FCAA4028059CEE00394316 /* NumberType+extend.swift */; };
+		54FCAA4F2805A66600394316 /* Image+MaskingGray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FCAA4E2805A66600394316 /* Image+MaskingGray.swift */; };
+		54FCAA512805A73800394316 /* Data+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FCAA502805A73700394316 /* Data+extend.swift */; };
 		EE53BB6F271C493700015282 /* NSColor+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BB66271C493600015282 /* NSColor+extend.swift */; };
 		EE53BB70271C493700015282 /* CocoaUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BB67271C493600015282 /* CocoaUIKit.swift */; };
 		EE53BB71271C493700015282 /* NSView+Corner.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BB69271C493600015282 /* NSView+Corner.swift */; };
-		EE53BB72271C493700015282 /* CocoSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BB6A271C493600015282 /* CocoSlider.swift */; };
-		EE53BB73271C493700015282 /* CocoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BB6B271C493600015282 /* CocoWindow.swift */; };
-		EE53BB74271C493700015282 /* CocoCapriceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BB6C271C493600015282 /* CocoCapriceButton.swift */; };
-		EE53BB75271C493700015282 /* CocoSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BB6D271C493600015282 /* CocoSplitView.swift */; };
+		EE53BB72271C493700015282 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BB6A271C493600015282 /* Slider.swift */; };
+		EE53BB73271C493700015282 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BB6B271C493600015282 /* Window.swift */; };
+		EE53BB74271C493700015282 /* CapriceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BB6C271C493600015282 /* CapriceButton.swift */; };
+		EE53BB75271C493700015282 /* SplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE53BB6D271C493600015282 /* SplitView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5411AF772798117A0096A633 /* CocoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoButton.swift; sourceTree = "<group>"; };
+		5411AF772798117A0096A633 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		5411AF79279813490096A633 /* NSImage+extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+extend.swift"; sourceTree = "<group>"; };
 		5411AF7B2798141F0096A633 /* CGSize+extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+extend.swift"; sourceTree = "<group>"; };
 		5411AF7D27981A1B0096A633 /* NSWorkspace+extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSWorkspace+extend.swift"; sourceTree = "<group>"; };
 		5411AF7F27981A9D0096A633 /* NSocalized+extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSocalized+extend.swift"; sourceTree = "<group>"; };
 		5411AF8127981B840096A633 /* FileManager+extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+extend.swift"; sourceTree = "<group>"; };
-		544437A227299852009695D7 /* CocoProgressIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoProgressIndicator.swift; sourceTree = "<group>"; };
+		544437A227299852009695D7 /* ProgressIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressIndicator.swift; sourceTree = "<group>"; };
 		547D056A2721426F0030ACD0 /* Nib+extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Nib+extend.swift"; sourceTree = "<group>"; };
 		547D056D272143980030ACD0 /* NSWindow+extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSWindow+extend.swift"; sourceTree = "<group>"; };
+		54FCAA3E28059BA400394316 /* Image+Transform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+Transform.swift"; sourceTree = "<group>"; };
+		54FCAA4028059CEE00394316 /* NumberType+extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NumberType+extend.swift"; sourceTree = "<group>"; };
+		54FCAA4E2805A66600394316 /* Image+MaskingGray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+MaskingGray.swift"; sourceTree = "<group>"; };
+		54FCAA502805A73700394316 /* Data+extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+extend.swift"; sourceTree = "<group>"; };
 		EE53BB4A271C482000015282 /* CocoaUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE53BB66271C493600015282 /* NSColor+extend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+extend.swift"; sourceTree = "<group>"; };
 		EE53BB67271C493600015282 /* CocoaUIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaUIKit.swift; sourceTree = "<group>"; };
 		EE53BB69271C493600015282 /* NSView+Corner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSView+Corner.swift"; sourceTree = "<group>"; };
-		EE53BB6A271C493600015282 /* CocoSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoSlider.swift; sourceTree = "<group>"; };
-		EE53BB6B271C493600015282 /* CocoWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoWindow.swift; sourceTree = "<group>"; };
-		EE53BB6C271C493600015282 /* CocoCapriceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoCapriceButton.swift; sourceTree = "<group>"; };
-		EE53BB6D271C493600015282 /* CocoSplitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoSplitView.swift; sourceTree = "<group>"; };
+		EE53BB6A271C493600015282 /* Slider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
+		EE53BB6B271C493600015282 /* Window.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		EE53BB6C271C493600015282 /* CapriceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapriceButton.swift; sourceTree = "<group>"; };
+		EE53BB6D271C493600015282 /* SplitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitView.swift; sourceTree = "<group>"; };
 		EE53BB78271C496100015282 /* docs */ = {isa = PBXFileReference; lastKnownFileType = text; path = docs; sourceTree = SOURCE_ROOT; };
 		EE53BB85271C50D400015282 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = SOURCE_ROOT; };
 		EE53BB86271C50D400015282 /* CocoaUIKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = CocoaUIKit.podspec; sourceTree = SOURCE_ROOT; };
@@ -86,6 +94,22 @@
 			name = Develoyment;
 			sourceTree = "<group>";
 		};
+		54FCAA3C28059A5E00394316 /* General */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		54FCAA3D28059AA300394316 /* Units */ = {
+			isa = PBXGroup;
+			children = (
+				54FCAA4E2805A66600394316 /* Image+MaskingGray.swift */,
+				54FCAA3E28059BA400394316 /* Image+Transform.swift */,
+			);
+			path = Units;
+			sourceTree = "<group>";
+		};
 		EE53BB40271C482000015282 = {
 			isa = PBXGroup;
 			children = (
@@ -106,8 +130,10 @@
 			isa = PBXGroup;
 			children = (
 				EE53BB67271C493600015282 /* CocoaUIKit.swift */,
-				EE53BB65271C493600015282 /* Foundation */,
 				EE53BB68271C493600015282 /* AppKit */,
+				EE53BB65271C493600015282 /* Foundation */,
+				54FCAA3C28059A5E00394316 /* General */,
+				54FCAA3D28059AA300394316 /* Units */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -116,8 +142,10 @@
 			isa = PBXGroup;
 			children = (
 				EE53BB66271C493600015282 /* NSColor+extend.swift */,
+				54FCAA4028059CEE00394316 /* NumberType+extend.swift */,
 				547D056A2721426F0030ACD0 /* Nib+extend.swift */,
 				547D056D272143980030ACD0 /* NSWindow+extend.swift */,
+				54FCAA502805A73700394316 /* Data+extend.swift */,
 				5411AF7B2798141F0096A633 /* CGSize+extend.swift */,
 				5411AF7D27981A1B0096A633 /* NSWorkspace+extend.swift */,
 				5411AF7F27981A9D0096A633 /* NSocalized+extend.swift */,
@@ -131,12 +159,12 @@
 			children = (
 				EE53BB69271C493600015282 /* NSView+Corner.swift */,
 				5411AF79279813490096A633 /* NSImage+extend.swift */,
-				544437A227299852009695D7 /* CocoProgressIndicator.swift */,
-				EE53BB6A271C493600015282 /* CocoSlider.swift */,
-				EE53BB6B271C493600015282 /* CocoWindow.swift */,
-				EE53BB6C271C493600015282 /* CocoCapriceButton.swift */,
-				5411AF772798117A0096A633 /* CocoButton.swift */,
-				EE53BB6D271C493600015282 /* CocoSplitView.swift */,
+				544437A227299852009695D7 /* ProgressIndicator.swift */,
+				EE53BB6A271C493600015282 /* Slider.swift */,
+				EE53BB6B271C493600015282 /* Window.swift */,
+				EE53BB6C271C493600015282 /* CapriceButton.swift */,
+				5411AF772798117A0096A633 /* Button.swift */,
+				EE53BB6D271C493600015282 /* SplitView.swift */,
 			);
 			path = AppKit;
 			sourceTree = "<group>";
@@ -219,18 +247,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54FCAA4F2805A66600394316 /* Image+MaskingGray.swift in Sources */,
 				547D056E272143980030ACD0 /* NSWindow+extend.swift in Sources */,
 				5411AF8227981B840096A633 /* FileManager+extend.swift in Sources */,
-				EE53BB74271C493700015282 /* CocoCapriceButton.swift in Sources */,
-				EE53BB72271C493700015282 /* CocoSlider.swift in Sources */,
-				EE53BB73271C493700015282 /* CocoWindow.swift in Sources */,
+				EE53BB74271C493700015282 /* CapriceButton.swift in Sources */,
+				EE53BB72271C493700015282 /* Slider.swift in Sources */,
+				54FCAA512805A73800394316 /* Data+extend.swift in Sources */,
+				EE53BB73271C493700015282 /* Window.swift in Sources */,
 				5411AF8027981A9D0096A633 /* NSocalized+extend.swift in Sources */,
-				544437A327299852009695D7 /* CocoProgressIndicator.swift in Sources */,
+				54FCAA4128059CEE00394316 /* NumberType+extend.swift in Sources */,
+				544437A327299852009695D7 /* ProgressIndicator.swift in Sources */,
 				EE53BB6F271C493700015282 /* NSColor+extend.swift in Sources */,
 				5411AF7A279813490096A633 /* NSImage+extend.swift in Sources */,
+				54FCAA3F28059BA400394316 /* Image+Transform.swift in Sources */,
 				EE53BB70271C493700015282 /* CocoaUIKit.swift in Sources */,
-				EE53BB75271C493700015282 /* CocoSplitView.swift in Sources */,
-				5411AF782798117A0096A633 /* CocoButton.swift in Sources */,
+				EE53BB75271C493700015282 /* SplitView.swift in Sources */,
+				5411AF782798117A0096A633 /* Button.swift in Sources */,
 				5411AF7E27981A1B0096A633 /* NSWorkspace+extend.swift in Sources */,
 				EE53BB71271C493700015282 /* NSView+Corner.swift in Sources */,
 				547D056B2721426F0030ACD0 /* Nib+extend.swift in Sources */,

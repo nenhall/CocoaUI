@@ -79,7 +79,7 @@ enum GRProgressIndicatorTheme {
     case custom(_ color: NSColor)
 }
 
-class CocoProgressIndicator: NSView {
+class ProgressIndicator: NSView {
     
     // cached data
     var particleGrad1: NSColor? = nil

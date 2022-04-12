@@ -8,7 +8,7 @@
 import Cocoa
 import CocoaUIKit
 
-class UIWindowController: CocoWindowController {
+class UIWindowController: WindowController {
 
     @IBOutlet weak var label: NSTextField!
     

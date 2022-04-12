@@ -10,10 +10,10 @@ import CocoaUIKit
 
 class ViewController: NSViewController {
 
-    @IBOutlet weak var customSlider: CocoSlider!
-    @IBOutlet weak var vSlider: CocoSlider!
+    @IBOutlet weak var customSlider: Slider!
+    @IBOutlet weak var vSlider: Slider!
     
-    @IBOutlet weak var hoveButton: CocoButton!
+    @IBOutlet weak var hoveButton: Button!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,7 @@ class ViewController: NSViewController {
 
     
     func addButtonToToolbar() {
-        if let toolbarView = (view.window as? CocoWindow)?.leftToolBarBox {
+        if let toolbarView = (view.window as? Window)?.leftToolBarBox {
             let button = NSButton(title: "我就按钮", target: nil, action: nil)
             toolbarView.addArrangedSubview(button)
 
@@ -63,11 +63,11 @@ class ViewController: NSViewController {
 
 }
 
-extension ViewController: CocoSliderDelegate {
+extension ViewController: SliderDelegate {
     
     func addSlider() {
-        let sliderFive = CocoSlider()
-        sliderFive.cell = CocoSliderCell()
+        let sliderFive = Slider()
+        sliderFive.cell = SliderCell()
         sliderFive.minValue = 1
         sliderFive.maxValue = 1000
         sliderFive.isVertical = false
@@ -79,15 +79,15 @@ extension ViewController: CocoSliderDelegate {
         sliderFive.frame = CGRect(x: 10, y: 0, width: 100, height: 30)
     }
     
-    func sliderDidChanged(slider: CocoSlider) {
+    func sliderDidChanged(slider: Slider) {
         debugPrint(#function, slider.doubleValue)
     }
     
-    func sliderDidMouseUp(slider: CocoSlider) {
+    func sliderDidMouseUp(slider: Slider) {
         debugPrint(#function)
     }
     
-    func sliderDidMouseDown(slider: CocoSlider) {
+    func sliderDidMouseDown(slider: Slider) {
         debugPrint(#function)
     }
 }

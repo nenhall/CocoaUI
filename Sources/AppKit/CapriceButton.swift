@@ -1,5 +1,5 @@
 //
-//  CoCapriceButton.swift
+//  CapriceButton.swift
 //  CocoaUIKit
 //
 //  Created by nenhall on 2021/10/15.
@@ -9,8 +9,8 @@ import Cocoa
 
 
 /// 这个是一个多状态自动切换按钮：Highlight、Disable、Selected、Normal，支持图片或者颜色作为背景
-/// 需要配合 CoCapriceButtonCell使用
-public class CoCapriceButton: NSButton {
+/// 需要配合 CapriceButtonCell使用
+public class CapriceButton: NSButton {
 
     /// `Highlight`背景填充图
     @IBInspectable public var highlightImage: NSImage? {
@@ -114,13 +114,13 @@ public class CoCapriceButton: NSButton {
     private var trackingArea: NSTrackingArea?
     
     /// 重写自定义的Cell，替换了原此的Cell，等价`.Cell`
-    public var buttonCell: CoCapriceButtonCell? {
-        return cell as? CoCapriceButtonCell
+    public var buttonCell: CapriceButtonCell? {
+        return cell as? CapriceButtonCell
     }
 
     public override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
-        cell = CoCapriceButtonCell()
+        cell = CapriceButtonCell()
         configCell()
     }
     
@@ -177,7 +177,7 @@ public class CoCapriceButton: NSButton {
 }
 
 
-public class CoCapriceButtonCell: NSButtonCell {
+public class CapriceButtonCell: NSButtonCell {
     @IBInspectable public var highlightImage: NSImage?
     @IBInspectable public var disableImage: NSImage?
     @IBInspectable public var highlightColor: NSColor?
