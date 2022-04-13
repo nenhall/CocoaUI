@@ -14,7 +14,7 @@
 		54C68EFC2806A6AA00AA2356 /* iOSExample.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 54C68EFA2806A6AA00AA2356 /* iOSExample.xcdatamodeld */; };
 		54C68EFE2806A6AB00AA2356 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54C68EFD2806A6AB00AA2356 /* Assets.xcassets */; };
 		54C68F012806A6AB00AA2356 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54C68EFF2806A6AB00AA2356 /* LaunchScreen.storyboard */; };
-		54C68F462806D26500AA2356 /* iOS in Frameworks */ = {isa = PBXBuildFile; productRef = 54C68F452806D26500AA2356 /* iOS */; };
+		54C68F4E2806ED9C00AA2356 /* iOS in Frameworks */ = {isa = PBXBuildFile; productRef = 54C68F4D2806ED9C00AA2356 /* iOS */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54C68F462806D26500AA2356 /* iOS in Frameworks */,
+				54C68F4E2806ED9C00AA2356 /* iOS in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,7 +99,7 @@
 			);
 			name = iOSExample;
 			packageProductDependencies = (
-				54C68F452806D26500AA2356 /* iOS */,
+				54C68F4D2806ED9C00AA2356 /* iOS */,
 			);
 			productName = iOSExample;
 			productReference = 54C68EEE2806A6AA00AA2356 /* iOSExample.app */;
@@ -389,7 +389,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		54C68F452806D26500AA2356 /* iOS */ = {
+		54C68F4D2806ED9C00AA2356 /* iOS */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = iOS;
 		};
