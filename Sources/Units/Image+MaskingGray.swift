@@ -8,14 +8,12 @@
 import CoreGraphics
 
 #if os(macOS)
-public typealias UIImage = NSImage
 public typealias UIImageView = NSImageView
 import AppKit
 #else
 import UIKit
 import Photos
 #endif
-
 
 public extension UIImage {
 
@@ -48,7 +46,8 @@ public extension UIImage {
         let height = Int(cgImage.height)
         let colorSpace = CGColorSpaceCreateDeviceGray()
 
-        guard let context = CGContext.init(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: CGImageAlphaInfo.none.rawValue) else { return nil }
+        let bitInfo = CGImageAlphaInfo.none.rawValue
+        guard let context = CGContext.init(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitInfo) else { return nil }
         context.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
         if let newCgImage = context.makeImage() {
             return makeImage(from: newCgImage)
@@ -117,9 +116,9 @@ public extension UIImage {
         let alphaImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
-        if let image = alphaImage {
-            saveImage(image)
-        }
+//        if let image = alphaImage {
+//            saveImage(image)
+//        }
         return alphaImage
         #endif
     }
@@ -170,9 +169,9 @@ public extension UIImage {
         let opaquePtr = OpaquePointer(rgbBuffer)
         guard let baseAddress = UnsafeMutablePointer<UInt8>(opaquePtr) else { return nil }
 
-        for i in 0..<height {
-            for j in 0..<width {
-                let pixelIndex = i * width * 4 + j * 4
+        for line in 0..<height {
+            for row in 0..<width {
+                let pixelIndex = line * width * 4 + row * 4
                 let red = baseAddress[pixelIndex]
                 let green = baseAddress[pixelIndex + 1]
                 let blue = baseAddress[pixelIndex + 2]
@@ -188,7 +187,7 @@ public extension UIImage {
         guard let alphaCgImage = context.makeImage() else { return nil }
         rgbBuffer?.deallocate()
         let image = makeImage(from: alphaCgImage)
-        saveImage(image)
+//        saveImage(image)
         return image
     }
 
@@ -210,9 +209,8 @@ public extension UIImageView {
         self.image = newImage
         return true
     }
-    
-}
 
+}
 
 #if os(iOS)
 
@@ -233,7 +231,7 @@ public extension UIImage {
 
 public extension PHPhotoLibrary {
     // MARK: - PHPhotoLibrary+SaveImage
-    func savePhoto(image:UIImage, albumName:String, completion:((PHAsset?)->())? = nil) {
+    func savePhoto(image: UIImage, albumName: String, completion: ((PHAsset?) -> Void)? = nil) {
         func save() {
             if let album = PHPhotoLibrary.shared().findAlbum(albumName: albumName) {
                 PHPhotoLibrary.shared().saveImage(image: image, album: album, completion: completion)
@@ -263,19 +261,19 @@ public extension PHPhotoLibrary {
     private func findAlbum(albumName: String) -> PHAssetCollection? {
         let fetchOptions = PHFetchOptions()
         fetchOptions.predicate = NSPredicate(format: "title = %@", albumName)
-        let fetchResult : PHFetchResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
+        let fetchResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
         guard let photoAlbum = fetchResult.firstObject else {
             return nil
         }
         return photoAlbum
     }
 
-    private func createAlbum(albumName: String, completion: @escaping (PHAssetCollection?)->()) {
+    private func createAlbum(albumName: String, completion: @escaping (PHAssetCollection?) -> Void) {
         var albumPlaceholder: PHObjectPlaceholder?
         PHPhotoLibrary.shared().performChanges({
             let createAlbumRequest = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: albumName)
             albumPlaceholder = createAlbumRequest.placeholderForCreatedAssetCollection
-        }, completionHandler: { success, error in
+        }, completionHandler: { (success, _) in
             if success {
                 guard let placeholder = albumPlaceholder else {
                     completion(nil)
@@ -293,7 +291,7 @@ public extension PHPhotoLibrary {
         })
     }
 
-    private func saveImage(image: UIImage, album: PHAssetCollection, completion:((PHAsset?)->())? = nil) {
+    private func saveImage(image: UIImage, album: PHAssetCollection, completion: ((PHAsset?) -> Void)? = nil) {
         var placeholder: PHObjectPlaceholder?
         PHPhotoLibrary.shared().performChanges({
             let createAssetRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
@@ -302,14 +300,14 @@ public extension PHPhotoLibrary {
             placeholder = photoPlaceholder
             let fastEnumeration = NSArray(array: [photoPlaceholder] as [PHObjectPlaceholder])
             albumChangeRequest.addAssets(fastEnumeration)
-        }, completionHandler: { success, error in
+        }, completionHandler: { success, _ in
             guard let placeholder = placeholder else {
                 completion?(nil)
                 return
             }
             if success {
-                let assets:PHFetchResult<PHAsset> =  PHAsset.fetchAssets(withLocalIdentifiers: [placeholder.localIdentifier], options: nil)
-                let asset:PHAsset? = assets.firstObject
+                let assets = PHAsset.fetchAssets(withLocalIdentifiers: [placeholder.localIdentifier], options: nil)
+                let asset = assets.firstObject
                 completion?(asset)
             } else {
                 completion?(nil)
