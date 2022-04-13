@@ -31,6 +31,7 @@ public enum PaneAnchor: String {
 }
 
 public enum SysPreferences  {
+    
     var mainPane: String {
        return "x-apple.systempreferences:"
     }
@@ -42,9 +43,11 @@ public enum SysPreferences  {
             return "com.apple.preference.security"
         }
     }
+    
 }
 
 public extension NSWorkspace {
+    
     func openSysPreferencesPanel(_ panel: SysPreferences) {
         var url: URL?
         switch panel {
@@ -81,6 +84,7 @@ public extension NSWorkspace {
         }
         return false
     }
+    
 }
 
 #endif

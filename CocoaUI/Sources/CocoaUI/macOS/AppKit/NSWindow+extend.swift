@@ -8,6 +8,7 @@
 import AppKit
 
 public extension NSWindow {
+    
     /// 模态显示窗口
     @discardableResult
     func showModalWindow() -> Bool {
@@ -22,6 +23,7 @@ public extension NSWindow {
         NSApp.stopModal()
         return true
     }
+    
 }
 
 public extension NSWindowController {
@@ -46,4 +48,5 @@ public extension NSWindowController {
         NSApp.stopModal()
         return true
     }
+    
 }

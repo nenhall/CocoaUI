@@ -178,4 +178,5 @@ public class SplitView: NSSplitView {
             expandButton.frame = NSRect(x: x, y: rect.origin.y + y, width: widthHeight, height: widthHeight)
         }
     }
+    
 }

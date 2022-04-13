@@ -8,7 +8,7 @@
 import AppKit
 
 public extension NSMenuItem {
-    
+
     @IBInspectable var localizedString: String {
         set {
             title = NSLocalizedString(newValue, comment: newValue)
@@ -17,9 +17,11 @@ public extension NSMenuItem {
             return title
         }
     }
+    
 }
 
 public extension NSControl {
+    
     @IBInspectable var localizedString: String {
         set {
             if let button = self as? NSButton {
@@ -32,9 +34,11 @@ public extension NSControl {
             return stringValue
         }
     }
+    
 }
 
 public extension NSView {
+    
     @IBInspectable var localizedTip: String {
         set {
             toolTip = NSLocalizedString(newValue, comment: newValue)
@@ -43,4 +47,5 @@ public extension NSView {
             return toolTip ?? String()
         }
     }
+    
 }

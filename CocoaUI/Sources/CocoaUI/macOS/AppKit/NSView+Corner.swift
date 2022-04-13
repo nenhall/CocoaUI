@@ -8,6 +8,7 @@
 import AppKit
 
 public struct NSRectCorner : OptionSet {
+    
     public var rawValue: UInt
     public init(rawValue: UInt) {
         self.rawValue = rawValue
@@ -18,6 +19,7 @@ public struct NSRectCorner : OptionSet {
     public static let bottomLeft = NSRectCorner(rawValue: 1 << 2)
     public static let bottomRight = NSRectCorner(rawValue: 1 << 3)
     public static let allCorners: NSRectCorner = [.topLeft, .topRight, .bottomLeft, .bottomRight]
+    
 }
 
 public class CoShapeLayer: CAShapeLayer {
@@ -75,7 +77,6 @@ public class CoShapeLayer: CAShapeLayer {
         path = cgPath
     }
 
-    
 }
 
 extension NSView {
@@ -111,6 +112,7 @@ extension NSView {
             shapeLayer?.drawCorners(corner, radius: radius)
         }
     }
+    
 }
 
 
@@ -146,4 +148,5 @@ public extension NSView {
         let direction = NSLocale.lineDirection(forLanguage: code)
         return direction
     }
+    
 }

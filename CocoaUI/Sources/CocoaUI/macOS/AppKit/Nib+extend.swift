@@ -9,9 +9,11 @@ import Cocoa
 
 // MARK: - NSViewController xib
 public extension NSViewController {
+    
     class func loadNib() -> Self {
         return self.init(nibName: NSNib.Name(className()), bundle: nil)
     }
+    
 }
 
 
@@ -29,4 +31,5 @@ public extension NSWindowController {
     class func loadNib() -> Self {
         return Self.init(windowNibName: nibName())
     }
+    
 }

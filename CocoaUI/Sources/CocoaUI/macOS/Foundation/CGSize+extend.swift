@@ -44,5 +44,4 @@ public extension CGSize {
         return aspectRatio < size.aspectRatio ? CGSize(width: size.width, height: size.width / aspectRatio) : CGSize(width: size.height * aspectRatio, height: size.height)
     }
 
-
 }

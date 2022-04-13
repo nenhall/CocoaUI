@@ -8,15 +8,18 @@
 import Cocoa
 
 public struct ApplicationDirectory {
+    
     public var current: String {
         let dundleName = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first ?? ""
         return "/" + dundleName + "/"
     }
+    
 }
 
 
 //MARK: - Application Support 沙盒目录
 public struct SupportDirectory: AppDirectoryProtocol {
+    
     public var current: String {
         let dundleName = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first ?? ""
         return "/" + dundleName + "/"
@@ -25,50 +28,61 @@ public struct SupportDirectory: AppDirectoryProtocol {
     public var subPath: AppDirectoryProtocol {
         return SupportDirectory()
     }
+    
 }
 
 /// 以下文件目录是按实际目录层级来定的，一个目录层一个枚举表示，
 /// 目录的有多个子层级就用枚举套枚举的方式表示
 public struct AppOwnerDirectory {
+    
     static let application = ApplicationDirectory()
     static let support = SupportDirectory()
+    
 }
 
 public protocol AppDirectoryProtocol {
+    
     var current: String { get }
     var subPath: AppDirectoryProtocol { get }
+    
 }
 
 public protocol  AppDirectoryProtocol2 {
+    
     var current: String { get }
     var fullPath: String { get set }
     mutating func `init`(_ directory: AppDirectoryProtocol2?)
     mutating func append(_ directory: AppDirectoryProtocol2) -> AppDirectoryProtocol2
+    
 }
 
 public protocol  AppDirectoryProtocol3 {
+    
     var current: String { get }
     var fullPath: String { get set }
     mutating func append(_ directory: AppDirectoryProtocol3) -> AppDirectoryProtocol3
+    
 }
 
 extension AppDirectoryProtocol3 {
+    
     public mutating func append(_ directory: AppDirectoryProtocol3) -> AppDirectoryProtocol3 {
         fullPath = fullPath + "/" + directory.current
         return self
     }
+    
 }
 
-
 public enum Directory {
-case path(AppDirectoryProtocol2)
+    
+    case path(AppDirectoryProtocol2)
     public var path: String {
         switch self {
         case .path(let appDir):
             return appDir.fullPath
         }
     }
-
+    
     public func append(_ directory: AppDirectoryProtocol2) -> Directory {
         switch self {
         case .path(var directory2):
@@ -76,6 +90,7 @@ case path(AppDirectoryProtocol2)
         }
         return self
     }
+    
 }
 
 extension AppDirectoryProtocol2 {
@@ -92,10 +107,12 @@ extension AppDirectoryProtocol2 {
         fullPath = directory.fullPath + "/" + current
         return self
     }
+    
 }
 
 public let main = AppDirectoryAdapter()
 public struct AppDirectoryAdapter: AppDirectoryProtocol2 {
+    
     public static let app = AppDirectoryAdapter()
     public var current: String {
         return "AppDirectoryAdapter"
@@ -107,22 +124,27 @@ public struct AppDirectoryAdapter: AppDirectoryProtocol2 {
 
 
 public struct SupportDirectory2: AppDirectoryProtocol2 {
+    
     public static let support = SupportDirectory2()
     public var current: String {
         return "SupportDirectory2"
     }
     public var fullPath: String = ""
+    
 }
 
 public struct SupportDirectory3: AppDirectoryProtocol2 {
+    
     public static let support = SupportDirectory3()
     public var current: String {
         return "SupportDirectory3"
     }
     public var fullPath: String = ""
+    
 }
 
 public struct SupportDirectory4: AppDirectoryProtocol3 {
+    
     public var current: String {
         return "SupportDirectory3"
     }
@@ -197,4 +219,5 @@ public extension FileManager {
         }
         return false
     }
+    
 }

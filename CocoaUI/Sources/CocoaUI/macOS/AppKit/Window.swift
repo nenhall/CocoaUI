@@ -8,6 +8,7 @@
 import AppKit
 
 open class WindowController: NSWindowController {
+    
     @IBInspectable public var visualEffectWidth: CGFloat = 0
     @IBInspectable public var visualEffectMode: Int = -1
     @IBInspectable public var titlebarColor: NSColor = .clear
@@ -418,9 +419,11 @@ open class Window: NSWindow {
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         debugPrint(#function)
     }
+    
 }
 
 extension NSWindow {
+    
     fileprivate static var kIsFullScreenKey = "IsFullScreenKey"
     /// 是否全屏状态
     public var isFullScreen: Bool {
@@ -446,6 +449,7 @@ extension NSWindow {
         toggleFullScreen(self)
         isFullScreen = false
     }
+    
 }
 
 extension NSWindow {
@@ -502,6 +506,7 @@ extension NSWindow {
             }
         }
     }
+    
 }
 
 
@@ -518,10 +523,13 @@ open class TitlebarBackgroundView: NSView {
         let path = NSBezierPath(rect: self.bounds)
         path.fill()
     }
+    
 }
 
 extension NSToolbarItem {
+    
     open override func value(forUndefinedKey key: String) -> Any? {
         return nil
     }
+    
 }

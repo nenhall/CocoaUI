@@ -38,4 +38,5 @@ public extension NSImage {
         return CGImageSourceCreateImageAtIndex(sourceData, 0, nil)
       }
     }
+    
 }

@@ -8,14 +8,17 @@
 import AppKit
 
 @objc public protocol SliderDelegate {
+    
     @objc optional func sliderDidChanged(slider: Slider)
     @objc optional func sliderDidMouseUp(slider: Slider)
     @objc optional func sliderDidMouseDown(slider: Slider)
+    
 }
 
 
 @IBDesignable
 public class SliderCell: NSSliderCell {
+    
     @IBInspectable public var progressColor: NSColor = .systemBlue
     @IBInspectable public var knobColor: NSColor = NSColor.white
     @IBInspectable public var sliderHeight: CGFloat = 3.0
