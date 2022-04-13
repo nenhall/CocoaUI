@@ -13,10 +13,21 @@ import Photos
 #endif
 import CoreGraphics
 
+public extension UIImage.GrayRGB {
+    static let defultMasking: [CGFloat] = [150, 255, 150, 255, 150, 255]
+}
+
 public extension UIImage {
 
-    private var maskingColors: [CGFloat] {
-        return [150, 255, 150, 255, 150, 255]
+    struct RGBComponent {
+        var red   = 0.299
+        var green = 0.587
+        var blue  = 0.114
+    }
+
+    enum GrayRGB {
+        case hifi(_ rgbc: RGBComponent)
+        case masking(_ colors: [CGFloat]) // [min...max, min...max,...]
     }
 
     private func makeImage(from cgImage: CGImage, size: CGSize? = nil) -> UIImage {
@@ -35,7 +46,7 @@ public extension UIImage {
         #endif
     }
 
-    public func grayImage() -> UIImage? {
+    func grayImage() -> UIImage? {
         guard let sourceData = data else { return nil }
         guard let source = CGImageSourceCreateWithData(sourceData as CFData, nil) else { return nil }
         guard let cgImage = CGImageSourceCreateImageAtIndex(source, 0, nil) else { return nil }
@@ -53,14 +64,20 @@ public extension UIImage {
         return nil
     }
 
-    static func maskingImageBackgroundFrom(_ image: UIImage, colors: [CGFloat]? = nil) -> UIImage? {
-        return image.maskingImageBackgroundFrom(colors)
+    static func maskingImageBackground(_ image: UIImage, grayRGB: GrayRGB = .masking(GrayRGB.defultMasking)) -> UIImage? {
+        return image.maskingImageBackground(grayRGB: grayRGB)
     }
 
-    func maskingImageBackgroundFrom(_ colors: [CGFloat]? = nil, hifi: Bool = true) -> UIImage? {
+    func maskingImageBackground(grayRGB: GrayRGB = .masking(GrayRGB.defultMasking)) -> UIImage? {
+        switch grayRGB {
+        case .hifi(let rGBComponent):
+            return hifiPixelColor(component: rGBComponent)
+        case .masking(let colors):
+            return maskingImageBackground(colors)
+        }
+    }
 
-        if hifi { return hifiPixelColor() }
-
+    private func maskingImageBackground(_ colors: [CGFloat]) -> UIImage? {
         #if os(macOS)
         guard let sourceData = data else { return nil }
         guard let source = CGImageSourceCreateWithData(sourceData as CFData, nil) else { return nil }
@@ -80,7 +97,7 @@ public extension UIImage {
                                            bitmapInfo: bitmapInfo) else { return nil }
         context.draw(sourceCgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
         guard let cgImage = context.makeImage() else { return nil }
-        guard let maskCgImage = cgImage.copy(maskingColorComponents: maskingColors) else {
+        guard let maskCgImage = cgImage.copy(maskingColorComponents: colors) else {
             debugPrint("make masking image failed!")
             return nil
         }
@@ -106,7 +123,7 @@ public extension UIImage {
         UIGraphicsEndImageContext()
 
         let noAlphaCGRef = noAlphaImage?.cgImage
-        guard let imgRefCopy = noAlphaCGRef?.copy(maskingColorComponents: colors ?? maskingColors) else { return nil }
+        guard let imgRefCopy = noAlphaCGRef?.copy(maskingColorComponents: colors) else { return nil }
 
         UIGraphicsBeginImageContext(size)
         let maskingImage = UIImage(cgImage: imgRefCopy)
@@ -147,7 +164,7 @@ public extension UIImage {
         #endif
     }
 
-    func hifiPixelColor() -> UIImage? {
+    func hifiPixelColor(component: RGBComponent) -> UIImage? {
         let width = Int(size.width)
         let height = Int(size.height)
         let bytesPerRow = max(width, height) * 4
@@ -175,7 +192,7 @@ public extension UIImage {
                 let red = baseAddress[pixelIndex]
                 let green = baseAddress[pixelIndex + 1]
                 let blue = baseAddress[pixelIndex + 2]
-                var gray = 0.299 * Double(red) + 0.587 * Double(green) + 0.114 * Double(blue)
+                var gray = component.red * Double(red) + component.green * Double(green) + component.blue * Double(blue)
                 gray = gray > 150 ? 255 : 0
 
                 baseAddress[pixelIndex] = UInt8(gray)
@@ -203,9 +220,10 @@ public extension UIImageView {
         return true
     }
 
-    func maskingImageBackgroundFrom(_ colors: [CGFloat]? = nil, hifi: Bool = false) -> Bool {
+    @discardableResult
+    func maskingImageBackground(grayRGB: UIImage.GrayRGB = .masking(UIImage.GrayRGB.defultMasking)) -> Bool {
         guard let image = image else { return false }
-        let newImage = image.maskingImageBackgroundFrom(colors)
+        let newImage = image.maskingImageBackground(grayRGB: grayRGB)
         self.image = newImage
         return true
     }
@@ -229,8 +247,10 @@ public extension UIImage {
 
 }
 
+// MARK: - PHPhotoLibrary+SaveImage
+
 public extension PHPhotoLibrary {
-    // MARK: - PHPhotoLibrary+SaveImage
+
     func savePhoto(image: UIImage, albumName: String, completion: ((PHAsset?) -> Void)? = nil) {
         func save() {
             if let album = PHPhotoLibrary.shared().findAlbum(albumName: albumName) {
@@ -314,6 +334,7 @@ public extension PHPhotoLibrary {
             }
         })
     }
+
 }
 
 #endif
