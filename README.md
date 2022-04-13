@@ -1,5 +1,5 @@
 # CocoaUIKit
-   > macOS UI控件定制
+   > macOS、iOS UI控件定制
 
 ## Contents
 
@@ -19,7 +19,7 @@
 
 ## Migration Guides
 
-- [CocoaUIKit Migration Guide](Documentation/CocoaUIKit%203.0%20Migration%20Guide.md)
+- [CocoaUI Migration Guide](Documentation/CocoaUI%203.0%20Migration%20Guide.md)
 
 ## Communication
 
@@ -68,7 +68,7 @@ To integrate CocoaUIKit into your Xcode project using Swift Package Manager, add
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/nenhall/CocoaUIKit.git", .upToNextMajor(from: "0.0.1"))
+    .package(url: "https://github.com/nenhall/CocoaUI.git", .upToNextMajor(from: "0.0.1"))
 ]
 ```
 
@@ -104,7 +104,7 @@ You can try CocoaUIKit in Playground.
 
 **Note:**
 
-> To try CocoaUIKit, open `CocoaUIKit.xcworkspace` and build CocoaUIKit.framework for any simulator first.
+> To try CocoaUIKit, open `CocoaUI.xcworkspace` and build CocoaUIKit.framework for any simulator first.
 
 ### Resources
 
