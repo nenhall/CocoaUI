@@ -49,11 +49,10 @@ public extension NSImage {
         let hasAlpha = sourceCgImage.alphaInfo != .none
 
         guard let ciImage = CIImage(bitmapImageRep: imageRep) else { return nil }
-        let newCIImage = ciImage.transformed(by: transform)
-
+        let newCiImage = ciImage.transformed(by: transform)
         let rect = NSRect(origin: .zero, size: newCIImage.extent.size)
         if hasAlpha {
-            let imageRep = NSBitmapImageRep(ciImage: newCIImage)
+            let imageRep = NSBitmapImageRep(ciImage: newCiImage)
             var newImage: NSImage
             if let data = imageRep.tiffRepresentation, let image = NSImage(data: compressionData(data)) {
                 newImage = image
@@ -91,7 +90,7 @@ public extension NSImage {
 
     func compressionData(_ data: Data, save: Bool = false) -> Data {
         guard let imageRep = NSBitmapImageRep(data: data) else { return data }
-        let imageProps = [NSBitmapImageRep.PropertyKey.compressionFactor: NSNumber(value: 0.5)]
+        let imageProps: [NSBitmapImageRep.PropertyKey: Any] = [.compressionFactor: NSNumber(value: 1.0)]
         guard let newImageData = imageRep.representation(using: .png, properties: imageProps) else { return data }
 //        let url = URL(fileURLWithPath: "/Users/ws/Desktop/newImage123.png")
 //        try? newImageData.write(to: url, options: .atomic)
@@ -109,12 +108,11 @@ public extension NSImageView {
 
 }
 
-
 /**
 extension NSImage {
+
     func mirrored() -> NSImage? {
-        guard
-            let cgImage = cgImage(forProposedRect: nil, context: nil, hints: nil),
+        guard let cgImage = cgImage(forProposedRect: nil, context: nil, hints: nil),
             let colorSpace = cgImage.colorSpace else {
                 return nil
         }
@@ -158,5 +156,16 @@ extension NSImage {
             NSImage(cgImage: $0.takeRetainedValue(), size: size)
         }
     }
+
+    func correctiveHEICImage() -> NSImage? {
+         还有需要优化的地方，一下代码暂时保留
+        guard let dstData = CFDataCreateMutable(kCFAllocatorDefault, 0) else { return cgImage }
+        guard let imageDst = CGImageDestinationCreateWithData(dstData, type, 1, nil) else { return cgImage }
+        let options = [kCGImageDestinationLossyCompressionQuality: NSNumber(value: 1),
+                                   kCGImageDestinationOrientation: NSNumber(value: 2)]
+        CGImageDestinationAddImage(imageDst, cgImage, options as CFDictionary)
+        CGImageDestinationFinalize(imageDst)
+    }
+
 }
-*/
+ */
