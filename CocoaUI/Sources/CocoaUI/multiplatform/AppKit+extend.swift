@@ -11,6 +11,7 @@ import Foundation
 import AppKit
 public typealias UIImage = NSImage
 public typealias UIImageView = NSImageView
+public typealias UIView = NSView
 #endif
 
 public let Notify = NotificationCenter.default

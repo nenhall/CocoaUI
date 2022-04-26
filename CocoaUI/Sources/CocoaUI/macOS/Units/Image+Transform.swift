@@ -50,7 +50,7 @@ public extension NSImage {
 
         guard let ciImage = CIImage(bitmapImageRep: imageRep) else { return nil }
         let newCiImage = ciImage.transformed(by: transform)
-        let rect = NSRect(origin: .zero, size: newCIImage.extent.size)
+        let rect = NSRect(origin: .zero, size: newCiImage.extent.size)
         if hasAlpha {
             let imageRep = NSBitmapImageRep(ciImage: newCiImage)
             var newImage: NSImage
@@ -65,7 +65,7 @@ public extension NSImage {
             return newImage
 
         } else {
-            guard let cgImage = CIContext().createCGImage(newCIImage, from: newCIImage.extent) else { return nil }
+            guard let cgImage = CIContext().createCGImage(newCiImage, from: newCiImage.extent) else { return nil }
             let component = cgImage.bitsPerComponent
             let row = cgImage.bytesPerRow
             let colorSpace = cgImage.colorSpace ?? CGColorSpaceCreateDeviceRGB()
