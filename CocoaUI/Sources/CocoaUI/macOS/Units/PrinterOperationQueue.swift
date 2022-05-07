@@ -9,27 +9,41 @@ import AppKit
 import Multiplatform
 import PDFKit
 
-public extension NSPrintInfo {
+extension NSPrintInfo {
 
-    enum PaperSize {
-        case a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10
-        public var mm: NSSize {
-            ///单位转换：毫米 to 磅
-            let points = 2.834
-            switch self {
-            case .a0:  return NSSize(width: 841 * points, height: 1189 * points)
-            case .a1:  return NSSize(width: 594 * points, height: 841 * points)
-            case .a2:  return NSSize(width: 420 * points, height: 594 * points)
-            case .a3:  return NSSize(width: 297 * points, height: 420 * points)
-            case .a4:  return NSSize(width: 210 * points, height: 297 * points)
-            case .a5:  return NSSize(width: 148 * points, height: 210 * points)
-            case .a6:  return NSSize(width: 105 * points, height: 148 * points)
-            case .a7:  return NSSize(width: 74 * points, height: 105 * points)
-            case .a8:  return NSSize(width: 52 * points, height: 74 * points)
-            case .a9:  return NSSize(width: 37 * points, height: 52 * points)
-            case .a10: return NSSize(width: 26 * points, height: 37 * points)
-            }
+    enum PaperSize: String {
+        // swiftlint:disable:next identifier_name
+        case A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10
+    }
+
+}
+
+extension NSPrintInfo.PaperSize {
+
+    // swiftlint:disable:next identifier_name
+    var mm: NSSize {
+        switch self {
+        case .A0:  return NSSize(width: 841, height: 1189)
+        case .A1:  return NSSize(width: 594, height: 841)
+        case .A2:  return NSSize(width: 420, height: 594)
+        case .A3:  return NSSize(width: 297, height: 420)
+        case .A4:  return NSSize(width: 210, height: 297)
+        case .A5:  return NSSize(width: 148, height: 210)
+        case .A6:  return NSSize(width: 105, height: 148)
+        case .A7:  return NSSize(width: 74, height: 105)
+        case .A8:  return NSSize(width: 52, height: 74)
+        case .A9:  return NSSize(width: 37, height: 52)
+        case .A10: return NSSize(width: 26, height: 37)
         }
+    }
+
+    var points: NSSize {
+        // 单位转换：毫米 to 磅
+        return NSSize(width: mm.width * 2.83464567, height: mm.height * 2.83464567)
+    }
+
+    var sizeName: String {
+        return "\(rawValue) \(Int(mm.width)) by \(Int(mm.height)) mm"
     }
 
 }
@@ -50,7 +64,7 @@ public extension NSPrintInfo {
             .pagesAcross: 1,
 //            .verticalPagination: false,
 //            .horizontalPagination: false,
-            .paperSize: NSPrintInfo.PaperSize.a4.mm,
+            .paperSize: NSPrintInfo.PaperSize.A4.mm,
             .headerAndFooter: false,
             .topMargin: 0,
             .bottomMargin: 0,
@@ -64,7 +78,7 @@ public extension NSPrintInfo {
     }
 
     var previewSize: NSSize {
-        if paperSize.width * paperSize.height < PaperSize.a4.mm.width * PaperSize.a4.mm.height {
+        if paperSize.width * paperSize.height < PaperSize.A4.mm.width * PaperSize.A4.mm.height {
             return NSSize(width: paperSize.width + leftMargin + rightMargin,
                           height: paperSize.height + topMargin + bottomMargin)
         } else {
@@ -104,7 +118,7 @@ public class PrinterOperationQueue: NSObject {
             view.document = PDFDocument(url: url)
             let printOperation = NSPrintOperation(view: view.documentView!, printInfo: printInfo)
             printOperation.jobTitle = url.lastPathComponent
-            printOperation.showsPrintPanel = true
+            printOperation.showsPrintPanel = false
             printOperation.showsProgressPanel = false
             printOperation.printPanel.options = [.showsPreview, .showsCopies, .showsPageRange, .showsPaperSize, .showsOrientation, .showsScaling]
             addOperation(printOperation)

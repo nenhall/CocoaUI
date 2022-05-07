@@ -41,7 +41,8 @@ public enum SysPreferences  {
 
 public extension SysPreferences {
 
-    static var mainPane = "x-apple.systempreferences:"
+    static let bundleID = "com.apple.systempreferences"
+    static let mainPane = "x-apple.systempreferences:"
     var rawValue: String {
         switch self {
         case .securityPane:
@@ -72,10 +73,10 @@ public extension NSWorkspace {
         }
 
         guard let url = url else { return }
-        /// 先启动，让其成为活跃窗口，否则不会弹到最前面
+        // 先启动，让其成为活跃窗口，否则不会弹到最前面
         if needOpenSystempreferences,
-           applicationRunning(bundleIdentifier: "com.apple.systempreferences") == false {
-            launchApplication(withBundleIdentifier: "com.apple.systempreferences",
+           appRunning(bundleIdentifier: SysPreferences.bundleID) == false {
+            launchApplication(withBundleIdentifier: SysPreferences.bundleID,
                               options: [.inhibitingBackgroundOnly],
                               additionalEventParamDescriptor: nil,
                               launchIdentifier: nil)
@@ -84,7 +85,7 @@ public extension NSWorkspace {
         open(url)
     }
     
-    func applicationRunning(bundleIdentifier: String) -> Bool {
+    func appRunning(bundleIdentifier: String) -> Bool {
       let count = NSRunningApplication.runningApplications(withBundleIdentifier: bundleIdentifier).count
         if count > 0 {
             return true
