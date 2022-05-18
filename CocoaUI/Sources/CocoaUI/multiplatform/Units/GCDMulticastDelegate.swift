@@ -6,7 +6,7 @@
 //
 
 import Foundation
-/**
+
 class GCDMulticastDelegateNode<Element> {
 
     weak var delegate: AnyObject!
@@ -16,7 +16,6 @@ class GCDMulticastDelegateNode<Element> {
         delegate = (del as AnyObject)
         delegateQueue = queue
     }
-
 }
 
 class GCDMulticastDelegate <Element> {
@@ -99,6 +98,5 @@ class GCDMulticastDelegate <Element> {
         closure()
         objc_sync_exit(lockObj)
     }
-
 }
- */
+

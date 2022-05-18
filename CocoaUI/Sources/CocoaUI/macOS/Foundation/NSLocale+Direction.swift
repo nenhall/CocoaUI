@@ -27,5 +27,4 @@ import Cocoa
         let direction = NSLocale.lineDirection(forLanguage: code)
         return direction
     }
-    
 }

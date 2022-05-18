@@ -13,7 +13,6 @@ public struct ApplicationDirectory {
         let dundleName = NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first ?? ""
         return "/" + dundleName + "/"
     }
-    
 }
 
 
@@ -28,7 +27,6 @@ public struct SupportDirectory: AppDirectoryProtocol {
     public var subPath: AppDirectoryProtocol {
         return SupportDirectory()
     }
-    
 }
 
 /// 以下文件目录是按实际目录层级来定的，一个目录层一个枚举表示，
@@ -37,14 +35,12 @@ public struct AppOwnerDirectory {
     
     static let application = ApplicationDirectory()
     static let support = SupportDirectory()
-    
 }
 
 public protocol AppDirectoryProtocol {
     
     var current: String { get }
     var subPath: AppDirectoryProtocol { get }
-    
 }
 
 public protocol  AppDirectoryProtocol2 {

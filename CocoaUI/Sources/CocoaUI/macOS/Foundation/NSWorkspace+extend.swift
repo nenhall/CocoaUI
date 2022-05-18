@@ -7,7 +7,6 @@
 
 import Foundation
 
-#if canImport(AppKit) && !targetEnvironment(macCatalyst)
 import AppKit
 
 public enum PaneAnchor: String {
@@ -29,14 +28,12 @@ public enum PaneAnchor: String {
     case systemServices = "Privacy_SystemServices"
     case screenRecoding = "Privacy_ScreenCapture"
     case photos = "Privacy_Photos"
-
 }
 
 public enum SysPreferences  {
 
     case securityPane(PaneAnchor)
     case addPrinter
-
 }
 
 public extension SysPreferences {
@@ -51,7 +48,6 @@ public extension SysPreferences {
             return "/System/Library/CoreServices/AddPrinter.app"
         }
     }
-
 }
 
 public extension NSWorkspace {
@@ -92,7 +88,4 @@ public extension NSWorkspace {
         }
         return false
     }
-    
 }
-
-#endif

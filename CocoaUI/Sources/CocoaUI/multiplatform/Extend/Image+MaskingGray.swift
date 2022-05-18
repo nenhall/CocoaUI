@@ -14,6 +14,7 @@ import Photos
 import CoreGraphics
 
 public extension UIImage.GrayRGB {
+
     static let defultMasking: [CGFloat] = [150, 255, 150, 255, 150, 255]
 }
 
@@ -207,7 +208,6 @@ public extension UIImage {
 //        saveImage(image)
         return image
     }
-
 }
 
 public extension UIImageView {
@@ -227,7 +227,6 @@ public extension UIImageView {
         self.image = newImage
         return true
     }
-
 }
 
 #if os(iOS)
@@ -244,7 +243,6 @@ public extension UIImage {
         guard let imageData = pngData() else { return }
         debugPrint(imageData.count)
     }
-
 }
 
 // MARK: - PHPhotoLibrary+SaveImage
@@ -334,7 +332,6 @@ public extension PHPhotoLibrary {
             }
         })
     }
-
 }
 
 #endif
