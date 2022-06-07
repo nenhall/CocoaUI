@@ -16,6 +16,7 @@ class GCDMulticastDelegateNode<Element> {
         delegate = (del as AnyObject)
         delegateQueue = queue
     }
+
 }
 
 class GCDMulticastDelegate <Element> {
@@ -50,6 +51,9 @@ class GCDMulticastDelegate <Element> {
         synchronized(lockObj: delegateNodes as AnyObject, closure: {
             delegateNodes.removeAll()
         })
+        synchronized(lockObj: delegateNodes as AnyObject) {
+            delegateNodes.removeAll()
+        }
     }
 
     func count() -> Int {
@@ -76,7 +80,7 @@ class GCDMulticastDelegate <Element> {
         return count
     }
 
-    func invoke(_ invocation: @escaping (Element) -> Void) {
+    func invoke(_ invocation: @escaping (Element) -> Void, complete: (() -> Void)? = nil) {
         for i in (0..<delegateNodes.count).reversed() {
             let nodeDelegate: GCDMulticastDelegateNode = delegateNodes[i]
             guard let delegate = nodeDelegate.delegate as? Element else {
@@ -87,6 +91,7 @@ class GCDMulticastDelegate <Element> {
                 invocation(delegate)
             }
         }
+        complete?()
     }
 
     deinit {
@@ -98,5 +103,5 @@ class GCDMulticastDelegate <Element> {
         closure()
         objc_sync_exit(lockObj)
     }
-}
 
+}
