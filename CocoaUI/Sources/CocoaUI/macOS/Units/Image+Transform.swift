@@ -7,6 +7,7 @@
 
 import AppKit
 import CoreGraphics
+import CoreImage
 
 public enum NSImageMirrorOrientation {
     case vertical
