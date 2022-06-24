@@ -14,80 +14,13 @@ import UIKit
 
 public extension UIColor {
 
-    var isClear: Bool {
-        return self.isRGBEqual(.clear)
-    }
-
-    var isNotClear: Bool {
-        return !isClear
-    }
-
-    // https://en.wikipedia.org/wiki/Luma_%28video%29
-    var isLight: Bool {
-        guard let components = self.usingColorSpace(.sRGB)?.cgColor.components, components.count > 2 else { return false }
-        let brightness = components[0] * 0.2989 + components[1] * 0.587 + components[2] * 0.114
-        return brightness > 0.5
-    }
-
-    var isDark: Bool {
-        return !isLight
-    }
-
-    var inverseColor: UIColor {
-        let rgba = self.rgba
-        return UIColor(red: 1 - rgba.red, green: 1 - rgba.green, blue: 1 - rgba.blue, alpha: rgba.alpha)
-    }
-
     static var random: UIColor {
         return UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 1)
-    }
-
-    func isRGBEqual(_ color: UIColor, tolerance: CGFloat = 1.0e-06) -> Bool {
-        if self == color {
-            return true
-        }
-
-        let tolerance = min(1, max(0, tolerance))
-        let lColor = self.usingColorSpace(.sRGB) ?? self
-        let rColor = color.usingColorSpace(.sRGB) ?? color
-
-        let value = abs(lColor.alphaComponent - rColor.alphaComponent) +
-            abs(lColor.greenComponent - rColor.greenComponent) +
-            abs(lColor.blueComponent - rColor.blueComponent) +
-            abs(lColor.redComponent - rColor.redComponent)
-        return value < tolerance * 4
     }
 
     /// Convenient method to change alpha value
     func alpha(_ alpha: CGFloat) -> UIColor {
         return withAlphaComponent(alpha)
-    }
-}
-
-public extension UIColor {
-
-    typealias RGBA = (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat)
-    var rgba: RGBA {
-        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
-        let color = self.usingColorSpace(.sRGB) ?? self
-        color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        return (red, green, blue, alpha)
-    }
-
-    var hex: String {
-        let rgba = self.rgba
-        let red = Int(round(rgba.red * 255))
-        let green = Int(round(rgba.green * 255))
-        let blue = Int(round(rgba.blue * 255))
-        if rgba.alpha == 1 {
-            return String(format: "#%02x%02x%02x", red, green, blue)
-        } else {
-            return String(format: "#%02x%02x%02x%02x", red, green, blue, Int(rgba.alpha * 255))
-        }
-    }
-
-    var title: String {
-        return isClear ? "No Fill".localized() : hex.uppercased()
     }
 
     convenience init(hex: String) {
@@ -112,16 +45,86 @@ public extension UIColor {
         self.init(red: rgb.red, green: rgb.green, blue: rgb.blue, alpha: CGFloat(alpha))
     }
 
-    convenience init(deviceRGB rgb: Int, alpha: Float = 1) {
-        self.init(deviceRed: rgb.red, green: rgb.green, blue: rgb.blue, alpha: CGFloat(alpha))
-    }
-
     /// 浮点数，范围0~255，不是0~1
     convenience init(sameRGB: CGFloat, alpha: Float = 1) {
         let rgb = sameRGB / 255
         self.init(red: rgb, green: rgb, blue: rgb, alpha: CGFloat(alpha))
     }
 }
+
+#if os(macOS)
+
+public extension UIColor {
+
+    typealias RGBA = (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat)
+    var rgba: RGBA {
+        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+        let color = self.usingColorSpace(.sRGB) ?? self
+        color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        return (red, green, blue, alpha)
+    }
+
+    var hex: String {
+        let rgba = self.rgba
+        let red = Int(round(rgba.red * 255))
+        let green = Int(round(rgba.green * 255))
+        let blue = Int(round(rgba.blue * 255))
+        if rgba.alpha == 1 {
+            return String(format: "#%02x%02x%02x", red, green, blue)
+        } else {
+            return String(format: "#%02x%02x%02x%02x", red, green, blue, Int(rgba.alpha * 255))
+        }
+    }
+
+    var isClear: Bool {
+        return self.isRGBEqual(.clear)
+    }
+
+    var isNotClear: Bool {
+        return !isClear
+    }
+
+    var isDark: Bool {
+        return !isLight
+    }
+
+    var inverseColor: UIColor {
+        let rgba = self.rgba
+        return UIColor(red: 1 - rgba.red, green: 1 - rgba.green, blue: 1 - rgba.blue, alpha: rgba.alpha)
+    }
+
+    // https://en.wikipedia.org/wiki/Luma_%28video%29
+    var isLight: Bool {
+        guard let components = self.usingColorSpace(.sRGB)?.cgColor.components, components.count > 2 else { return false }
+        let brightness = components[0] * 0.2989 + components[1] * 0.587 + components[2] * 0.114
+        return brightness > 0.5
+    }
+
+    func isRGBEqual(_ color: UIColor, tolerance: CGFloat = 1.0e-06) -> Bool {
+        if self == color {
+            return true
+        }
+
+        let tolerance = min(1, max(0, tolerance))
+        let lColor = self.usingColorSpace(.sRGB) ?? self
+        let rColor = color.usingColorSpace(.sRGB) ?? color
+
+        let value = abs(lColor.alphaComponent - rColor.alphaComponent) +
+            abs(lColor.greenComponent - rColor.greenComponent) +
+            abs(lColor.blueComponent - rColor.blueComponent) +
+            abs(lColor.redComponent - rColor.redComponent)
+        return value < tolerance * 4
+    }
+
+    var title: String {
+        return isClear ? "No Fill".localized() : hex.uppercased()
+    }
+
+    convenience init(deviceRGB rgb: Int, alpha: Float = 1) {
+        self.init(deviceRed: rgb.red, green: rgb.green, blue: rgb.blue, alpha: CGFloat(alpha))
+    }
+}
+#endif
 
 private typealias RGB = Int
 private extension RGB {

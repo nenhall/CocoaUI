@@ -7,6 +7,11 @@
 
 import Foundation
 import CoreText
+#if os(macOS)
+import AppKit
+#else
+import UIKit
+#endif
 
 public extension String {
 
@@ -73,6 +78,7 @@ public extension String {
 }
 
 // MARK: - Localize
+
 public extension String {
 
     func localized(tableName: String? = nil, bundle: Bundle = .main, value: String = "", comment: String = "") -> String {
@@ -100,26 +106,29 @@ public extension String {
 }
 
 // MARK: - Rect
+
 public extension String {
 
-    func boundingRect(_ font: UIFont, options: NSString.DrawingOptions = [], attributes: [NSAttributedString.Key: Any]? = nil) -> NSRect {
+#if os(macOS)
+    func boundingRect(_ font: UIFont, options: NSString.DrawingOptions = [], attributes: [NSAttributedString.Key: Any]? = nil) -> CGRect {
         return boundingRect(font, size: .zero, options: options, attributes: attributes)
     }
 
-    func boundingRect(_ font: UIFont, width: CGFloat, options: NSString.DrawingOptions = .usesLineFragmentOrigin, attributes: [NSAttributedString.Key: Any]? = nil) -> NSRect {
+    func boundingRect(_ font: UIFont, width: CGFloat, options: NSString.DrawingOptions = .usesLineFragmentOrigin, attributes: [NSAttributedString.Key: Any]? = nil) -> CGRect {
         let size = NSSize(width: width, height: 0)
         return boundingRect(font, size: size, options: options, attributes: attributes)
     }
 
-    func boundingRect(_ font: UIFont, size: NSSize, options: NSString.DrawingOptions = [], attributes: [NSAttributedString.Key: Any]? = nil) -> NSRect {
+    func boundingRect(_ font: UIFont, size: NSSize, options: NSString.DrawingOptions = [], attributes: [NSAttributedString.Key: Any]? = nil) -> CGRect {
         var allAttributes = attributes ?? [:]
         allAttributes[.font] = font
         return boundingRect(with: size, options: options, attributes: allAttributes)
     }
 
-    func boundingRect(options: NSString.DrawingOptions = [], attributes: [NSAttributedString.Key: Any]? = nil) -> NSRect {
+    func boundingRect(options: NSString.DrawingOptions = [], attributes: [NSAttributedString.Key: Any]? = nil) -> CGRect {
         return boundingRect(with: .zero, options: options, attributes: attributes)
     }
+#endif
 }
 
 // MARK: - Path
