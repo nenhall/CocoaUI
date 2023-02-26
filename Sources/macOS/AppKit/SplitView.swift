@@ -11,8 +11,9 @@ public class SplitView: NSSplitView {
 
     lazy public private(set) var expandButton: NSButton = {
         let button = NSButton()
-        button.image = NSImage(named: NSImage.Name(""))
-        button.alternateImage = NSImage(named: NSImage.Name(""))
+        button.title = ""
+        button.setButtonType(.toggle)
+        button.state = .on
         addSubview(button)
         return button
     }()
@@ -20,17 +21,29 @@ public class SplitView: NSSplitView {
     @IBInspectable public var customDividerColor: NSColor? = .controlBackgroundColor {
         didSet { needsDisplay = true }
     }
-    
+    @IBInspectable public var handleColor: NSColor? = .controlBackgroundColor {
+        didSet { needsDisplay = true }
+    }
     @IBInspectable public var hiddenExpandButton: Bool = false {
         didSet { expandButton.isHidden = hiddenExpandButton }
     }
-    
     /// 是否允许拖拽，默认 `true`
     @IBInspectable public var enableDrag: Bool = true
     /// 是否允许自动折叠或展开，默认 `true`
     @IBInspectable public var autoCollapseOrExpand: Bool = true
-    /// 点击展开或者收起，默认 `true`
+    /// 收起时的图片
     @IBInspectable public var clickCollapseOrExpand: Bool = true
+    @IBInspectable public var collapseImage: NSImage? {
+        didSet {
+            expandButton.image = collapseImage
+        }
+    }
+    /// 展开图片
+    @IBInspectable public var expandImage: NSImage? {
+        didSet {
+            expandButton.alternateImage = expandImage
+        }
+    }
     
     /// 拖拽条最小的位置（宽），建议保持与`SplitView` Subview的最小宽一致
     /// - Note: eg. 点击需要左边的view，则设置此属性为左边的view的最小宽
@@ -67,7 +80,6 @@ public class SplitView: NSSplitView {
         super.awakeFromNib()
         expandButton.isBordered = false
         addSubview(expandButton)
-        
     }
     
     public override func layout() {
@@ -76,21 +88,12 @@ public class SplitView: NSSplitView {
     }
     
     private func didClickButton() {
-        if clickCollapseOrExpand == false {
-            return
-        }
-        guard let firstView = arrangedSubviews.first else {
-            return
-        }
+        guard clickCollapseOrExpand == true else { return }
         
-        if isSubviewCollapsed(firstView) {
+        if expandButton.state == .off {
             setPosition(minPositionOfDivider, ofDividerAt: 0)
-            expandButton.image = NSImage(named: NSImage.Name(""))
-            expandButton.alternateImage = NSImage(named: NSImage.Name(""))
         } else {
             setPosition(0, ofDividerAt: 0)
-            expandButton.image = NSImage(named: NSImage.Name(""))
-            expandButton.alternateImage = NSImage(named: NSImage.Name(""))
         }
     }
     
@@ -135,10 +138,13 @@ public class SplitView: NSSplitView {
             leftLine.frame = NSRect(origin: rect.origin, size: CGSize(width: rect.size.width, height: 1))
             rightLine.frame = NSRect(origin: vLinePoint, size: CGSize(width: rect.size.width, height: 1))
         }
+        if let firstView = arrangedSubviews.first {
+            expandButton.state = firstView.frame.width == 0 ? .off : .on
+        }
     }
     
     public override func drawDivider(in rect: NSRect) {
-
+        
         drawSplitLine(in: rect)
         
         if let customDividerColor = customDividerColor {
@@ -146,6 +152,25 @@ public class SplitView: NSSplitView {
             NSBezierPath.fill(rect)
         }
         
+        let pointFrame: NSRect
+        if isVertical {
+            let widthHeight = rect.size.width - 2
+            let x = (rect.width - widthHeight) * 0.5
+            let y = (rect.height * 0.5) - (rect.size.width * 0.5)
+            pointFrame = NSRect(x: rect.origin.x + x, y: y, width: widthHeight, height: widthHeight)
+        } else {
+            let widthHeight = rect.size.height - 2
+            let x = (rect.width * 0.5) - (rect.size.height * 0.5)
+            let y = (rect.height - widthHeight) * 0.5
+            pointFrame = NSRect(x: x, y: rect.origin.y + y, width: widthHeight, height: widthHeight)
+        }
+        
+        if let handleColor = handleColor {
+            let path = NSBezierPath(roundedRect: pointFrame, xRadius: pointFrame.width * 0.5, yRadius: pointFrame.height * 0.5)
+            handleColor.setFill()
+            path.fill()
+        }
+                
         if enableDrag == false {
             super.drawDivider(in: rect)
             return
@@ -155,28 +180,7 @@ public class SplitView: NSSplitView {
             super.drawDivider(in: rect)
             return
         }
-        
-        if isSubviewCollapsed(firstView) {
-//            expandButton.image = NSImage.init(named: NSImage.Name("downpull_n"))
-//            expandButton.alternateImage = NSImage.init(named: NSImage.Name("downpull_n"))
-            expandButton.toolTip = ""
-        } else {
-//            expandButton.image = NSImage.init(named: NSImage.Name("downpull_n"))
-//            expandButton.alternateImage = NSImage.init(named: NSImage.Name("downpull_n"))
-            expandButton.toolTip = ""
-        }
-        
-        if isVertical {
-            let widthHeight = rect.size.width - 2
-            let x = (rect.width - widthHeight) * 0.5
-            let y = (rect.height * 0.5) - (rect.size.width * 0.5)
-            expandButton.frame = NSRect(x: rect.origin.x + x, y: y, width: widthHeight, height: widthHeight)
-        } else {
-            let widthHeight = rect.size.height - 2
-            let x = (rect.width * 0.5) - (rect.size.height * 0.5)
-            let y = (rect.height - widthHeight) * 0.5
-            expandButton.frame = NSRect(x: x, y: rect.origin.y + y, width: widthHeight, height: widthHeight)
-        }
+        expandButton.frame = pointFrame
     }
     
 }
