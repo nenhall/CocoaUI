@@ -22,15 +22,15 @@ let package = Package(
         .target(
             name: "Multiplatform",
             dependencies: [],
-            path: "Sources/CocoaUI/multiplatform"),
+            path: "Sources/multiplatform"),
         .target(
             name: "CocoaUIMacOS",
             dependencies: ["Multiplatform"],
-            path: "Sources/CocoaUI/macOS"),
+            path: "Sources/macOS"),
         .target(
             name: "CocoaUIiOS",
             dependencies: ["Multiplatform"],
-            path: "Sources/CocoaUI/iOS"),
+            path: "Sources/iOS"),
         .testTarget(
             name: "CocoaUITests",
             dependencies: ["CocoaUIMacOS", "CocoaUIiOS"]),

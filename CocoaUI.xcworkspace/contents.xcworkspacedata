@@ -2,12 +2,15 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:CocoaUI">
+      location = "group:">
    </FileRef>
    <FileRef
-      location = "group:MacOSExample/MacOSExample.xcodeproj">
+      location = "group:Example/MacOSExample/MacOSExample.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:iOSExample/iOSExample.xcodeproj">
+      location = "group:Example/iOSExample/iOSExample.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
