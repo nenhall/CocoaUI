@@ -51,6 +51,7 @@ public extension ViewRepresentable {
     func updateView(_ nsView: ViewType, context: Context) { }
 }
 
+@available(macOS 10.15, *)
 public struct AnyView<Wrapper: UIView>: ViewRepresentable {
     public typealias ViewType = Wrapper
 
