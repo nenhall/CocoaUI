@@ -7,7 +7,7 @@
 
 import Foundation
 
-open class View: UIView {
+open class CocoaView: UIView {
 
     public override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -24,7 +24,7 @@ open class View: UIView {
 
 }
 
-open class ViewController: UIViewController {
+open class CocoaViewController: UIViewController {
 
     open override func viewDidLoad() {
         super.viewDidLoad()

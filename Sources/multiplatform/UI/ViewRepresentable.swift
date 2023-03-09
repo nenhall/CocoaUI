@@ -52,7 +52,7 @@ public extension ViewRepresentable {
 }
 
 @available(macOS 10.15, *)
-public struct AnyView<Wrapper: UIView>: ViewRepresentable {
+public struct CocoaAnyView<Wrapper: UIView>: ViewRepresentable {
     public typealias ViewType = Wrapper
 
     public var makeView: () -> Wrapper
