@@ -1,39 +1,43 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.5
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
     name: "CocoaUI",
-    platforms: [.macOS(.v10_14),
-                .iOS(.v11)],
+    platforms: [
+        .macOS(.v10_15),
+        .iOS(.v11)
+    ],
     products: [
         .library(
-            name: "macOS",
-            targets: ["CocoaUIMacOS"]),
-        .library(
-            name: "iOS",
-            targets: ["CocoaUIiOS"])
+            name: "CocoaUI",
+            targets: ["CocoaUI"]
+        ),
     ],
-    dependencies: [
-        // .package(url: /* package url */, from: "1.0.0"),
-    ],
+//    dependencies: [
+//        .package(url: "https://github.com/realm/SwiftLint.git", revision: "0.39.0")
+//    ],
     targets: [
         .target(
-            name: "Multiplatform",
-            dependencies: [],
-            path: "Sources/multiplatform"),
-        .target(
-            name: "CocoaUIMacOS",
-            dependencies: ["Multiplatform"],
-            path: "Sources/macOS"),
-        .target(
-            name: "CocoaUIiOS",
-            dependencies: ["Multiplatform"],
-            path: "Sources/iOS"),
+            name: "CocoaUI",
+            sources: platformSpecificSources()
+//            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
+        ),
         .testTarget(
             name: "CocoaUITests",
-            dependencies: ["CocoaUIMacOS", "CocoaUIiOS"]),
+            dependencies: ["CocoaUI"]
+        ),
     ],
     swiftLanguageVersions: [.v5]
 )
+
+func platformSpecificSources() -> [String] {
+    [
+        "Common",
+        "macOS/AppKit",
+        "macOS/Foundation",
+        "macOS/Units",
+        "iOS"
+    ]
+}
