@@ -14,6 +14,7 @@ public typealias UIColor = NSColor
 public typealias CGRect = NSRect
 public typealias UIFont = NSFont
 public typealias UIViewController = NSViewController
+public typealias UIScrollView = NSScrollView
 #else
 import UIKit
 #endif

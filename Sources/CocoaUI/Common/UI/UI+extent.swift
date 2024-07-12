@@ -13,7 +13,6 @@ import UIKit
 #endif
 
 open class CocoaView: UIView {
-
     public override init(frame frameRect: CGRect) {
         super.init(frame: frameRect)
         setupSubviews()
@@ -26,11 +25,9 @@ open class CocoaView: UIView {
     open func setupSubviews() {
 
     }
-
 }
 
 open class CocoaViewController: UIViewController {
-
     open override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,5 +37,12 @@ open class CocoaViewController: UIViewController {
     open func setupSubviews() {
 
     }
-
 }
+
+#if os(macOS)
+extension NSTextField {
+    public func setBackground(color: NSColor) {
+        backgroundColor = color
+    }
+}
+#endif
