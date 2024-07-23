@@ -41,13 +41,14 @@ public struct Panel {
         return response == .OK ? panel.urls : nil
     }
     
-    public static func showSave(directoryPath: String, title: String? = nil, message: String? = nil, prompt: String? = nil) -> URL? {
+    public static func showSave(directoryPath: String, name: String? = nil, message: String? = nil, prompt: String? = nil) -> URL? {
         let panel = NSSavePanel()
         panel.canCreateDirectories = true
         panel.isExtensionHidden = false
         panel.directoryURL = URL(fileURLWithPath: directoryPath)
-        if let title = title {
-            panel.title = title
+        if let name = name {
+            panel.title = name
+            panel.nameFieldStringValue = name
         }
         if let message = message {
             panel.message = message
@@ -57,7 +58,7 @@ public struct Panel {
         }
         panel.center()
         let response = panel.runModal()
-        return response == .OK ? panel.directoryURL : nil
+        return response == .OK ? panel.url : nil
     }
 }
 #endif
