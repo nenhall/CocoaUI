@@ -5,6 +5,7 @@
 //  Created by dadi on 2024/7/23.
 //
 
+#if os(macOS)
 import AppKit
 import AVFoundation
 import CoreImage
@@ -83,3 +84,4 @@ public extension NSImage {
         unlockFocus()
     }
 }
+#endif
