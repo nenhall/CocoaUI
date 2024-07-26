@@ -32,12 +32,19 @@ public struct AsyncImageView: View {
                         .cornerRadius(4.0)
                 }
             } else {
-                if #available(iOS 14.0, *) {
+                if #available(iOS 14.0, macOS 11.0, *) {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .black))
                 } else {
                     CocoaAnyView {
+#if os(macOS)
+                        let indicator = NSProgressIndicator()
+                        indicator.style = .spinning
+                        indicator.isDisplayedWhenStopped = true
+                        return indicator
+#else
                         UIProgressView(progressViewStyle: .default)
+#endif
                     } updater: { _ in
                     }
                 }
