@@ -5,6 +5,8 @@
 //  Created by dadi on 2024/7/29.
 //
 
+#if os(iOS)
+
 import Foundation
 import UIKit
 
@@ -51,3 +53,4 @@ public extension UIApplication {
     }
 }
 
+#endif
