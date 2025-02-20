@@ -76,7 +76,7 @@ public class CoShapeLayer: CAShapeLayer {
 }
 
 extension NSView {
-    fileprivate static var kShapeLayer = "ShapeLayer"
+    fileprivate static var kShapeLayer: UInt8 = 0
 
     /// 约束依赖的 View 隐藏后，自动往前补位
     private var shapeLayer: CoShapeLayer? {

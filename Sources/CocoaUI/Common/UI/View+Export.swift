@@ -36,10 +36,12 @@ public extension UIView {
             let savedFrame = scrollView.frame
             scrollView.contentOffset = .zero
             let color = scrollView.backgroundColor
-            if UIScreen.main.traitCollection.userInterfaceStyle == .dark {
-                scrollView.backgroundColor = .black
-            } else {
-                scrollView.backgroundColor = .white
+            if #available(iOS 12.0, *) {
+                if UIScreen.main.traitCollection.userInterfaceStyle == .dark {
+                    scrollView.backgroundColor = .black
+                } else {
+                    scrollView.backgroundColor = .white
+                }
             }
             scrollView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
             scrollView.layer.render(in: UIGraphicsGetCurrentContext()!)

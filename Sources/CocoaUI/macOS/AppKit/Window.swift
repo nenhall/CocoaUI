@@ -422,7 +422,7 @@ open class Window: NSWindow {
 }
 
 public extension NSWindow {
-    fileprivate static var kIsFullScreenKey = "IsFullScreenKey"
+    fileprivate static var kIsFullScreenKey: UInt8 = 0
     /// 是否全屏状态
     var isFullScreen: Bool {
         set {

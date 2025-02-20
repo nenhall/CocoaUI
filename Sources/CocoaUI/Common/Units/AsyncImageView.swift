@@ -55,18 +55,21 @@ public struct AsyncImageView: View {
     func load() {
         imageLoader.load(url: url)
     }
-
-    public func saveImage() {
-        let name = "lingrealm-\(url.lastPathComponent)"
-#if os(macOS)
-        guard let url = Panel.showSave(directoryPath: "/Users/\(NSUserName())", name: name) else { return }
+    
+    public func getImage(callback: @escaping (_ image: UIImage?) ->()) {
         DispatchQueue.global().async {
-            guard let image = NSImage(contentsOf: self.url) else { return }
-            image.save(to: url, with: .png)
-        }
+#if os(macOS)
+            let image = NSImage(contentsOf: url)
+            callback(image)
 #else
-
+            if let data = try? Data(contentsOf: url) {
+                let image = UIImage(data: data)
+                callback(image)
+            } else {
+                callback(nil)
+            }
 #endif
+        }
     }
 }
 
