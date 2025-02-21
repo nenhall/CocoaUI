@@ -35,9 +35,7 @@ let package = Package(
 func platformSpecificSources() -> [String] {
     [
         "Common",
-        "macOS/AppKit",
-        "macOS/Foundation",
-        "macOS/Units",
+        "macOS",
         "iOS"
     ]
 }

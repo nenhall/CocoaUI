@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'CocoaUI'
-    s.version          = '0.2.0'
+    s.version          = '0.3.0'
     s.summary          = 'macOS、iOS UI控件'
     s.description      = <<-DESC
                          apple 多平台通用的UI控件，支持 AppKit、UIKit、swiftUI
