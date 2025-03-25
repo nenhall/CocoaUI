@@ -11,7 +11,7 @@ import os.log
 
 class ImageLoader: ObservableObject {
     static let cache = NSCache<NSString, UIImage>()
-    @available(macOS 11.0, *)
+    @available(macOS 11.0, iOS 14.0, *)
     private static let logger = Logger(subsystem: "com.example.", category: "Networking")
     
     @Published var image: UIImage?
@@ -58,7 +58,7 @@ class ImageLoader: ObservableObject {
                 receiveCompletion: { [weak self] completion in
                     self?.isLoading = false
                     if case .failure(let error) = completion {
-                        if #available(macOS 11.0, *) {
+                        if #available(macOS 11.0, iOS 14.0, *) {
                             Self.logger.error("图片加载失败: \\(error.localizedDescription)")
                         } else {
                             debugPrint("图片加载失败: \\(error.localizedDescription)")

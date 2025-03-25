@@ -8,10 +8,9 @@
 #if os(iOS)
 import UIKit
 #else
-import Cocoa
+import AppKit
 #endif
 
 public extension UIFont {
-
     static let `default` = UIFont.systemFont(ofSize: UIFont.systemFontSize)
 }

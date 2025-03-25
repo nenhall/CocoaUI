@@ -6,7 +6,7 @@
 //
 
 #if os(macOS)
-import Cocoa
+import AppKit
 
 // MARK: - NSViewController xib
 public extension NSViewController {

@@ -11,6 +11,7 @@ import Cocoa
 #else
 import UIKit
 #endif
+import SwiftUI
 
 public extension UIColor {
     static var random: UIColor {
@@ -61,6 +62,12 @@ public struct RGBA {
     var alpha: CGFloat
 }
 
+#if os(iOS)
+public extension UIColor {
+    static let textColor = UIColor.secondaryLabel
+    static var controlBackgroundColor = UIColor.secondarySystemBackground
+}
+#endif
 
 #if os(macOS)
 public extension UIColor {

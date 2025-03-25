@@ -7,7 +7,7 @@ let package = Package(
     name: "CocoaUI",
     platforms: [
         .macOS(.v10_15),
-        .iOS(.v11)
+        .iOS(.v13)
     ],
     products: [
         .library(
