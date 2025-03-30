@@ -15,14 +15,17 @@ let package = Package(
             targets: ["CocoaUI"]
         ),
     ],
-//    dependencies: [
-//        .package(url: "https://github.com/realm/SwiftLint.git", revision: "0.39.0")
-//    ],
+    //    dependencies: [
+    //        .package(url: "https://github.com/realm/SwiftLint.git", revision: "0.39.0")
+    //    ],
     targets: [
         .target(
             name: "CocoaUI",
-            sources: platformSpecificSources()
-//            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
+            sources: platformSpecificSources(),
+            swiftSettings: [
+                .unsafeFlags(["-enable-library-evolution"])
+            ]
+            //            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
         ),
         .testTarget(
             name: "CocoaUITests",
