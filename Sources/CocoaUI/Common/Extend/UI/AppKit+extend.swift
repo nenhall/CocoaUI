@@ -15,8 +15,11 @@ public typealias CGRect = NSRect
 public typealias UIFont = NSFont
 public typealias UIViewController = NSViewController
 public typealias UIScrollView = NSScrollView
+public typealias UITextView = NSTextView
+public let macOSPlatform = true
 #else
 import UIKit
+public let macOSPlatform = false
 #endif
 
 public let notify = NotificationCenter.default

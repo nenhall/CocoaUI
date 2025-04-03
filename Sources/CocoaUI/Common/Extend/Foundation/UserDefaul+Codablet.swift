@@ -26,7 +26,7 @@ public extension UserDefaults {
 }
 
 @propertyWrapper
-public struct CodableUserDefault<T: Codable> {
+public struct AppStorageObject<T: Codable> {
     public let key: String
     public let defaultValue: T
 
