@@ -10,19 +10,32 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 public struct Panel {
-    
-    @available(macOS 11.0, *)
-    public static func showOpen(fileTypes: [UTType]? = nil,
-                         title: String? = nil,
-                         message: String? = nil,
-                         multipleSelection: Bool = false) -> [URL]? {
-        return Self.showOpen(fileTypes: fileTypes?.map({ $0.identifier }), title: title, message: message, multipleSelection: multipleSelection)
+    public enum OpenModelType {
+        case runModel
+        case sheetModel(_ handler: (_ urls: [URL]?) -> Void)
     }
     
+    public enum SaveModelType {
+        case runModel
+        case sheetModel(_ handler: (_ url: URL?) -> Void)
+    }
+    
+    @available(macOS 11.0, *)
+    @discardableResult
+    public static func showOpen(fileTypes: [UTType]? = nil,
+                                title: String? = nil,
+                                message: String? = nil,
+                                multipleSelection: Bool = false,
+                                modalType: OpenModelType = .runModel) -> [URL]? {
+        return Self.showOpen(fileTypes: fileTypes?.map({ $0.identifier }), title: title, message: message, multipleSelection: multipleSelection, modalType: modalType)
+    }
+    
+    @discardableResult
     public static func showOpen(fileTypes: [String]? = nil,
-                         title: String? = nil,
-                         message: String? = nil,
-                         multipleSelection: Bool = false) -> [URL]? {
+                                title: String? = nil,
+                                message: String? = nil,
+                                multipleSelection: Bool = false,
+                                modalType: OpenModelType = .runModel) -> [URL]? {
         let panel = NSOpenPanel()
         panel.allowedFileTypes = fileTypes
         panel.canCreateDirectories = false
@@ -37,11 +50,23 @@ public struct Panel {
             panel.message = message
         }
         panel.center()
-        let response = panel.runModal()
-        return response == .OK ? panel.urls : nil
+        
+        switch modalType {
+        case .runModel:
+            return panel.runModal() == .OK ? panel.urls : nil
+        case .sheetModel(let handler):
+            guard let keyWindow = NSApplication.shared.keyWindow ?? NSApplication.shared.mainWindow else {
+                handler(nil)
+                return nil
+            }
+            panel.beginSheetModal(for: keyWindow) { response in
+                handler(response == .OK ? panel.urls : nil)
+            }
+        }
+        return nil
     }
     
-    public static func showSave(directoryPath: String, name: String? = nil, message: String? = nil, prompt: String? = nil) -> URL? {
+    public static func showSave(directoryPath: String, name: String? = nil, message: String? = nil, prompt: String? = nil, modalType: SaveModelType = .runModel) -> URL? {
         let panel = NSSavePanel()
         panel.canCreateDirectories = true
         panel.isExtensionHidden = false
@@ -57,8 +82,16 @@ public struct Panel {
             panel.prompt = prompt
         }
         panel.center()
-        let response = panel.runModal()
-        return response == .OK ? panel.url : nil
+        
+        switch modalType {
+        case .runModel:
+            return panel.runModal() == .OK ? panel.url : nil
+        case .sheetModel(let handler):
+            panel.beginSheetModal(for: NSApplication.shared.keyWindow!) { response in
+                handler(response == .OK ? panel.url : nil)
+            }
+        }
+        return nil
     }
 }
 #endif

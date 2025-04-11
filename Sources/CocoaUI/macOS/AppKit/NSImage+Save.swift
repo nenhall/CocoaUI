@@ -11,20 +11,14 @@ import AVFoundation
 import CoreImage
 
 public extension NSImage {
-    enum StorageFormat: String {
-        case png
-        case jpeg
-        case heic
-    }
-
     @discardableResult
-    func save(toPath destinationPath: String, with format: StorageFormat, compression factor: CGFloat = 0.8) -> Result<Void, Error> {
+    func save(toPath destinationPath: String, with format: StorageFormat, compression factor: CGFloat = 0.8) -> Result<URL, Error> {
         let destinationURL = URL(fileURLWithPath: destinationPath)
         return save(to: destinationURL, with: format, compression: factor)
     }
 
     @discardableResult
-    func save(to destinationURL: URL, with format: StorageFormat, compression factor: CGFloat = 0.8) -> Result<Void, Error> {
+    func save(to destinationURL: URL, with format: StorageFormat, compression factor: CGFloat = 0.8) -> Result<URL, Error> {
         guard let cgImage = cgImage(forProposedRect: nil, context: nil, hints: nil) else {
             return .failure(NSError(domain: "ImageConversionError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Couldn't convert the image."]))
         }
@@ -55,7 +49,7 @@ public extension NSImage {
             CGImageDestinationAddImage(destination, cgImage, options)
             let success = CGImageDestinationFinalize(destination)
             if success {
-                return .success(())
+                return .success(destinationURL)
             } else {
                 print("saveImage failed: ", destinationURL.path)
                 return .failure(NSError(domain: "ImageRepresentationError",
@@ -72,7 +66,7 @@ public extension NSImage {
 
         do {
             try finalData.write(to: destinationURL)
-            return .success(())
+            return .success(destinationURL)
         } catch {
             return .failure(error)
         }
