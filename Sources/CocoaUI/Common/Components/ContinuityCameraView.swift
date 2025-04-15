@@ -17,7 +17,7 @@ public struct ContinuityCameraView: NSViewRepresentable {
 
     public enum OperationType {
         case image(_ image: NSImage)
-        case file(_ url: URL)
+        case pdf(_ url: Data)
         case unsupported(_ errorString: String)
     }
     
@@ -56,11 +56,18 @@ public class CameraResponderView: NSView, NSServicesMenuRequestor {
     
     // MARK: - 处理图像数据
     public func readSelection(from pasteboard: NSPasteboard) -> Bool {
-        guard let image = NSImage(pasteboard: pasteboard) else { return false }
-        DispatchQueue.main.async {
-            self.onReceive?(.image(image))
+        if let pdfData = pasteboard.data(forType: .pdf) {
+            DispatchQueue.main.async {
+                self.onReceive?(.pdf(pdfData))
+            }
+            return true
         }
-        return true
+        if let image = NSImage(pasteboard: pasteboard) {
+            DispatchQueue.main.async {
+                self.onReceive?(.image(image))
+            }
+        }
+        return false
     }
     
     // MARK: - 触发菜单显示
@@ -78,6 +85,10 @@ public class CameraResponderView: NSView, NSServicesMenuRequestor {
             didOpen = false
         }
     }
+}
+
+extension NSPasteboard.PasteboardType {
+    static let pdf = NSPasteboard.PasteboardType("com.adobe.pdf") // 标准 PDF UTI
 }
 
 extension CameraResponderView: NSMenuDelegate {

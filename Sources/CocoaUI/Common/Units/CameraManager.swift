@@ -14,8 +14,13 @@ public class CameraManager: ObservableObject {
     
     @Published public var connectedMobleDevice: Bool = false
     private lazy var discoverySession: AVCaptureDevice.DiscoverySession = {
-        AVCaptureDevice.DiscoverySession(
-            deviceTypes: [.builtInWideAngleCamera, .externalUnknown],
+        #if os(iOS)
+        let deviceTypes: [AVCaptureDevice.DeviceType] = [.builtInWideAngleCamera]
+#else
+        let deviceTypes: [AVCaptureDevice.DeviceType] = [.builtInWideAngleCamera, .externalUnknown]
+#endif
+        return AVCaptureDevice.DiscoverySession(
+            deviceTypes: deviceTypes,
             mediaType: .video,
             position: .unspecified
         )
