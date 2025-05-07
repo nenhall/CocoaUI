@@ -19,7 +19,8 @@ class ImageLoader: ObservableObject {
     @Published var error: Error?
     
     private var cancellable: AnyCancellable?
-    private let queue = DispatchQueue(label: "image-loader", qos: .userInitiated)
+    private let downloadQueue = DispatchQueue(label: "image-download", qos: .background)
+    private let loadQueue = DispatchQueue(label: "image-loader", qos: .userInitiated)
     
     func load(url: String) {
         guard let url = URL(string: url) else {
@@ -27,49 +28,55 @@ class ImageLoader: ObservableObject {
             return
         }
         
-        // 内存缓存检查
-        if let cachedImage = Self.cache.object(forKey: url.absoluteString as NSString) {
+        loadQueue.async { [weak self] in
+            guard let self = self else { return }
+            
+            // 内存缓存检查
+            if let cachedImage = Self.cache.object(forKey: url.absoluteString as NSString) {
+                DispatchQueue.main.async {
+                    self.image = cachedImage
+                }
+                return
+            }
+            
             DispatchQueue.main.async {
-                self.image = cachedImage
+                self.isLoading = true
+                self.error = nil
             }
-            return
-        }
-        
-        isLoading = true
-        error = nil
-        
-        cancellable = URLSession.shared.dataTaskPublisher(for: url)
-            .subscribe(on: queue)
-            .tryMap { output in
-                guard let response = output.response as? HTTPURLResponse,
-                      200..<300 ~= response.statusCode else {
-                    throw URLError(.badServerResponse)
-                }
-                guard let image = UIImage(data: output.data) else {
-                    throw URLError(.cannotDecodeContentData)
-                }
-                return image
-            }
-            .handleEvents(receiveOutput: { image in
-                Self.cache.setObject(image, forKey: url.absoluteString as NSString)
-            })
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { [weak self] completion in
-                    self?.isLoading = false
-                    if case .failure(let error) = completion {
-                        if #available(macOS 11.0, iOS 14.0, *) {
-                            Self.logger.error("图片加载失败: \\(error.localizedDescription)")
-                        } else {
-                            debugPrint("图片加载失败: \\(error.localizedDescription)")
-                        }
-                        self?.error = error
+            
+            self.cancellable = URLSession.shared.dataTaskPublisher(for: url)
+                .subscribe(on: self.downloadQueue)
+                .tryMap { output in
+                    guard let response = output.response as? HTTPURLResponse,
+                          200..<300 ~= response.statusCode else {
+                        throw URLError(.badServerResponse)
                     }
-                },
-                receiveValue: { [weak self] image in
-                    self?.image = image
+                    guard let image = UIImage(data: output.data) else {
+                        throw URLError(.cannotDecodeContentData)
+                    }
+                    return image
                 }
-            )
+                .handleEvents(receiveOutput: { image in
+                    Self.cache.setObject(image, forKey: url.absoluteString as NSString)
+                })
+                .receive(on: DispatchQueue.main)
+                .sink(
+                    receiveCompletion: { [weak self] completion in
+                        self?.isLoading = false
+                        if case .failure(let error) = completion {
+                            if #available(macOS 11.0, iOS 14.0, *) {
+                                Self.logger.error("图片加载失败: \\(error.localizedDescription)")
+                            } else {
+                                debugPrint("图片加载失败: \\(error.localizedDescription)")
+                            }
+                            self?.error = error
+                        }
+                    },
+                    receiveValue: { [weak self] image in
+                        self?.image = image
+                    }
+                )
+        }
     }
     
     func cancel() {
