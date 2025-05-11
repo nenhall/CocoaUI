@@ -16,6 +16,9 @@ public typealias UIFont = NSFont
 public typealias UIViewController = NSViewController
 public typealias UIScrollView = NSScrollView
 public typealias UITextView = NSTextView
+public typealias UIScreen = NSScreen
+public typealias UIWindow = NSWindow
+public typealias UIEdgeInsets = NSEdgeInsets
 public let macOSPlatform = true
 #else
 import UIKit
