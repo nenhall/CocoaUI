@@ -13,7 +13,6 @@ import UIKit
 #endif
 
 public extension NSObject {
-    
 #if os(macOS)
     var onlyClassName: String {
         return className.components(separatedBy: ".").last ?? ""
