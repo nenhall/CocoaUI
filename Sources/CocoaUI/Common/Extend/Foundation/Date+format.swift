@@ -26,4 +26,22 @@ public extension String {
         
         return dateFormatter.string(from: date)
     }
+    
+    /// utc 时间转换为当前地区的时间
+    /// 假设有一个 UTC 时间字符串: "2025-05-10T01:22:20Z"
+    func utcConvertToLocalTime() -> String {
+        let isoFormatter = ISO8601DateFormatter()
+        isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds] // 支持毫秒
+
+        guard let utcDate = isoFormatter.date(from: self) else {
+            return self
+        }
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        let localDateString = dateFormatter.string(from: utcDate)
+        return localDateString
+    }
 }

@@ -246,3 +246,15 @@ public extension NSAttributedString {
         return path
     }
 }
+
+public extension String {
+    func hidePhoneNumber() -> String {
+        guard self.count >= 7 else { return self }
+        
+        let prefix = self.prefix(3)          // 前3位（150）
+        let suffix = self.suffix(4)          // 后4位（2013）
+        let hiddenPart = "****"              // 中间隐藏部分
+        
+        return "\(prefix)\(hiddenPart)\(suffix)"
+    }
+}

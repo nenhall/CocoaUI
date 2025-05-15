@@ -28,6 +28,8 @@ public typealias UICollectionViewLayout = NSCollectionViewLayout
 public typealias UICollectionViewDataSource = NSCollectionViewDataSource
 public typealias UICollectionViewFlowLayout = NSCollectionViewFlowLayout
 public typealias UICollectionViewDelegateFlowLayout = NSCollectionViewDelegateFlowLayout
+public typealias UICollectionViewDelegate = NSCollectionViewDelegate
+public typealias UITextField = NSTextField
 
 public let macOSPlatform = true
 #else
