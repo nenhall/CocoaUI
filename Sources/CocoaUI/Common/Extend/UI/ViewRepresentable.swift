@@ -11,6 +11,9 @@ import SwiftUI
 import Cocoa
 @available(macOS 10.15, *)
 public typealias UIViewRepresentable = NSViewRepresentable
+public typealias UIViewControllerRepresentable = NSViewControllerRepresentable
+public typealias UIViewControllerRepresentableContext = NSViewControllerRepresentableContext
+//public typealias UIViewControllerType = NSViewControllerType
 @available(macOS 10.15, *)
 public typealias UIViewRepresentableContext = NSViewRepresentableContext
 #else
@@ -52,23 +55,42 @@ public extension ViewRepresentable {
 }
 
 @available(macOS 10.15, iOS 13.0, *)
-public struct CocoaAnyView<Wrapper: UIView>: ViewRepresentable {
-    public typealias ViewType = Wrapper
+public protocol ViewControllerRepresentable: UIViewControllerRepresentable {
+    associatedtype ViewControllerType : UIViewController
 
-    public var makeView: () -> Wrapper
-    public var update: (_ nsView: Wrapper, Context) -> Void
+    typealias Context = UIViewControllerRepresentableContext<Self>
 
-    public init(makeView: @escaping () -> Wrapper,
-                updater update: ((_ nsView: Wrapper) -> Void)? = nil) {
-        self.makeView = makeView
-        self.update = { view, _ in update?(view) }
+    @MainActor func makeViewController(context: Self.Context) -> Self.ViewControllerType
+    @MainActor func updateViewController(_ uiViewController: Self.ViewControllerType, context: Self.Context)
+    @MainActor static func dismantleViewController(_ uiViewController: Self.ViewControllerType, coordinator: Self.Coordinator)
+}
+
+@available(macOS 10.15, iOS 13.0, *)
+public extension ViewControllerRepresentable {
+    
+#if os(macOS)
+    @MainActor func makeNSViewController(context: Self.Context) -> Self.ViewControllerType {
+        makeViewController(context: context)
+    }
+
+    @MainActor func updateNSViewController(_ nsViewController: Self.ViewControllerType, context: Self.Context) {
+        updateViewController(nsViewController, context: context)
     }
     
-    public func makeView(context: Context) -> Wrapper {
-        makeView()
+    @MainActor static func dismantleNSViewController(_ nsViewController: Self.ViewControllerType, coordinator: Self.Coordinator) {
+        dismantleViewController(nsViewController, coordinator: coordinator)
     }
-    
-    public func updateView(_ nsView: Wrapper, context: Context) {
-        update(nsView, context)
+#else
+    @MainActor func makeUIViewController(context: Self.Context) -> Self.ViewControllerType {
+        makeViewController(context: context)
     }
+
+    @MainActor func updateUIViewController(_ uiViewController: Self.ViewControllerType, context: Self.Context) {
+        updateViewController(uiViewController, context: context)
+    }
+
+    @MainActor static func dismantleUIViewController(_ uiViewController: Self.ViewControllerType, coordinator: Self.Coordinator) {
+        dismantleViewController(uiViewController, coordinator: coordinator)
+    }
+#endif
 }
