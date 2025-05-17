@@ -26,13 +26,14 @@ public struct PDFViewer: ViewRepresentable {
         let pdfView = PDFView(frame: .zero)
 #if os(macOS)
         let autoresizingMask: UIView.AutoresizingMask = [.minXMargin, .minYMargin, .width, .height]
+        pdfView.enclosingScrollView?.autohidesScrollers = true
+        pdfView.enclosingScrollView?.hasVerticalScroller = hideScrollBar
 #else
         let autoresizingMask: UIView.AutoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleRightMargin, .flexibleBottomMargin, .flexibleWidth, .flexibleHeight]
 #endif
         pdfView.autoresizingMask = autoresizingMask
         pdfView.translatesAutoresizingMaskIntoConstraints = true
-        pdfView.enclosingScrollView?.autohidesScrollers = true
-        pdfView.enclosingScrollView?.hasVerticalScroller = hideScrollBar
+        
         if hideScrollBar {
             hideScrollBars(in: pdfView)
         }
