@@ -24,8 +24,6 @@ public struct HoverableButtonStyle: ButtonStyle {
     
     public func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
             .background(hoverBackground(isPressed: configuration.isPressed))
             .overlay(borderOverlay)
             .contentShape(RoundedRectangle(cornerRadius: cornerRadius))

@@ -34,8 +34,6 @@ public struct EnhancedButtonStyle: ButtonStyle {
     
     public func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
             .background(backgroundShape(isPressed: configuration.isPressed))
             .overlay(borderOverlay)
             .contentShape(RoundedRectangle(cornerRadius: cornerRadius))
