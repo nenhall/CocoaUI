@@ -49,7 +49,7 @@ public enum Logging {
     }
 
     /// 记录一些会让你在晚上保持清醒的内容 (highest)
-    static func error(_ items: Any?..., type: LogModuleType = .none, separator: String = " ", _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    public static func error(_ items: Any?..., type: LogModuleType = .none, separator: String = " ", _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
         log.error(type.description + items.toString(separator), file: file, function: function, line: line)
     }
 }

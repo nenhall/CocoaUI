@@ -72,11 +72,9 @@ public extension NSWorkspace {
         // 先启动，让其成为活跃窗口，否则不会弹到最前面
         if needOpenSystempreferences,
            appRunning(bundleIdentifier: SysPreferences.bundleID) == false {
-            launchApplication(withBundleIdentifier: SysPreferences.bundleID,
-                              options: [.inhibitingBackgroundOnly],
-                              additionalEventParamDescriptor: nil,
-                              launchIdentifier: nil)
-
+            if let safariURL = NSWorkspace.shared.urlForApplication(withBundleIdentifier: SysPreferences.bundleID) {
+                openApplication(at: safariURL, configuration: NSWorkspace.OpenConfiguration())
+            }
         }
         open(url)
     }

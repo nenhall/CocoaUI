@@ -6,7 +6,7 @@
 //
 
 #if os(macOS)
-import Cocoa
+import AppKit
 
 open class CocoaView: UIView {
     private var isEnabled: Bool = true

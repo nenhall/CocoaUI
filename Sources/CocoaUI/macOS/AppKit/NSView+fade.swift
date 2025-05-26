@@ -7,9 +7,10 @@
 
 #if os(macOS)
 import Cocoa
+import QuartzCore
+import AppKit
 
 public extension CAMediaTimingFunction {
-
     static let `default`     = CAMediaTimingFunction(name: .default)
     static let linear        = CAMediaTimingFunction(name: .linear)
     static let easeIn        = CAMediaTimingFunction(name: .easeIn)

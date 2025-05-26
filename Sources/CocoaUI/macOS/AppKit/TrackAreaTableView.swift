@@ -6,7 +6,7 @@
 //
 
 #if os(macOS)
-import Cocoa
+import AppKit
 
 public protocol TrackAreaDelegate: AnyObject {
     func trackAreaMouseMoved(_ trackView: NSView, indexPath: IndexPath?, lastIndex: IndexPath?, point: NSPoint)
