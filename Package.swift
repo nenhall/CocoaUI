@@ -6,26 +6,40 @@ import PackageDescription
 let package = Package(
     name: "CocoaUI",
     platforms: [
-        .macOS(.v10_15),
-        .iOS(.v13)
+        .macOS(.v11),
+        .iOS(.v14)
     ],
     products: [
         .library(
             name: "CocoaUI",
-            targets: ["CocoaUI"]
+            targets: ["CocoaUI", "CocoaLogging"]
+        ),
+        .library(
+            name: "CocoaLogging",
+            targets: ["CocoaLogging"]
         ),
     ],
-    //    dependencies: [
+        dependencies: [
+            .package(url: "https://github.com/SwiftyBeaver/SwiftyBeaver.git", from: "2.0.0"),
     //        .package(url: "https://github.com/realm/SwiftLint.git", revision: "0.39.0")
-    //    ],
+        ],
     targets: [
         .target(
             name: "CocoaUI",
+            path: "Sources/CocoaUI",
             sources: platformSpecificSources(),
             swiftSettings: [
                 .unsafeFlags(["-enable-library-evolution"])
             ]
             //            plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
+        ),
+        .target(
+            name: "CocoaLogging",
+            dependencies: ["SwiftyBeaver"],
+            path: "Sources/CocoaLogging"
+//            swiftSettings: [
+//                .unsafeFlags(["-enable-library-evolution"])
+//            ]
         ),
         .testTarget(
             name: "CocoaUITests",
