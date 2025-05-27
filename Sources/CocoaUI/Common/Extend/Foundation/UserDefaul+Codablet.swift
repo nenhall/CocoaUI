@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 public extension UserDefaults {
     func codable<T: Codable>(forKey key: String, defaultValue: T) -> T {
@@ -25,21 +26,46 @@ public extension UserDefaults {
     }
 }
 
+//@propertyWrapper
+//public struct AppStorageObject<T: Codable> {
+//    public let key: String
+//    public let defaultValue: T
+//
+//    public var wrappedValue: T {
+//        get {
+//            return UserDefaults.standard.codable(forKey: key, defaultValue: defaultValue)
+//        }
+//        set {
+//            UserDefaults.standard.setCodable(newValue, forKey: key)
+//            UserDefaults.standard.synchronize()
+//        }
+//    }
+//    
+//    
+//
+//    public init(key: String, defaultValue: T) {
+//        self.key = key
+//        self.defaultValue = defaultValue
+//    }
+//}
 @propertyWrapper
-public struct AppStorageObject<T: Codable> {
-    public let key: String
-    public let defaultValue: T
-
+public class AppStorageObject<T: Codable> {
+    private let key: String
+    private let defaultValue: T
+    
     public var wrappedValue: T {
-        get {
-            return UserDefaults.standard.codable(forKey: key, defaultValue: defaultValue)
-        }
-        set {
-            UserDefaults.standard.setCodable(newValue, forKey: key)
-            UserDefaults.standard.synchronize()
-        }
+        get { UserDefaults.standard.codable(forKey: key, defaultValue: defaultValue) }
+        set { UserDefaults.standard.setCodable(newValue, forKey: key) }
     }
-
+    
+    // 返回 Binding<T>
+    public var projectedValue: Binding<T> {
+        Binding(
+            get: { self.wrappedValue },
+            set: { self.wrappedValue = $0 }
+        )
+    }
+    
     public init(key: String, defaultValue: T) {
         self.key = key
         self.defaultValue = defaultValue
