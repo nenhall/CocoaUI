@@ -210,7 +210,7 @@ open class Window: NSWindow {
         }
     }
     
-    override init(contentRect: NSRect, styleMask: NSWindow.StyleMask, backing: NSWindow.BackingStoreType, defer flag: Bool) {
+    override public init(contentRect: NSRect, styleMask: NSWindow.StyleMask, backing: NSWindow.BackingStoreType, defer flag: Bool) {
         super.init(contentRect: contentRect, styleMask: styleMask, backing: backing, defer: flag)
 
         remakeSystemButtonFrame()
