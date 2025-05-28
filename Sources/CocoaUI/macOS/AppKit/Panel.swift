@@ -66,6 +66,7 @@ public struct Panel {
         return nil
     }
     
+    @discardableResult
     public static func showSave(directoryPath: String, name: String? = nil, message: String? = nil, prompt: String? = nil, modalType: SaveModelType = .runModel) -> URL? {
         let panel = NSSavePanel()
         panel.canCreateDirectories = true
@@ -94,4 +95,16 @@ public struct Panel {
         return nil
     }
 }
+
+extension String {
+    public func safeFilename(maxLength: Int = 200) -> String {
+        // 移除非法字符
+        let invalidCharacters = CharacterSet(charactersIn: "/\\?%*|\"<>")
+        let cleaned = components(separatedBy: invalidCharacters).joined()
+        
+        // 截断到最大长度
+        return String(cleaned.prefix(maxLength))
+    }
+}
+
 #endif

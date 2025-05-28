@@ -114,7 +114,7 @@ open class CollectionBox: CocoaView, TrackAreaDelegate {
 
 }
 
-extension NSScrollView {
+public extension NSScrollView {
     var scrollsToTop: Bool {
         return documentVisibleRect.minY + contentInsets.top <= 0
     }
