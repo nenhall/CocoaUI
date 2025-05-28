@@ -77,15 +77,16 @@ public class ImageLoader: ObservableObject {
         
         cancellable = URLSession.shared.dataTaskPublisher(for: url)
             .subscribe(on: downloadQueue)
-            .handleEvents(receiveSubscription: { [weak self] _ in
-                self?.log("开始加载图片: \(urlString)")
+            .handleEvents(receiveSubscription: { _ in
+//                self?.log("开始加载图片: \(urlString)")
             }, receiveOutput: { [weak self] (data, response) in
-                self?.log("收到响应: \(response)")
+//                self?.log("收到响应: \(response)")
                 self?.cacheImage(data, forKey: urlString)
             }, receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .finished:
-                    self?.log("图片加载完成: \(urlString)")
+//                    self?.log("图片加载完成: \(urlString)")
+                    break
                 case .failure(let error):
                     self?.log("图片加载失败: \(error.localizedDescription)", level: .error)
                 }
@@ -163,7 +164,7 @@ public class ImageLoader: ObservableObject {
                 self.isLoading = true
                 self.progress = progress
                 self.error = nil
-            case let .success(image, urlString):
+            case let .success(image, _):
                 self.isLoading = false
                 self.progress = 1.0
                 self.error = nil

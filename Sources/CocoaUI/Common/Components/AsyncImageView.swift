@@ -52,9 +52,9 @@ public struct AsyncImageView: View {
                 if #available(macOS 11.0, iOS 14.0, *) {
                     AnyView(
                         VStack {
-                            ProgressView(value: progress)
+                            ProgressView()
                             Text("加载中...")
-                        }
+                        }.foregroundColor(Color.secondary)
                     )
                 } else {
                     placeholder

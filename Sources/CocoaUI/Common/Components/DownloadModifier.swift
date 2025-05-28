@@ -43,31 +43,18 @@ public struct DownloadModifier: ViewModifier {
 //    }
     
     private func saveImage() {
-#if os(macOS)
-        Panel.showSave(
-            directoryPath: FileManager.default.homeDirectoryForCurrentUser.path,
-            name: "\(fileName).png",
-            message: "选择保存位置",
-            modalType: .sheetModel { url in
-                //                    do {
-                //                        try image.pngData()?.write(to: url)
-                //                        onSave(url)
-                //                    } catch {
-                //                        debugPrint("保存失败:", error)
-                //                    }
-            }
-        )
-#else
-        // iOS实现
-        let imageSaver = ImageSaver()
-        imageSaver.writeToPhotoAlbum(image: image)
-#endif
+
     }
 }
 
-#if os(iOS)
 public class ImageSaver: NSObject {
-    public func writeToPhotoAlbum(image: UIImage) {
+#if os(iOS)
+    public func writeToPhotoAlbum(image: UIImage,
+                                  directoryPath: String = FileManager.default.homeDirectoryForCurrentUser.path,
+                                  filename: String = "\(Int(Date().timeIntervalSince1970 * 1000))",
+                                  message: String = "选择保存位置",
+                                  format: UIImage.StorageFormat = .png,
+                                  compression factor: CGFloat = 0.8) {
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(saveCompleted), nil)
     }
     
@@ -78,5 +65,19 @@ public class ImageSaver: NSObject {
             debugPrint("保存成功!")
         }
     }
-}
 #endif
+
+#if os(macOS)
+    public func writeToPhotoAlbum(image: UIImage,
+                                  directoryPath: String = FileManager.default.homeDirectoryForCurrentUser.path,
+                                  filename: String = "\(Int(Date().timeIntervalSince1970 * 1000))",
+                                  message: String = "选择保存位置",
+                                  format: UIImage.StorageFormat = .png,
+                                  compression factor: CGFloat = 0.8) {
+        Panel.showSave(directoryPath: directoryPath, name: filename, message: message, modalType: .sheetModel({ url in
+            guard let url = url else { return }
+            image.save(to: url, with: format, compression: factor)
+        }))
+    }
+#endif
+}
