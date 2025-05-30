@@ -7,6 +7,7 @@
 
 
 import SwiftUI
+import CocoaLogging
 
 //private struct MenuItem: View {
 //    let action2: () -> Void
@@ -49,6 +50,8 @@ public struct DownloadModifier: ViewModifier {
 
 public class ImageSaver: NSObject {
 #if os(iOS)
+   public var didFinishSaving: ((_ error: Error?) ->())?
+    
     public func writeToPhotoAlbum(image: UIImage,
                                   directoryPath: String = "",
                                   filename: String = "\(Int(Date().timeIntervalSince1970 * 1000))",
@@ -60,9 +63,10 @@ public class ImageSaver: NSObject {
     
     @objc func saveCompleted(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
-            debugPrint("保存到相册失败:", error)
+            Logging.error("保存到相册失败:", error)
+            didFinishSaving?(error)
         } else {
-            debugPrint("保存成功!")
+            didFinishSaving?(nil)
         }
     }
 #endif
@@ -75,8 +79,12 @@ public class ImageSaver: NSObject {
                                   format: UIImage.StorageFormat = .png,
                                   compression factor: CGFloat = 0.8) {
         Panel.showSave(directoryPath: directoryPath, name: filename, message: message, modalType: .sheetModel({ url in
-            guard let url = url else { return }
+            guard let url = url else {
+                didFinishSaving?(NSError(domain: "保存失败，路径不正确", code: 3311))
+                return
+            }
             image.save(to: url, with: format, compression: factor)
+            didFinishSaving?(nil)
         }))
     }
 #endif

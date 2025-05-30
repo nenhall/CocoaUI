@@ -26,6 +26,7 @@ let package = Package(
     targets: [
         .target(
             name: "CocoaUI",
+            dependencies: ["CocoaLogging"],
             path: "Sources/CocoaUI",
             sources: platformSpecificSources(),
             swiftSettings: [
@@ -36,10 +37,10 @@ let package = Package(
         .target(
             name: "CocoaLogging",
             dependencies: ["SwiftyBeaver"],
-            path: "Sources/CocoaLogging"
-//            swiftSettings: [
-//                .unsafeFlags(["-enable-library-evolution"])
-//            ]
+            path: "Sources/CocoaLogging",
+            swiftSettings: [
+                .unsafeFlags(["-enable-library-evolution"])
+            ]
         ),
         .testTarget(
             name: "CocoaUITests",
