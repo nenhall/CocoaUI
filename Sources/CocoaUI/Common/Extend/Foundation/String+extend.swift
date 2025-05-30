@@ -260,7 +260,7 @@ public extension String {
 }
 
 extension String {
-    public func safeFilename(maxLength: Int = 200) -> String {
+    public func safeFilename(maxLength: Int = 168) -> String {
         // 移除非法字符
         let invalidCharacters = CharacterSet(charactersIn: "/\\?%*|\"<>")
         let cleaned = components(separatedBy: invalidCharacters).joined()
