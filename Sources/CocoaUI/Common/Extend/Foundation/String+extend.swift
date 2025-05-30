@@ -258,3 +258,14 @@ public extension String {
         return "\(prefix)\(hiddenPart)\(suffix)"
     }
 }
+
+extension String {
+    public func safeFilename(maxLength: Int = 200) -> String {
+        // 移除非法字符
+        let invalidCharacters = CharacterSet(charactersIn: "/\\?%*|\"<>")
+        let cleaned = components(separatedBy: invalidCharacters).joined()
+        
+        // 截断到最大长度
+        return String(cleaned.prefix(maxLength))
+    }
+}

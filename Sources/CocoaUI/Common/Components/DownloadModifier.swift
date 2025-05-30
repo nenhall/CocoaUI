@@ -50,9 +50,9 @@ public struct DownloadModifier: ViewModifier {
 public class ImageSaver: NSObject {
 #if os(iOS)
     public func writeToPhotoAlbum(image: UIImage,
-                                  directoryPath: String = FileManager.default.homeDirectoryForCurrentUser.path,
+                                  directoryPath: String = "",
                                   filename: String = "\(Int(Date().timeIntervalSince1970 * 1000))",
-                                  message: String = "选择保存位置",
+                                  message: String = "",
                                   format: UIImage.StorageFormat = .png,
                                   compression factor: CGFloat = 0.8) {
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(saveCompleted), nil)
