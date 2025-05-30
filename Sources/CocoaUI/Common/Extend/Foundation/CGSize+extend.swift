@@ -44,3 +44,52 @@ public extension CGSize {
         return aspectRatio < size.aspectRatio ? CGSize(width: size.width, height: size.width / aspectRatio) : CGSize(width: size.height * aspectRatio, height: size.height)
     }
 }
+
+public extension BinaryFloatingPoint {
+    /// 将 iOS 尺寸转换为 macOS 视觉等效尺寸（比例因子 0.76）
+    var toMacVisualScale: Self {
+        return self * 0.76
+    }
+    
+    /// 自定义比例因子的扩展方法
+    func toMacVisualScale(ppiRatio: Self = 0.76) -> Self {
+        return self * ppiRatio
+    }
+}
+
+public extension Int {
+    /// 返回浮点结果（避免精度丢失）
+    var toMacVisualScale: CGFloat {
+        return CGFloat(self) * 0.76
+    }
+    
+    /// 四舍五入返回整数结果
+    var toMacVisualScaleRounded: Int {
+        return Int(CGFloat(self) * 0.76)
+    }
+    
+    /// 自定义比例因子版本
+    func toMacVisualScale(ppiRatio: CGFloat) -> CGFloat {
+        return CGFloat(self) * ppiRatio
+    }
+}
+
+public extension CGSize {
+    /// 将 iOS 的 CGSize 转换为 macOS 视觉等效尺寸
+    var toMacVisualScale: CGSize {
+        return CGSize(
+            width: width.toMacVisualScale,
+            height: height.toMacVisualScale
+        )
+    }
+}
+
+public extension CGRect {
+    /// 将 iOS 的 CGRect 转换为 macOS 视觉等效尺寸
+    var toMacVisualScale: CGRect {
+        return CGRect(
+            origin: origin,
+            size: size.toMacVisualScale
+        )
+    }
+}
