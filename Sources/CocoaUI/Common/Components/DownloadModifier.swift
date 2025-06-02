@@ -49,8 +49,8 @@ public struct DownloadModifier: ViewModifier {
 }
 
 public class ImageSaver: NSObject {
+    public var didFinishSaving: ((_ error: Error?) ->())?
 #if os(iOS)
-   public var didFinishSaving: ((_ error: Error?) ->())?
     
     public func writeToPhotoAlbum(image: UIImage,
                                   directoryPath: String = "",
@@ -80,11 +80,11 @@ public class ImageSaver: NSObject {
                                   compression factor: CGFloat = 0.8) {
         Panel.showSave(directoryPath: directoryPath, name: filename, message: message, modalType: .sheetModel({ url in
             guard let url = url else {
-                didFinishSaving?(NSError(domain: "保存失败，路径不正确", code: 3311))
+                self.didFinishSaving?(NSError(domain: "保存失败，路径不正确", code: 3311))
                 return
             }
             image.save(to: url, with: format, compression: factor)
-            didFinishSaving?(nil)
+            self.didFinishSaving?(nil)
         }))
     }
 #endif
