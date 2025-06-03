@@ -78,18 +78,18 @@ extension Logging {
         return dest
     }()
 
-    static var file: FileDestination = {
+   public static var file: FileDestination = {
         let dest = FileDestination()
         dest.asynchronously = true
         if let path = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
             do {
                 let bundleID = Bundle.main.bundleIdentifier ?? "CocoUILog-\(String.random(length: 8))"
-                print("BundleID: \(bundleID)")
+//                print("BundleID: \(bundleID)")
                 let dirURL = path.appendingPathComponent("\(bundleID)/.Log")
                 if !FileManager.default.fileExists(atPath: dirURL.path) {
                     try FileManager.default.createDirectory(at: dirURL, withIntermediateDirectories: true)
                 }
-                dest.logFileURL = dirURL.appendingPathComponent("abs_\(today).log")
+                dest.logFileURL = dirURL.appendingPathComponent("\(today).log")
             } catch {
                 print("create log file error：", error.localizedDescription)
             }
